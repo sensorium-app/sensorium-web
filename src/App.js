@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import Home from './pages/Home.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
 
 class App extends Component {
+  Constructor (props){
+    this.props.title="Sensorium";
+    this.props.link1="Home";
+    this.props.link2="About";
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Sensorium</h1>
-        </header>
-        <p className="App-intro">
-          I am also a we!
-        </p>
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+          <Route path="/contact" component={Contact}/>
+        </div>
+      </Router>
     );
   }
 }

@@ -1,0 +1,13 @@
+.navbar-brand {
+  color: #333;
+}
+.navbar{
+	  background-color: transparent;
+	  position: absolute;
+	  z-index: 1;
+	  color: white;
+}
+a {
+  color: white;
+  font-weight: 200;
+}
