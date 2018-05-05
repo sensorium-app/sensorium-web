@@ -1,0 +1,48 @@
+nav.navbar, .navbar-default {
+  background-color: transparent !important;
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+}
+@media only screen and (max-width: 600px) {
+    nav.navbar, .navbar-default {
+      background-color: #5DA4E2 !important;
+      position: relative;
+      width: 100%;
+    }
+}
+.navbar-default {
+  background-image: none;
+  border: none;
+  border-radius: 0;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: white;
+}
+
+.navbar-default .navbar-brand {
+  color: white;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: white;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+  background-color: transparent;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+  color: white;
+  background-color: transparent;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: white;
+  background-color: transparent;
+}

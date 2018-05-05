@@ -1,0 +1,20 @@
+
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 2vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+::-webkit-input-placeholder .input-line:focus +::input-placeholder {
+  color: #fff;
+}
+
+.input-line {
+  background: none;
+  border:none;
+  box-shadow: none;
+  border-radius: none;
+  border-bottom: rgba(0,0,0,0.5) solid 1.5px;
+  outline: none;
+}
