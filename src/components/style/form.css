@@ -1,4 +1,6 @@
-
+.custom-form{
+  padding: 30px;
+}
 ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.65);
   font-size: 2vh;
@@ -11,10 +13,56 @@
 }
 
 .input-line {
-  background: none;
-  border:none;
-  box-shadow: none;
-  border-radius: none;
-  border-bottom: rgba(0,0,0,0.5) solid 1.5px;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  -webkit-appearance: none;
+  display: block;
+  color: #636363;
+  width: 100%;
+  border: none;
+  border-radius: 0;
   outline: none;
+  border-bottom: 1px solid #757575;
+}
+.input-line:focus{
+  outline: none;
+  box-shadow: none;
+}
+.tag-conatiner{
+  width: 100%;
+}
+.pill-input{
+  width: 100%;
+  background-color: #e6e6e6;
+  padding: 10px 10px 10px 5px;
+  -webkit-appearance: none;
+  display: block;
+  color: #636363;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  border-bottom: 1px solid #757575;
+}
+.tag-pill{
+
+background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px;
+  border-radius: 25px;
+  padding: 5px;
+  padding-left: 20px;
+  margin: 10px;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: #1c1c1c;
+  transition: 1s;
+  -webkit-box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
+  box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
+  display: inline-block;
+  margin-right:5px;
+  cursor: pointer;
+}
+.close-pill{
+  color: #1c1c1c;
+  font-size:1.2em;
+  padding-left: 25px;
 }

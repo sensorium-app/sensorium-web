@@ -130,8 +130,7 @@ export default class Home extends React.Component {
     </Container>
     <Container>
         <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
-          <h2>DING DING DING it’s time for registraion!</h2>
-          <h3>Impossibility is a Registration away from reality.</h3>
+        <h2>Impossibility is a Registration away from reality.</h2>
           <p>Register for the first social media website that literally born in  a fandom !!</p>
 
         <Button className="btn btn-grad-blue" onClick={this.handleShow}>
@@ -161,7 +160,7 @@ RrrrRRegister        </Button>
           <Modal.Header closeButton  className="s-cards bg-grad-green">
             <Modal.Title>
             <div text-center className="grad-text">
-              <h3>JOIN THE DARK SIDE NOW</h3>
+              <h3> "In the end, we will all be judged by the usernames of our profile."</h3>
             </div>
             </Modal.Title>
           </Modal.Header>

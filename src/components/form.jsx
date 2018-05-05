@@ -1,39 +1,104 @@
 import React from 'react';
 import { Button,  Form, FormGroup, Label, Input, FormText,Col } from 'reactstrap';
+import FontAwesomeIcon from 'react-fontawesome'
+
 import './style/style.css';
 import './style/form.css';
 class RegistrationForm extends React.Component {
-  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [],
+      focused: false,
+      input: ''
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
+    this.handleRemoveItem = this.handleRemoveItem.bind(this);
+  }
+
+handleInputChange(evt) {
+    this.setState({ input: evt.target.value });
+  }
+
+  handleInputKeyDown(evt) {
+    if ( evt.keyCode === 13 ) {
+      const {value} = evt.target;
+      
+      this.setState(state => ({
+        items: [...state.items, value],
+        input: ''
+      }));
+    }
+
+    if ( this.state.items.length && evt.keyCode === 8 && !this.state.input.length ) {
+      this.setState(state => ({
+        items: state.items.slice(0, state.items.length - 1)
+      }));
+    }
+  }
+
+  handleRemoveItem(index) {
+    return () => {
+      this.setState(state => ({
+        items: state.items.filter((item, i) => i !== index)
+      }));
+    }
+  }
+
   render() {
+    
     return (
-       <Form>
+       <Form className="custom-form">
         <FormGroup row>
-{/*          <Label for="exampleEmail" sm={2}>Name</Label>
-*/}          <Col sm={10}>
-            <Input type="text" name="email" id="firstName" className="input-line" placeholder="YOUR COOL NAME" />
+{/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
+*/}          <Col sm={6}>
+            <Input type="text" name="firstName" id="firstName" className="input-line" placeholder="YOUR COOL NAME" />
+          </Col>
+          <Col sm={6}>
+            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Last Name? not nessesary though" />
           </Col>
         </FormGroup>
         <FormGroup row>
-{/*          <Label for="examplePassword" sm={2}>Last Name</Label>
-*/}          <Col sm={10}>
-            <Input type="text" name="password" id="lastName" className="input-line" placeholder="Last Name? not nessesary though" />
-          </Col>
+{/*          <Label for="examplePassword" sm={2} className="label">Last Name</Label>
+*/}          
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleSelect" sm={2}>Gender</Label>
-          <Col sm={10}>
-<select name="carlist" form="carform">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="opel">Opel</option>
-  <option value="audi">Audi</option>
-</select>          </Col>
+{/*          <Label for="genderSelect" sm={2}>Gender</Label>
+*/}           <Col sm={6}>
+                <select name="gender" className="btn grad-select">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Gay">Gay</option>
+                  <option value="Bi">Bi</option>
+                </select>          
+              </Col>
+              <Col sm={6}>
+                <Input type="text" name="age" id="age" className="input-line" placeholder="Tell me how old are you?" />
+              </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
+        <label>
+        <ul className="tag-container">
+          {this.state.items.map((item, i) => 
+            <li key={i} className="tag-pill" onClick={this.handleRemoveItem(i)}>
+              {item}
+              <span className="close-pill">x  <FontAwesomeIcon icon="times" /> </span>
+            </li>
+          )}
+          <input
+            value={this.state.input}
+            onChange={this.handleInputChange}
+            onKeyDown={this.handleInputKeyDown} 
+            className="pill-input" />
+        </ul>
+      </label>
+          {/*<Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
           <Col sm={10}>
             <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
-          </Col>
+          </Col>*/}
         </FormGroup>
         <FormGroup row>
           <Label for="exampleText" sm={2}>Text Area</Label>
@@ -84,15 +149,16 @@ class RegistrationForm extends React.Component {
               </Label>
             </FormGroup>
           </Col>
-        </FormGroup>
+        </FormGroup>{/*
         <FormGroup check row>
           <Col sm={{ size: 10, offset: 2 }}>
             <Button>Submit</Button>
           </Col>
-        </FormGroup>
+        </FormGroup>*/}
       </Form>
     );
   }
 }
+
 
 export default RegistrationForm;
