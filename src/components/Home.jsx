@@ -131,6 +131,7 @@ export default class Home extends React.Component {
     <Container>
         <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
           <h2>DING DING DING it’s time for registraion!</h2>
+          <h3>Impossibility is a Registration away from reality.</h3>
           <p>Register for the first social media website that literally born in  a fandom !!</p>
 
         <Button className="btn btn-grad-blue" onClick={this.handleShow}>
