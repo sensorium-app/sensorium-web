@@ -71,8 +71,8 @@ handleInputChange(evt) {
                 <select name="gender" className="btn grad-select">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Gay">Gay</option>
-                  <option value="Bi">Bi</option>
+                  {/*    Sexual orientation?         <option value="Gay">Gay</option>
+                  <option value="Bi">Bi</option>*/}
                 </select>          
               </Col>
               <Col sm={6}>
@@ -80,7 +80,7 @@ handleInputChange(evt) {
               </Col>
         </FormGroup>
         <FormGroup row>
-        <label>
+        <Col sm={12}>
         <ul className="tag-container">
           {this.state.items.map((item, i) => 
             <li key={i} className="tag-pill" onClick={this.handleRemoveItem(i)}>
@@ -88,31 +88,38 @@ handleInputChange(evt) {
               <span className="close-pill">x  <FontAwesomeIcon icon="times" /> </span>
             </li>
           )}
-          <input
+        </ul>
+          <Input
             value={this.state.input}
             onChange={this.handleInputChange}
             onKeyDown={this.handleInputKeyDown} 
-            className="pill-input" />
-        </ul>
-      </label>
+            className=" input-line" placeholder="Hmm you good at something? put your hobbies/skills here"/>
+        
+      </Col>
           {/*<Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
           <Col sm={10}>
             <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
           </Col>*/}
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleText" sm={2}>Text Area</Label>
-          <Col sm={10}>
-            <Input type="textarea" name="text" id="exampleText" />
+{/*          <Label for="exampleText" sm={2}>Text Area</Label>
+*/}          <Col sm={12}>
+            <Input type="email" name="email" id="email" className="input-line" placeholder="A Cool E-mmMail id please"/>
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="exampleFile" sm={2}>File</Label>
-          <Col sm={10}>
-            <Input type="file" name="file" id="exampleFile" />
+{/*          <Label for="exampleText" sm={2}>Text Area</Label>
+*/}          <Col sm={12}>
+            <Input type="password" name="password" id="password" className="input-line" placeholder="Do not keep your password password"/>
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+{/*          <Label for="exampleFile" sm={2}>A Photo of your pretty face</Label>
+*/}          <Col sm={12}>
+                            <input type="file" name="file" id="file" class="inputfile" accept=".png, .jpeg, .jpg"/>
+                            <label for="file">Choose a cool selfie</label>
             <FormText color="muted">
-              This is some placeholder block-level help text for the above input.
-              It's a bit lighter and easily wraps to a new line.
+              Show me your pretty faces
             </FormText>
           </Col>
         </FormGroup>
