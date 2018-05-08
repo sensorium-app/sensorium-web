@@ -28,37 +28,30 @@ export default class Home extends React.Component {
 
     return (
       <div className="row">
-      <Row className="masthead">
-      <Col md={12} xs={12}>
+      <header className="masthead row">
+      <div className="col-md-12">
       
       <section className="hero-area">
-          <Container>
-              <Row>
-                  <Col md={4} xs={6}>
+          <div className="container">
+              <div className="row">
+                  <div className="col-md-12">
                       <div class="block">
                           <a className="btn btn-grad-peach" href="#about" role="button">Register</a>
 
                       </div>
-                  </Col>
-                  <Col md={8} xs={6} className="">
-                   <div className="block grad-text">
-                     <h1 className="hero-title d-flex align-content-center">
-                      Isolated Above 
-                      Connected Below
-                    </h1>
-                   </div>
-                  </Col>
-              </Row>
-          </Container>
+                  </div>
+              </div>
+          </div>
       </section>
         
-      </Col>
-    </Row>
+      </div>
+    </header>
 
-    <section className="about">
+    <section className="about  row">
+       
           <Container>
-            <Row className="text-center">
-              <div class="container">
+            <Row textcenter>
+              <div class="col-md-12">
               <section class="rw-wrapper">
                 <h3 class="rw-sentence">
                   <span>Division remains a force within the world.</span>
@@ -136,7 +129,7 @@ export default class Home extends React.Component {
       </Col>
     </Container>
     <Container>
-        <Jumbotron className="bg-grad-blue jumbotron-bg s-cards text-center mt-5">
+        <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
         <h2>Impossibility is a Registration away from reality.</h2>
           <p>Register for the first social media website that literally born in  a fandom !!</p>
 
@@ -163,8 +156,8 @@ RrrrRRegister        </Button>
         </Row>
       </Container>
 
-       <Modal show={this.state.show} onHide={this.handleClose} className="s-modal">
-          <Modal.Header closeButton  className="bg-grad-green s-modal-head">
+       <Modal show={this.state.show} onHide={this.handleClose} >
+          <Modal.Header closeButton  className="s-cards bg-grad-green">
             <Modal.Title>
             <div text-center className="grad-text">
               <h3> "In the end, we will all be judged by the usernames of our profile."</h3>
@@ -172,7 +165,7 @@ RrrrRRegister        </Button>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-                    <RegistrationForm/>
+                    <RegistrationForm />
 
             <h4>Text in a modal</h4>
             <p>
