@@ -26,8 +26,7 @@
   justify-content: center;
   align-items: center; 
   background-image:url('/assets/s8.jpg');
-    background-repeat: no-repeat;
-
+  background-repeat: no-repeat;
   background-size: 100% auto;
 }
   .hero-area .btn-main {
@@ -176,11 +175,26 @@ section.about .badge-link img {
 	height: 20vh;
 }
 .s-cards{
-background-color: white;
+  background-color: white;
 	border-radius: 10px;
 	padding: 50px;
 	color:white !important;
 	-webkit-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
+}
+
+.s-head{
+  margin-top:2vh !important;
+}
+.s-modal-head{
+  margin-left: 2vw;
+  margin-right: 2vw;
+  position: absolute;
+  margin-top: -5vh;
+  border-radius: 10px;
+  color:white !important;
+  -webkit-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
 }

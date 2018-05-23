@@ -67,12 +67,10 @@ handleInputChange(evt) {
         </FormGroup>
         <FormGroup row>
 {/*          <Label for="genderSelect" sm={2}>Gender</Label>
-*/}           <Col sm={6}>
+*/}           <Col sm={6} >
                 <select name="gender" className="btn grad-select">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Gay">Gay</option>
-                  <option value="Bi">Bi</option>
+                  <option value="Male">Super-Man?</option>
+                  <option value="Female">Wonder Woman?</option>
                 </select>          
               </Col>
               <Col sm={6}>
@@ -92,7 +90,7 @@ handleInputChange(evt) {
             value={this.state.input}
             onChange={this.handleInputChange}
             onKeyDown={this.handleInputKeyDown} 
-            className="pill-input" />
+            className="pill-input" placeholder="Skills ? hobbies? anything?"/>
         </ul>
       </label>
           {/*<Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
@@ -149,12 +147,7 @@ handleInputChange(evt) {
               </Label>
             </FormGroup>
           </Col>
-        </FormGroup>{/*
-        <FormGroup check row>
-          <Col sm={{ size: 10, offset: 2 }}>
-            <Button>Submit</Button>
-          </Col>
-        </FormGroup>*/}
+        </FormGroup>
       </Form>
     );
   }

@@ -1,5 +1,9 @@
 .custom-form{
   padding: 30px;
+  margin-top: 12vh;
+}
+input{
+  box-shadow:inset none;
 }
 ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.65);
@@ -33,7 +37,7 @@
 }
 .pill-input{
   width: 100%;
-  background-color: #e6e6e6;
+  background-color: transparent;
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;

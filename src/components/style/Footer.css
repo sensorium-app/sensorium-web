@@ -10,12 +10,14 @@ section .section-title {
     text-transform: uppercase;
 }
 #footer {
+    height: 100vh;
     background-image: url("/assets/footer-bg.png");
     background-size: 100% auto;
     background-repeat: no-repeat;
+    background-position: bottom;
 }
 #footer h5{
-  padding-left: 10px;
+    padding-left: 10px;
     border-left: 3px solid #eeeeee;
     padding-bottom: 6px;
     margin-bottom: 20px;

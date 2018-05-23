@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Container, List} from 'react-bootstrap';
 import './style/Footer.css';
+import './style/responsive.css';
 
 class Footer extends Component {
   render() {
