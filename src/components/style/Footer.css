@@ -67,7 +67,9 @@ section .section-title {
 #footer ul.quick-links li:hover a i {
     font-weight: 700;
 }
-
+.footer-content{
+    margin-top: 45vh; 
+}
 @media (max-width:767px){
   #footer h5 {
     padding-left: 0;
