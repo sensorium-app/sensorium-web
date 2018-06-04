@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
+    "firebase": "^5.0.4",
     "jquery": "^3.3.1",
     "react": "^16.3.2",
     "react-addons-css-transition-group": "^15.6.2",
