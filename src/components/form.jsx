@@ -69,34 +69,33 @@ handleInputChange(evt) {
 {/*          <Label for="genderSelect" sm={2}>Gender</Label>
 */}           <Col sm={6} >
                 <select name="gender" className="btn grad-select">
-                  <option value="Male">Super-Man?</option>
-                  <option value="Female">Wonder Woman?</option>
+                  <option value="Male">Female</option>
+                  <option value="Female">Male</option>
                 </select>          
               </Col>
               <Col sm={6}>
                 <Input type="text" name="age" id="age" className="input-line" placeholder="Tell me how old are you?" />
               </Col>
         </FormGroup>
-        <FormGroup row>
-        <label>
-        <ul className="tag-container">
-          {this.state.items.map((item, i) => 
-            <li key={i} className="tag-pill" onClick={this.handleRemoveItem(i)}>
-              {item}
-              <span className="close-pill">x  <FontAwesomeIcon icon="times" /> </span>
-            </li>
-          )}
-          <input
-            value={this.state.input}
-            onChange={this.handleInputChange}
-            onKeyDown={this.handleInputKeyDown} 
-            className="pill-input" placeholder="Skills ? hobbies? anything?"/>
-        </ul>
-      </label>
-          {/*<Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
-          <Col sm={10}>
-            <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
-          </Col>*/}
+        <FormGroup row >
+        
+          <label>
+            <ul className="tag-container">
+              {this.state.items.map((item, i) => 
+                <li key={i} className="tag-pill" onClick={this.handleRemoveItem(i)}>
+                  {item}
+                  <span className="close-pill">x  <FontAwesomeIcon icon="times" /> </span>
+                </li>
+              )}
+              <input
+                value={this.state.input}
+                onChange={this.handleInputChange}
+                onKeyDown={this.handleInputKeyDown} 
+                className="pill-input" placeholder="Skills ? hobbies? Anything?" />
+            </ul>
+          </label>
+        
+       
         </FormGroup>
         <FormGroup row>
           <Label for="exampleText" sm={2}>Text Area</Label>

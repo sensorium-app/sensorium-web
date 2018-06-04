@@ -87,15 +87,15 @@ export default class Home extends React.Component {
     <Container >
       <Col xs="12" md="4" className="text-center">
           <div className="s-cards bg-grad-green">
-            {<h2>WHAT</h2>}
+            <h2>WHAT</h2>
               <p className="text-justify">
                 Children of the sun, see your time has just begun, searching for your ways, through adventures every day. 
                 Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. 
                 Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... 
                 some day we will find The Cities of Gold.
               </p>
-              <a className="btn btn-grad-green">read more..</a>
-          </div>
+{/*              <a className="btn btn-grad-green">read more..</a>
+*/}          </div>
       </Col>
       <Col xs="12" md="4" className="text-center">
           <div className="empty-box"></div>
@@ -109,8 +109,8 @@ export default class Home extends React.Component {
 
 
           </p>
-          <a className="btn btn-grad-pink">read more..</a>
-          </div>
+{/*          <a className="btn btn-grad-pink">read more..</a>
+*/}          </div>
       </Col>
       <Col xs="12" md="4" className="text-center">
            <div className="s-cards bg-grad-blue">
@@ -121,8 +121,8 @@ export default class Home extends React.Component {
                 Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... 
                 some day we will find The Cities of Gold.
               </p>
-              <a className="btn btn-grad-blue">read more..</a>
-          </div>
+{/*              <a className="btn btn-grad-blue">read more..</a>
+*/}          </div>
       </Col>
     </Container>
     <Container>
@@ -179,7 +179,7 @@ RrrrRRegister        </Button>
             <Col md={6}>
                 <h4>Help this Project to grow up!!</h4>
                 <p>Children of the sun, see your time has just begun, searching for your ways, through adventures every day. 
-                Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. Ah-ah-ah-ah-ah..
+                  Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. Ah-ah-ah-ah-ah..
                 . wishing for The Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold.</p>
             </Col>
           </Row>

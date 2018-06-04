@@ -3,10 +3,10 @@
   margin-top: 12vh;
 }
 input{
-  box-shadow:inset none;
+  box-shadow:inset none !important;
 }
-::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.65);
+input::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.65);
   font-size: 2vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
@@ -17,6 +17,9 @@ input{
 }
 
 .input-line {
+    box-shadow:inset none !important;
+  background-color: transparent;
+
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
@@ -36,17 +39,40 @@ input{
   width: 100%;
 }
 .pill-input{
+
   width: 100%;
   background-color: transparent;
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;
-  color: #636363;
+  color: #1c1c1c;
   border: none;
   border-radius: 0;
   outline: none;
   border-bottom: 1px solid #757575;
 }
+
+.pill-input::-webkit-input-placeholder { /* Chrome */
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 1.4rem;
+ 
+}
+.pill-input::-ms-input-placeholder { /* IE 10+ */
+  color: rgba(0, 0, 0, 0.65);
+  font-size: .50rem;
+ 
+}
+.pill-input::-moz-placeholder { /* Firefox 19+ */
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 0.5rem;
+  
+}
+.pill-input:-moz-placeholder { /* Firefox 4 - 18 */
+ color: rgba(0, 0, 0, 0.65);
+  font-size: 1rem;
+  
+}
+
 .tag-pill{
 
 background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px;
