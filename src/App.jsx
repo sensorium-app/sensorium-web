@@ -6,7 +6,27 @@ import About from './components/About';
 import News from './components/News';
 import Navbar from './components/CustomNavbar';
 import Footer from './components/Footer';
+import 'firebase/firestore';
+import firebaseConf from './config/FirebaseConfig';
+
 class App extends Component {
+
+  constructor (props){
+    super(props);
+    this.db = firebaseConf.firestore();
+    const settings = { timestampsInSnapshots: true};
+    this.db.settings(settings);
+
+    //this.db.collection('sensates').add({id:1, name:'leo', email:'@'});
+
+    let messagesRef = this.db.collection("sensates").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+            //this.state.messages.push({uid: doc.id, email: doc.data().email})
+        });
+    });
+  }
+
   render() {
     return (
       <Router>

@@ -35,7 +35,7 @@ export default class Home extends React.Component {
           <Container>
               <Row>
                   <Col md={12}>
-                      <div class="block">
+                      <div className="block">
                           <a className="btn btn-grad-peach" href="#about" role="button" onClick={this.handleShow}>Register</a>
                       </div>
                   </Col>
@@ -48,17 +48,17 @@ export default class Home extends React.Component {
     <section className="about  row">
        
           <Container>
-            <Row textcenter>
+            <Row text-center="true">
               <Col md={12}>
-              <section class="rw-wrapper">
-                <h3 class="rw-sentence">
+              <section className="rw-wrapper">
+                <h3 className="rw-sentence">
                   <span>Division remains a force within the world.</span>
                   <span> We each exist within our own confines,</span>
 
                   <br />
 
                   <span>divided from the experiences of those who do not share our</span>
-                  <div class="rw-words rw-words-1 grad-text">
+                  <div className="rw-words rw-words-1 grad-text">
                       <span>race</span>
                       <span>ethnicity</span>
                       <span>faith</span>
@@ -71,7 +71,7 @@ export default class Home extends React.Component {
                   </div>
 
                 </h3>
-                <a class=" btn btn-grad-peach learn-more" href="#">Learn More</a>
+                <a className=" btn btn-grad-peach learn-more" href="#">Learn More</a>
 
               </section>
                 <div >
