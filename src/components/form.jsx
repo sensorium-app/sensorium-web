@@ -97,42 +97,42 @@ handleInputChange(evt) {
         
        
         </FormGroup>
-        <FormGroup row>
-          <Label for="exampleText" sm={2}>Text Area</Label>
-          <Col sm={10}>
-            <Input type="textarea" name="text" id="exampleText" />
-          </Col>
-        </FormGroup>
+        
         <FormGroup row>
           <Label for="exampleFile" sm={2}>File</Label>
           <Col sm={10}>
             <Input type="file" name="file" id="exampleFile" />
             <FormText color="muted">
-              This is some placeholder block-level help text for the above input.
-              It's a bit lighter and easily wraps to a new line.
+              A Nice Photo of you and  DO NOT USE bradd pitt i swear this isn't facebook
             </FormText>
           </Col>
         </FormGroup>
         <FormGroup tag="fieldset" row>
-          <legend className="col-form-label col-sm-2">Radio Buttons</legend>
-          <Col sm={10}>
+          <legend className="col-form-label col-sm-4">So how would you you like you cluster served?</legend>
+          <Col sm={8}>
             <FormGroup check>
               <Label check>
-                <Input type="radio" name="radio2" />{' '}
-                Option one is this and that—be sure to include why it's great
+                <Input type="checkbox" name="skillBased" />{' '}
+                Skill Based
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Input type="radio" name="radio2" />{' '}
-                Option two can be something else and selecting it will deselect option one
+                <Input type="checkbox" name="dateTime" />{' '}
+                Date and Time
               </Label>
             </FormGroup>
             <FormGroup check disabled>
               <Label check>
-                <Input type="radio" name="radio2" disabled />{' '}
-                Option three is disabled
+                <Input type="checkbox" name="MonthDay"  />{' '}
+                                Month and Day 
+ 
               </Label>
+            </FormGroup>
+            <FormGroup check disabled>
+              <Label check>
+                <Input type="checkbox" name="etc"  />{' '}
+Etc              </Label>
             </FormGroup>
           </Col>
         </FormGroup>

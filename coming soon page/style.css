@@ -1,0 +1,147 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.bgimg {
+/*    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; 
+*/    background-blend-mode: multiply,multiply;    /* Full-screen */
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+font-family: 'Lora', serif;
+
+    font-size: 25px;
+
+    /*A PEN BY Krzysztof Bednarczyk*/
+
+    background: 
+        radial-gradient(ellipse at center, rgba(0,0,255,0.3) 0%, rgba(0,0,0,0) 70%), /* niebieski */
+        radial-gradient(ellipse at center, rgba(255,0,0,0.3) 0%, rgba(0,0,0,0) 70%), /*czerwony */
+        radial-gradient(ellipse at center, rgba(0,255,0,0.3) 0%, rgba(0,0,0,0) 70%) /*zielony */
+        #c3d7db;
+    background-repeat: 
+        no-repeat, 
+        no-repeat, 
+        no-repeat;
+    background-size: 
+        900px 900px,
+        900px 900px,
+        900px 900px;
+    background-attachment: fixed;
+    
+    animation:bganimation 30s infinite;
+}
+@keyframes bganimation
+{
+0%   {
+           background-position: 
+               -100% -100%,
+               200% 200%,
+               -100% 200%,
+               200% -100%;
+      }
+      50% {
+           background-position: 
+               150% 100%,
+               -200% 100%,
+               100% 0%,
+               0% 100%;
+      }
+      100% {
+           background-position: 
+               -100% -100%,
+               200% 200%,
+               -100% 200%,
+               200% -100%;
+      }
+}
+@-webkit-keyframes bganimation
+{
+0%   {
+           background-position: 
+               -100% -100%,
+               200% 200%,
+               -100% 200%,
+               200% -100%;
+      }
+      50% {
+           background-position: 
+               150% 100%,
+               -200% 100%,
+               100% 0%,
+               0% 100%;
+      }
+      100% {
+           background-position: 
+               -100% -100%,
+               200% 200%,
+               -100% 200%,
+               200% -100%;
+      }
+}
+@-moz-keyframes bganimation
+{
+0%   {
+           background-position: 
+               -100% -100%,
+               200% 200%,
+               -100% 200%,
+               200% -100%;
+      }
+      50% {
+           background-position: 
+               150% 100%,
+               -200% 100%,
+               100% 0%,
+               0% 100%;
+      }
+      100% {
+           background-position: 
+               -100% -100%,
+               200% 200%,
+               -100% 200%,
+               200% -100%;
+      }
+}
+
+
+.topleft {
+    position: absolute;
+    top: 0;
+    left: 16px;
+}
+.countdown{
+        font-family: 'Love Ya Like A Sister', cursive;
+        color: #1c1c1c;
+}
+.doomsday{
+    color: #1c1c1c;
+    font-weight: lighter;
+    font-family: 'Butcherman', cursive;
+
+}
+.bottomleft {
+
+    position: absolute;
+    bottom: -5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.middle {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+hr {
+    margin: auto;
+    width: 40%;
+}
