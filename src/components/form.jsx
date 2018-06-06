@@ -137,12 +137,18 @@ Etc              </Label>
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="checkbox2" sm={2}>Checkbox</Label>
-          <Col sm={{ size: 10 }}>
+          <Label for="checkbox2" sm={2}>Music service Of choice?</Label>
+          <Col sm={10}>
             <FormGroup check>
               <Label check>
-                <Input type="checkbox" id="checkbox2" />{' '}
-                Check me out
+                <Input type="checkbox" id="checkbox2" name="googlePLayMusic"/>{' '}
+                  Google Play Music
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input type="checkbox" id="checkbox2" name="spotify"/>{' '}
+                  Spotify
               </Label>
             </FormGroup>
           </Col>
