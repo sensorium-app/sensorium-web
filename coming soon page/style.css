@@ -5,14 +5,14 @@ body, html {
 }
 
 .bgimg {
-/*    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; 
-*/    background-blend-mode: multiply,multiply;    /* Full-screen */
+    /*    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; 
+    */    background-blend-mode: multiply,multiply;    /* Full-screen */
     height: 100%;
     background-position: center;
     background-size: cover;
     position: relative;
     color: white;
-font-family: 'Lora', serif;
+    font-family: 'Lora', serif;
 
     font-size: 25px;
 
@@ -32,116 +32,170 @@ font-family: 'Lora', serif;
         900px 900px,
         900px 900px;
     background-attachment: fixed;
-    
+
     animation:bganimation 30s infinite;
 }
 @keyframes bganimation
 {
-0%   {
-           background-position: 
-               -100% -100%,
-               200% 200%,
-               -100% 200%,
-               200% -100%;
-      }
-      50% {
-           background-position: 
-               150% 100%,
-               -200% 100%,
-               100% 0%,
-               0% 100%;
-      }
-      100% {
-           background-position: 
-               -100% -100%,
-               200% 200%,
-               -100% 200%,
-               200% -100%;
-      }
+    0%   {
+        background-position: 
+            -100% -100%,
+            200% 200%,
+            -100% 200%,
+            200% -100%;
+    }
+    50% {
+        background-position: 
+            150% 100%,
+            -200% 100%,
+            100% 0%,
+            0% 100%;
+    }
+    100% {
+        background-position: 
+            -100% -100%,
+            200% 200%,
+            -100% 200%,
+            200% -100%;
+    }
 }
 @-webkit-keyframes bganimation
 {
-0%   {
-           background-position: 
-               -100% -100%,
-               200% 200%,
-               -100% 200%,
-               200% -100%;
-      }
-      50% {
-           background-position: 
-               150% 100%,
-               -200% 100%,
-               100% 0%,
-               0% 100%;
-      }
-      100% {
-           background-position: 
-               -100% -100%,
-               200% 200%,
-               -100% 200%,
-               200% -100%;
-      }
+    0%   {
+        background-position: 
+            -100% -100%,
+            200% 200%,
+            -100% 200%,
+            200% -100%;
+    }
+    50% {
+        background-position: 
+            150% 100%,
+            -200% 100%,
+            100% 0%,
+            0% 100%;
+    }
+    100% {
+        background-position: 
+            -100% -100%,
+            200% 200%,
+            -100% 200%,
+            200% -100%;
+    }
 }
 @-moz-keyframes bganimation
 {
-0%   {
-           background-position: 
-               -100% -100%,
-               200% 200%,
-               -100% 200%,
-               200% -100%;
-      }
-      50% {
-           background-position: 
-               150% 100%,
-               -200% 100%,
-               100% 0%,
-               0% 100%;
-      }
-      100% {
-           background-position: 
-               -100% -100%,
-               200% 200%,
-               -100% 200%,
-               200% -100%;
-      }
+    0%   {
+        background-position: 
+            -100% -100%,
+            200% 200%,
+            -100% 200%,
+            200% -100%;
+    }
+    50% {
+        background-position: 
+            150% 100%,
+            -200% 100%,
+            100% 0%,
+            0% 100%;
+    }
+    100% {
+        background-position: 
+            -100% -100%,
+            200% 200%,
+            -100% 200%,
+            200% -100%;
+    }
 }
 
 
 .topleft {
     position: absolute;
-    top: 0;
-    left: 16px;
-}
-.countdown{
-        font-family: 'Love Ya Like A Sister', cursive;
-        color: #1c1c1c;
-}
-.doomsday{
-    color: #1c1c1c;
-    font-weight: lighter;
-    font-family: 'Butcherman', cursive;
-
-}
-.bottomleft {
-
-    position: absolute;
-    bottom: 2%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    top: 0; left: 20px;
 }
 
 .middle {
     position: absolute;
-    top: 40%;
-    left: 50%;
+    width: 100%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
 }
 
-hr {
-    margin: auto;
-    width: 40%;
+
+.countdown{
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: #1c1c1c;
+}
+
+.bottomleft {
+    position: absolute;
+    bottom: 0px; left: 0px;
+    width: 50%;
+    transform: translate(50%, 0);
+    text-align: center;
+}
+
+/*.doomsday{
+    color: #1c1c1c;
+    font-weight: lighter;
+    font-family: 'Butcherman', cursive;
+
+}*/
+
+.shareButton {
+    position: absolute;
+    bottom: 3px; left: 50%;
+    width: 300px; height: 30px;
+    margin-left: -150px;
+    background-color: #40407a;
+    border: 0px;
+    border-bottom: 3px solid #2c2c54;
+    color: #FFF;
+    font-size: 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+}
+
+.bottomleftToggle {
+    position: absolute;
+    bottom: 45px; left: 50%;
+    width: 260px; height: 75px;
+    margin-left: -130px;
+    background-color: #40407a;
+    border-radius: 3px;
+    display: none;
+}
+.bottomleftFixed {
+    margin: 5px 0 0 4px;
+}
+
+
+
+
+
+
+
+/* MEDIA QUERY (RESPONSIVE) */
+@media screen and (max-width: 480px) {
+    .middle {
+        font-size: 20px;
+    }
+    .countdown {
+        font-size: 30px;
+    }
+
+    .bottomleft {
+        display: none;
+    }
+    .shareButton {
+        display: block;
+    }
+}
+
+@media screen and (max-height: 350px) {
+    #middleTitle {
+        display: none;
+    }
 }

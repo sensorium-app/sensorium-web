@@ -26,3 +26,15 @@ var x = setInterval(function() {
         document.getElementById("demo").innerHTML = "EXPIRED";
     }
 }, 1000);
+
+
+
+// TOGGLE FUNCTION
+function toggle() {
+    var x = document.getElementById('toggle');
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+    }
+}
