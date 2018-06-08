@@ -26,7 +26,7 @@ class RegistrationForm extends React.Component {
       dateTimeOfBirth: moment().subtract(18, 'years'),
       languagesSpoken: {},
         
-      dateOfBirthCluster: false,
+      dateOfBirthCluster: true,
       monthAndDayCluster: false,
       monthAndYearCluster: false,
       monthCluster: false,
@@ -181,44 +181,7 @@ class RegistrationForm extends React.Component {
                 />
               </Col>
         </FormGroup>
-
-        <FormGroup tag="fieldset" row>
-          <legend className="col-form-label col-sm-4">So, which clusters would you you like to join?</legend>
-          <Col sm={12}>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" name="dateOfBirthCluster" 
-                value={this.state.dateOfBirthCluster}
-                onChange={this.handleInputChange} />{' '}
-                Date of birth
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" name="monthAndDayCluster" 
-                value={this.state.monthAndDayCluster}  
-                onChange={this.handleInputChange} />{' '}
-                Month and Day of birth
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" name="monthAndYearCluster" 
-                value={this.state.monthAndYearCluster} 
-                onChange={this.handleInputChange}/>{' '}
-                Month and Year of birth
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" name="monthCluster" 
-                value={this.state.monthCluster} 
-                onChange={this.handleInputChange}/>{' '}
-                Month of birth
-              </Label>
-            </FormGroup>
-          </Col>
-        </FormGroup>
+        
         <FormGroup row>
           <Label for="acceptsTerms" sm={10}>Accept our terms and privacy policy?</Label>
           <Col sm={2}>
