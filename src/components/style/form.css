@@ -1,6 +1,6 @@
 .custom-form{
   padding: 30px;
-  margin-top: 12vh;
+  margin-top: 5vh;
 }
 input{
   box-shadow:inset none !important;
@@ -34,7 +34,7 @@ input[type=text]:focus {
   background-color: transparent;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 25px;
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;
@@ -43,7 +43,10 @@ input[type=text]:focus {
   border: none;
   border-radius: 0;
   outline: none;
-  border-bottom: 1px solid #757575;
+  border-bottom: 2px solid #FFFFFF;
+}
+.DatePicker{
+  color: #1c1c1c;
 }
 .input-line:focus{
   outline: none;

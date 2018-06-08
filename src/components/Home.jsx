@@ -8,6 +8,7 @@ import './style/style.css';
 import './style/responsive.css';
 
 export default class Home extends React.Component {
+  
   constructor(props, context) {
     super(props, context);
     this.handleShow = this.handleShow.bind(this);
@@ -126,13 +127,26 @@ export default class Home extends React.Component {
       </Col>
     </Container>
     <Container>
-        <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
-        <h2>Impossibility is a registration away from reality.</h2>
-          <p>Register for the first social media that was literally born in a fandom!</p>
+        
+            
+            <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
+            <Row >
+          <Col md={4} className="mt-5">
+            <h2>Impossibility is a registration away from reality.</h2>
+              <p>Register for the first social media that was literally born in a fandom!</p>
 
-        <Button className="btn btn-grad-blue" onClick={this.handleShow}>
-        Pre-Register        </Button>
-        </Jumbotron>
+            <Button className="btn btn-grad-blue" onClick={this.handleShow}>
+            Pre-Register        </Button>
+            </Col>
+            
+          <Col md={8}>
+          <RegistrationForm classname="s-head"/>
+
+          </Col>
+          </Row>
+            </Jumbotron>
+          
+        
         
         <Row className="show-grid text-center">
           <Col xs={12} sm={4} className="person-wrapper">

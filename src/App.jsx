@@ -6,6 +6,8 @@ import About from './components/About';
 import News from './components/News';
 import Navbar from './components/CustomNavbar';
 import Footer from './components/Footer';
+import Terms from './components/Terms';
+import Privacy from './components/Privacy';
 import 'firebase/firestore';
 import firebaseConf from './config/FirebaseConfig';
 
@@ -33,6 +35,8 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/news" component={News} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/privacy" component={Privacy} />
           <Footer />
         </div>
       </Router>

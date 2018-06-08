@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button,  Form, FormGroup, Label, Input, FormText,Col } from 'reactstrap';
+import {Modal} from 'react-bootstrap';
 import FontAwesomeIcon from 'react-fontawesome'
+import { Link } from 'react-router-dom';
 
 import 'firebase/firestore'
 import firebaseConf from './../config/FirebaseConfig';
@@ -14,8 +16,15 @@ import './style/form.css';
 
 class RegistrationForm extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props,context) {
+    super(props,context);
+    
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
+    this.state = {
+      show: false
+    };
 
     this.state = {
       name: '',
@@ -138,7 +147,14 @@ class RegistrationForm extends React.Component {
     }
 
   }
+  
+  handleClose() {
+    this.setState({ show: false });
+  }
 
+  handleShow() {
+    this.setState({ show: true });
+  }
   render() {
     
     return (
@@ -163,27 +179,45 @@ class RegistrationForm extends React.Component {
               onChange={this.handleInputChange}
             />
           </Col>
-        </FormGroup>
-        <FormGroup row>
-{/*          <Label for="examplePassword" sm={2} className="label">Last Name</Label>
-*/}          
-        </FormGroup>
-        <FormGroup row>
-              <Col sm={12}>
-                
-                <DatePicker
+          <Col sm={6}>
+                <label className="text-left mt-3">Date Of Birth</label>
+                <DatePicker className="DatePicker"
                     selected={this.state.dateTimeOfBirth}
                     onChange={this.handleDateChange}
                     showYearDropdown
                     showMonthDropdown
                     maxTime={moment()}
-                    placeholderText="Date of birth"
+                    placeholderText="Date Of Birth"
                 />
               </Col>
         </FormGroup>
+        <FormGroup row>
+{/*          <Label for="examplePassword" sm={2} className="label">Last Name</Label>
+*/}          
+        </FormGroup>
+        {/* <FormGroup row>
+              <Col sm={12}>
+                
+                <DatePicker className="DatePicker"
+                    selected={this.state.dateTimeOfBirth}
+                    onChange={this.handleDateChange}
+                    showYearDropdown
+                    showMonthDropdown
+                    maxTime={moment()}
+                    placeholderText="Date Of Birth"
+                />
+              </Col>
+        </FormGroup> */}
         
         <FormGroup row>
-          <Label for="acceptsTerms" sm={10}>Accept our <a>terms</a> and privacy policy?</Label>
+          <Label for="acceptsTerms" sm={10}>Accept our 
+            
+            <Link componentClass={Link} href="" to="" onClick={this.handleShow}> Terms and Conditions </Link>
+            
+            and 
+            <Link componentClass={Link} href="" to="" > Privacy Policy </Link>
+            ?
+          </Label>
           <Col sm={2}>
             <FormGroup check>
               <Label check>
@@ -195,8 +229,28 @@ class RegistrationForm extends React.Component {
             </FormGroup>
           </Col>
         </FormGroup>
-        <a class="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Join!</a>
+        <a class="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
+      <Row>
+          <Modal show={this.state.show} onHide={this.handleClose} >
+      <Modal.Header closeButton className="s-modal-head bg-grad-green">
+        <Modal.Title >
+        <div text-center="" className="grad-text">
+          <h3> "Who's standing here?"</h3>
+        </div>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body >
+
+                <RegistrationForm classname="s-head"/>
+                   
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={this.handleClose} className="btn btn-grad-blue">Close</Button>
+      </Modal.Footer>
+    </Modal>
+      </Row>
+   
     );
   }
 }
