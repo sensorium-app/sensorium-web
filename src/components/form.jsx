@@ -183,7 +183,7 @@ class RegistrationForm extends React.Component {
         </FormGroup>
         
         <FormGroup row>
-          <Label for="acceptsTerms" sm={10}>Accept our terms and privacy policy?</Label>
+          <Label for="acceptsTerms" sm={10}>Accept our <a>terms</a> and privacy policy?</Label>
           <Col sm={2}>
             <FormGroup check>
               <Label check>
@@ -195,7 +195,7 @@ class RegistrationForm extends React.Component {
             </FormGroup>
           </Col>
         </FormGroup>
-        <Button onClick={this.addSensate.bind(this)}>Join!</Button>
+        <a class="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Join!</a>
       </Form>
     );
   }

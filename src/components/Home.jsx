@@ -137,8 +137,8 @@ export default class Home extends React.Component {
         <Row className="show-grid text-center">
           <Col xs={12} sm={4} className="person-wrapper">
             <Image src="assets/person-1.jpg" circle className="profile-pic"/>
-            <h3>if we get mentioned by some reputable blogs or peoples we can add them here</h3>
-            <p>That's a crooked tree. We'll send him to Washington. These little son of a guns hide in your brush and you just have to push them out.</p>
+            <h4>it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series.</h4>
+            <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com">https://medearants.wordpress.com</a></p>
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
             <Image src="assets/person-2.jpg" circle className="profile-pic"/>

@@ -187,12 +187,14 @@ section.about .badge-link img {
 .s-head{
   margin-top:2vh !important;
 }
+
 .s-modal-head{
   margin-left: 2vw;
   margin-right: 2vw;
   position: absolute;
   margin-top: -5vh;
   border-radius: 10px;
+  width: 90%;
   color:white !important;
   -webkit-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 34px -7px rgba(0,0,0,0.75);

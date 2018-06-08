@@ -15,11 +15,25 @@ input::-webkit-input-placeholder {
 ::-webkit-input-placeholder .input-line:focus +::input-placeholder {
   color: #fff;
 }
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    box-shadow:inset none; 
+}
+
+input[type=text]:focus {
+}
 
 .input-line {
-    box-shadow:inset none !important;
+  box-shadow:inset none !important;
   background-color: transparent;
-
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
