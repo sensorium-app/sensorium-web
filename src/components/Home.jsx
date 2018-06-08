@@ -36,7 +36,7 @@ export default class Home extends React.Component {
               <Row>
                   <Col md={12}>
                       <div className="block">
-                          <a className="btn btn-grad-peach" href="#about" role="button" onClick={this.handleShow}>Register</a>
+                          <a className="btn btn-grad-peach" href="#" role="button" onClick={this.handleShow}>Pre-Register</a>
                       </div>
                   </Col>
               </Row>
@@ -127,11 +127,11 @@ export default class Home extends React.Component {
     </Container>
     <Container>
         <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
-        <h2>Impossibility is a Registration away from reality.</h2>
-          <p>Register for the first social media website that literally born in  a fandom !!</p>
+        <h2>Impossibility is a registration away from reality.</h2>
+          <p>Register for the first social media that was literally born in a fandom!</p>
 
         <Button className="btn btn-grad-blue" onClick={this.handleShow}>
-RrrrRRegister        </Button>
+        Pre-Register        </Button>
         </Jumbotron>
         
         <Row className="show-grid text-center">
@@ -154,10 +154,10 @@ RrrrRRegister        </Button>
       </Container>
 
        <Modal show={this.state.show} onHide={this.handleClose} >
-          <Modal.Header closeButton  className="s-modal-head bg-grad-green">
+          <Modal.Header closeButton className="s-modal-head bg-grad-green">
             <Modal.Title >
-            <div text-center className="grad-text">
-              <h3> "In the end, we will all be judged by the usernames of our profile."</h3>
+            <div text-center="" className="grad-text">
+              <h3> "Who's standing here?"</h3>
             </div>
             </Modal.Title>
           </Modal.Header>

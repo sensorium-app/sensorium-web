@@ -2,25 +2,70 @@ import React from 'react';
 import { Button,  Form, FormGroup, Label, Input, FormText,Col } from 'reactstrap';
 import FontAwesomeIcon from 'react-fontawesome'
 
+import 'firebase/firestore'
+import firebaseConf from './../config/FirebaseConfig';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 import './style/style.css';
 import './style/form.css';
+
 class RegistrationForm extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
+      name: '',
+      lastName: '',
+      secondLastName: '',
+      email: '',
+      gender: '',
+      dateTimeOfBirth: moment().subtract(18, 'years'),
+      languagesSpoken: {},
+        
+      dateOfBirthCluster: false,
+      monthAndDayCluster: false,
+      monthAndYearCluster: false,
+      monthCluster: false,
+      skillsCluster: false,
+      hobbiesCluster: false,
+      interestsCluster: false,
+
+      skills: {},
+      hobbies: {},
+      interests: {},
+
+      acceptsTerms: false,
+
       items: [],
       focused: false,
       input: ''
     };
 
+    this.db = firebaseConf.firestore();
+    const settings = { timestampsInSnapshots: true};
+    this.db.settings(settings);
+
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+
     this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
+    
   }
 
-handleInputChange(evt) {
-    this.setState({ input: evt.target.value });
+  /** Generic function for state management of input elements */
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   handleInputKeyDown(evt) {
@@ -48,6 +93,52 @@ handleInputChange(evt) {
     }
   }
 
+  handleDateChange(date) {
+    this.setState({
+      dateTimeOfBirth: date
+    });
+  }
+
+  addSensate(e){
+    console.log(e);
+    console.log(this.state);
+
+    if(!this.state.acceptsTerms){
+      console.log('Did not acccept terms');
+    }else{
+      const sensate = {
+        name: this.state.name,
+        lastName: this.state.lastName,
+        secondLastName:this.state.secondLastName,
+        email: this.state.email,
+        gender: this.state.gender,
+        dateTimeOfBirth: this.state.dateTimeOfBirth.toDate(),
+        skills:{},
+        hobbies: {},
+        interests:{},
+        languagesSpoken:{},
+        desiredClusters: {
+            dateTimeOfBirth: this.state.dateOfBirthCluster,
+            monthAndDay: this.state.monthAndDayCluster,
+            monthAndYear: this.state.monthAndYearCluster,
+            month: this.state.monthCluster,
+            skills: this.state.skillsCluster,
+            hobbies: this.state.hobbiesCluster,
+            interests: this.state.interestsCluster
+        }
+      };
+
+      console.log(sensate);
+
+      this.db.collection('sensates').add(sensate).then((res)=>{
+        console.log(res);
+      }).catch((err)=>{
+        console.log(err);
+      });
+    }
+
+  }
+
   render() {
     
     return (
@@ -55,10 +146,22 @@ handleInputChange(evt) {
         <FormGroup row>
 {/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
 */}          <Col sm={6}>
-            <Input type="text" name="firstName" id="firstName" className="input-line" placeholder="YOUR COOL NAME" />
+            <Input type="text" name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
+              value={this.state.name}
+              onChange={this.handleInputChange}
+            />
           </Col>
           <Col sm={6}>
-            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Last Name? not nessesary though" />
+            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Lastname? Not necessary though" 
+              value={this.state.lastName}
+              onChange={this.handleInputChange}
+            />
+          </Col>
+          <Col sm={6}>
+            <Input type="text" name="email" id="email" className="input-line" placeholder="Your email" 
+              value={this.state.email}
+              onChange={this.handleInputChange}
+            />
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -66,93 +169,70 @@ handleInputChange(evt) {
 */}          
         </FormGroup>
         <FormGroup row>
-{/*          <Label for="genderSelect" sm={2}>Gender</Label>
-*/}           <Col sm={6} >
-                <select name="gender" className="btn grad-select">
-                  <option value="Male">Female</option>
-                  <option value="Female">Male</option>
-                </select>          
+              <Col sm={12}>
+                
+                <DatePicker
+                    selected={this.state.dateTimeOfBirth}
+                    onChange={this.handleDateChange}
+                    showYearDropdown
+                    showMonthDropdown
+                    maxTime={moment()}
+                    placeholderText="Date of birth"
+                />
               </Col>
-              <Col sm={6}>
-                <Input type="text" name="age" id="age" className="input-line" placeholder="Tell me how old are you?" />
-              </Col>
         </FormGroup>
-        <FormGroup row >
-        
-          <label>
-            <ul className="tag-container">
-              {this.state.items.map((item, i) => 
-                <li key={i} className="tag-pill" onClick={this.handleRemoveItem(i)}>
-                  {item}
-                  <span className="close-pill">x  <FontAwesomeIcon icon="times" /> </span>
-                </li>
-              )}
-              <input
-                value={this.state.input}
-                onChange={this.handleInputChange}
-                onKeyDown={this.handleInputKeyDown} 
-                className="pill-input" placeholder="Skills ? hobbies? Anything?" />
-            </ul>
-          </label>
-        
-       
-        </FormGroup>
-        
-        <FormGroup row>
-          <Label for="exampleFile" sm={2}>File</Label>
-          <Col sm={10}>
-            <Input type="file" name="file" id="exampleFile" />
-            <FormText color="muted">
-              A Nice Photo of you and  DO NOT USE bradd pitt i swear this isn't facebook
-            </FormText>
-          </Col>
-        </FormGroup>
+
         <FormGroup tag="fieldset" row>
-          <legend className="col-form-label col-sm-4">So how would you you like you cluster served?</legend>
-          <Col sm={8}>
+          <legend className="col-form-label col-sm-4">So, which clusters would you you like to join?</legend>
+          <Col sm={12}>
             <FormGroup check>
               <Label check>
-                <Input type="checkbox" name="skillBased" />{' '}
-                Skill Based
+                <Input type="checkbox" name="dateOfBirthCluster" 
+                value={this.state.dateOfBirthCluster}
+                onChange={this.handleInputChange} />{' '}
+                Date of birth
               </Label>
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Input type="checkbox" name="dateTime" />{' '}
-                Date and Time
+                <Input type="checkbox" name="monthAndDayCluster" 
+                value={this.state.monthAndDayCluster}  
+                onChange={this.handleInputChange} />{' '}
+                Month and Day of birth
               </Label>
             </FormGroup>
-            <FormGroup check disabled>
+            <FormGroup check>
               <Label check>
-                <Input type="checkbox" name="MonthDay"  />{' '}
-                                Month and Day 
- 
+                <Input type="checkbox" name="monthAndYearCluster" 
+                value={this.state.monthAndYearCluster} 
+                onChange={this.handleInputChange}/>{' '}
+                Month and Year of birth
               </Label>
             </FormGroup>
-            <FormGroup check disabled>
+            <FormGroup check>
               <Label check>
-                <Input type="checkbox" name="etc"  />{' '}
-Etc              </Label>
+                <Input type="checkbox" name="monthCluster" 
+                value={this.state.monthCluster} 
+                onChange={this.handleInputChange}/>{' '}
+                Month of birth
+              </Label>
             </FormGroup>
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="checkbox2" sm={2}>Music service Of choice?</Label>
-          <Col sm={10}>
+          <Label for="acceptsTerms" sm={10}>Accept our terms and privacy policy?</Label>
+          <Col sm={2}>
             <FormGroup check>
               <Label check>
-                <Input type="checkbox" id="checkbox2" name="googlePLayMusic"/>{' '}
-                  Google Play Music
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" id="checkbox2" name="spotify"/>{' '}
-                  Spotify
+                <Input type="checkbox" id="acceptsTerms" name="acceptsTerms" 
+                  value={this.state.acceptsTerms}
+                  onChange={this.handleInputChange}/>{' '}
+                  Yes
               </Label>
             </FormGroup>
           </Col>
         </FormGroup>
+        <Button onClick={this.addSensate.bind(this)}>Join!</Button>
       </Form>
     );
   }
