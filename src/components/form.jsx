@@ -12,16 +12,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './style/style.css';
 import './style/form.css';
 
-class RegistrationForm extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
+const initialState = {
       name: '',
       lastName: '',
       secondLastName: '',
       email: '',
+      password: '',
       gender: '',
       dateTimeOfBirth: moment().subtract(18, 'years'),
       languagesSpoken: {},
@@ -44,6 +40,13 @@ class RegistrationForm extends React.Component {
       focused: false,
       input: ''
     };
+
+class RegistrationForm extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = initialState;
 
     this.db = firebaseConf.firestore();
     const settings = { timestampsInSnapshots: true};
@@ -100,41 +103,64 @@ class RegistrationForm extends React.Component {
   }
 
   addSensate(e){
-    console.log(e);
     console.log(this.state);
 
     if(!this.state.acceptsTerms){
       console.log('Did not acccept terms');
     }else{
-      const sensate = {
-        name: this.state.name,
-        lastName: this.state.lastName,
-        secondLastName:this.state.secondLastName,
-        email: this.state.email,
-        gender: this.state.gender,
-        dateTimeOfBirth: this.state.dateTimeOfBirth.toDate(),
-        skills:{},
-        hobbies: {},
-        interests:{},
-        languagesSpoken:{},
-        desiredClusters: {
-            dateTimeOfBirth: this.state.dateOfBirthCluster,
-            monthAndDay: this.state.monthAndDayCluster,
-            monthAndYear: this.state.monthAndYearCluster,
-            month: this.state.monthCluster,
-            skills: this.state.skillsCluster,
-            hobbies: this.state.hobbiesCluster,
-            interests: this.state.interestsCluster
-        }
-      };
 
-      console.log(sensate);
+      const userState = this.state;
+      const dbCollection = this.db.collection('sensates');
 
-      this.db.collection('sensates').add(sensate).then((res)=>{
-        console.log(res);
-      }).catch((err)=>{
-        console.log(err);
+      firebaseConf.auth().createUserWithEmailAndPassword(userState.email, userState.password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.log(errorCode);
+        console.log(errorMessage);
       });
+
+      firebaseConf.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log('user signed in');
+
+          const sensate = {
+            uid: user.uid,
+            name: userState.name,
+            lastName: userState.lastName,
+            secondLastName:userState.secondLastName,
+            email: userState.email,
+            gender: userState.gender,
+            dateTimeOfBirth: userState.dateTimeOfBirth.toDate(),
+            skills:{},
+            hobbies: {},
+            interests:{},
+            languagesSpoken:{},
+            desiredClusters: {
+                dateTimeOfBirth: userState.dateOfBirthCluster,
+                monthAndDay: userState.monthAndDayCluster,
+                monthAndYear: userState.monthAndYearCluster,
+                month: userState.monthCluster,
+                skills: userState.skillsCluster,
+                hobbies: userState.hobbiesCluster,
+                interests: userState.interestsCluster
+            }
+          };
+
+          console.log(sensate);
+
+          dbCollection.add(sensate).then((res)=>{
+            console.log(res);
+            //this.setState(initialState);
+          }).catch((err)=>{
+            console.log(err);
+          });
+
+        } else {
+          console.log('User signed out');
+        }
+      });
+      
     }
 
   }
@@ -159,6 +185,12 @@ class RegistrationForm extends React.Component {
           <Col sm={6}>
             <Input type="email" required name="email" id="email" className="input-line" placeholder="Your email" 
               value={this.state.email}
+              onChange={this.handleInputChange}
+            />
+          </Col>
+          <Col sm={6}>
+            <Input type="password" required name="password" id="password" className="input-line" placeholder="Your password" 
+              value={this.state.password}
               onChange={this.handleInputChange}
             />
           </Col>
@@ -193,12 +225,12 @@ class RegistrationForm extends React.Component {
         </FormGroup> */}
         
         <FormGroup row>
-          <Label for="acceptsTerms" sm={10}>Accept our 
+          <Label for="acceptsTerms" sm={10}>Are you ok with our 
             
-            <Link componentClass={Link} href="/Terms" to="/Terms" onClick={this.handleShow} target="_blank"> Terms and Conditions </Link>
+            <Link href="/Terms" to="/Terms" onClick={this.handleShow} target="_blank"> Terms and Conditions </Link>
             
             and 
-            <Link componentClass={Link} href="/Privacy" to="/Privacy" target="_blank"> Privacy Policy </Link>
+            <Link href="/Privacy" to="/Privacy" target="_blank"> Privacy Policy </Link>
             ?
           </Label>
           <Col sm={2}>
@@ -212,7 +244,7 @@ class RegistrationForm extends React.Component {
             </FormGroup>
           </Col>
         </FormGroup>
-        <a class="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
+        <a className="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
       
    

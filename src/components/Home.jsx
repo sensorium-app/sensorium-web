@@ -89,12 +89,9 @@ export default class Home extends React.Component {
     <Container >
       <Col xs="12" md="4" className="text-center">
           <div className="s-cards bg-grad-green">
-            <h2>WHAT</h2>
+            <h2>WHAT?</h2>
               <p className="text-justify">
-                Children of the sun, see your time has just begun, searching for your ways, through adventures every day. 
-                Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. 
-                Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... 
-                some day we will find The Cities of Gold.
+                A specialized social network of like-minded people that will be able to connect and share experiences based on empathy and comprehension.
               </p>
 {/*              <a className="btn btn-grad-green">read more..</a>
 */}          </div>
@@ -104,12 +101,7 @@ export default class Home extends React.Component {
           <div className=" s-cards bg-grad-pink">
           <h1>WHY</h1>
           <p className="text-justify">
-          Ulysses, Ulysses - Soaring through all the galaxies. In search of Earth, flying in to the night. 
-          Ulysses, Ulysses - Fighting evil and tyranny, with all his power, and with all of his might. 
-          Ulysses - no-one else can do the things you do. Ulysses - like a bolt of thunder from the blue. 
-          Ulysses - always fighting all the evil forces bringing peace and justice to all.
-
-
+            Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
           </p>
 {/*          <a className="btn btn-grad-pink">read more..</a>
 */}          </div>
@@ -118,10 +110,10 @@ export default class Home extends React.Component {
            <div className="s-cards bg-grad-blue">
             <h1>WHEN</h1>
               <p className="text-justify">
-                Children of the sun, see your time has just begun, searching for your ways, through adventures every day. 
-                Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. 
-                Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... 
-                some day we will find The Cities of Gold.
+                We're on a pre-registration phase, which means you are very welcome to register with some basic data.
+                Under the hood, our technology will start generating clusters automatically, but you'll be able to participate
+                actively once we launch an official release. We'll have sharing between cluster members and with all the archipelago and more features.
+                We are on a constant development and improvement, so come back frequently to stay updated.
               </p>
 {/*              <a className="btn btn-grad-blue">read more..</a>
 */}          </div>
@@ -150,19 +142,13 @@ export default class Home extends React.Component {
         
         <Row className="show-grid text-center">
           <Col xs={12} sm={4} className="person-wrapper">
+          </Col>
+          <Col xs={12} sm={4} className="person-wrapper">
             <Image src="assets/person-1.jpg" circle className="profile-pic"/>
-            <h4>it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series.</h4>
+            <h4>"...it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
             <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com">https://medearants.wordpress.com</a></p>
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
-            <Image src="assets/person-2.jpg" circle className="profile-pic"/>
-            <h3>if we get mentioned by some reputable blogs or peoples we can add them here</h3>
-            <p>That's a crooked tree. We'll send him to Washington. These little son of a guns hide in your brush and you just have to push them out.</p>
-          </Col>
-          <Col xs={12} sm={4} className="person-wrapper">
-            <Image src="assets/person-3.jpg" circle className="profile-pic"/>
-            <h3>if we get mentioned by some reputable blogs or peoples we can add them here</h3>
-            <p>That's a crooked tree. We'll send him to Washington. These little son of a guns hide in your brush and you just have to push them out.</p>
           </Col>
         </Row>
       </Container>
