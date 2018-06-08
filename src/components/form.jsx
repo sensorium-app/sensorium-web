@@ -1,7 +1,5 @@
 import React from 'react';
 import { Button,  Form, FormGroup, Label, Input, FormText,Col } from 'reactstrap';
-import {Modal} from 'react-bootstrap';
-import FontAwesomeIcon from 'react-fontawesome'
 import { Link } from 'react-router-dom';
 
 import 'firebase/firestore'
@@ -16,15 +14,8 @@ import './style/form.css';
 
 class RegistrationForm extends React.Component {
 
-  constructor(props,context) {
-    super(props,context);
-    
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-
-    this.state = {
-      show: false
-    };
+  constructor(props) {
+    super(props);
 
     this.state = {
       name: '',
@@ -147,14 +138,6 @@ class RegistrationForm extends React.Component {
     }
 
   }
-  
-  handleClose() {
-    this.setState({ show: false });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
-  }
   render() {
     
     return (
@@ -162,7 +145,7 @@ class RegistrationForm extends React.Component {
         <FormGroup row>
 {/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
 */}          <Col sm={6}>
-            <Input type="text" name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
+            <Input type="text" required name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
               value={this.state.name}
               onChange={this.handleInputChange}
             />
@@ -174,13 +157,13 @@ class RegistrationForm extends React.Component {
             />
           </Col>
           <Col sm={6}>
-            <Input type="text" name="email" id="email" className="input-line" placeholder="Your email" 
+            <Input type="email" required name="email" id="email" className="input-line" placeholder="Your email" 
               value={this.state.email}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-                <label className="text-left mt-3">Date Of Birth</label>
+                <label required className="text-left mt-3">Date Of Birth</label>
                 <DatePicker className="DatePicker"
                     selected={this.state.dateTimeOfBirth}
                     onChange={this.handleDateChange}
@@ -212,10 +195,10 @@ class RegistrationForm extends React.Component {
         <FormGroup row>
           <Label for="acceptsTerms" sm={10}>Accept our 
             
-            <Link componentClass={Link} href="" to="" onClick={this.handleShow}> Terms and Conditions </Link>
+            <Link componentClass={Link} href="/Terms" to="/Terms" onClick={this.handleShow} target="_blank"> Terms and Conditions </Link>
             
             and 
-            <Link componentClass={Link} href="" to="" > Privacy Policy </Link>
+            <Link componentClass={Link} href="/Privacy" to="/Privacy" target="_blank"> Privacy Policy </Link>
             ?
           </Label>
           <Col sm={2}>
@@ -231,25 +214,7 @@ class RegistrationForm extends React.Component {
         </FormGroup>
         <a class="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
-      <Row>
-          <Modal show={this.state.show} onHide={this.handleClose} >
-      <Modal.Header closeButton className="s-modal-head bg-grad-green">
-        <Modal.Title >
-        <div text-center="" className="grad-text">
-          <h3> "Who's standing here?"</h3>
-        </div>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body >
-
-                <RegistrationForm classname="s-head"/>
-                   
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={this.handleClose} className="btn btn-grad-blue">Close</Button>
-      </Modal.Footer>
-    </Modal>
-      </Row>
+      
    
     );
   }
