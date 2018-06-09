@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import {Container, Row, Col, Jumbotron, Button , Input } from 'reactstrap';
+import {Container, Row, Col, Jumbotron, Button } from 'reactstrap';
 import {Image, Modal} from 'react-bootstrap';
 import RegistrationForm from './form.jsx'; 
 import './style/Home.css';
 import './style/style.css';
 import './style/responsive.css';
 
-export default class Home extends React.Component {
+export default class Home extends Component {
   
   constructor(props, context) {
     super(props, context);
@@ -73,7 +72,7 @@ export default class Home extends React.Component {
                   </div>
 
                 </h3>
-                <a className=" btn btn-grad-peach learn-more" href="#">Learn More</a>
+                <a className=" btn btn-grad-peach learn-more" href="/about">Learn More</a>
 
               </section>
                 <div >
@@ -91,7 +90,8 @@ export default class Home extends React.Component {
           <div className="s-cards bg-grad-green">
             <h2>WHAT?</h2>
               <p className="text-justify">
-                A specialized social network of like-minded people that will be able to connect and share experiences based on empathy and comprehension.
+              This project is aimed to create connections between people that share core human values.
+              We want to create a network that embraces empathy, love, collaboration and compassion throughout the world.
               </p>
 {/*              <a className="btn btn-grad-green">read more..</a>
 */}          </div>
@@ -99,7 +99,7 @@ export default class Home extends React.Component {
       <Col xs="12" md="4" className="text-center">
           <div className="empty-box"></div>
           <div className=" s-cards bg-grad-pink">
-          <h1>WHY</h1>
+          <h2>WHY?</h2>
           <p className="text-justify">
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
           </p>
@@ -108,12 +108,11 @@ export default class Home extends React.Component {
       </Col>
       <Col xs="12" md="4" className="text-center">
            <div className="s-cards bg-grad-blue">
-            <h1>WHEN</h1>
+            <h2>WHEN?</h2>
               <p className="text-justify">
-                We're on a pre-registration phase, which means you are very welcome to register with some basic data.
-                Under the hood, our technology will start generating clusters automatically, but you'll be able to participate
-                actively once we launch an official release. We'll have sharing between cluster members and with all the archipelago and more features.
-                We are on a constant development and improvement, so come back frequently to stay updated.
+                We're on a pre-registration phase, which means you can register with some basic data.
+                Our technology will create clusters automatically, but you will be able to participate
+                actively once we launch an official release very soon.
               </p>
 {/*              <a className="btn btn-grad-blue">read more..</a>
 */}          </div>
@@ -125,10 +124,8 @@ export default class Home extends React.Component {
             <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
             <Row >
           <Col md={4} className="mt-5">
-            <h2>Impossibility is a registration away from reality.</h2>
-              <p>Register for the first social media that was literally born in a fandom!</p>
-
-            
+            <h2>Impossibility is still just a registration away from reality.</h2>
+              <p>Register for the first social network that was literally born in a fandom!</p>
             </Col>
             
           <Col md={8}>
@@ -146,7 +143,7 @@ export default class Home extends React.Component {
           <Col xs={12} sm={4} className="person-wrapper">
             <Image src="assets/person-1.jpg" circle className="profile-pic"/>
             <h4>"...it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
-            <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com">https://medearants.wordpress.com</a></p>
+            <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p>
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
           </Col>

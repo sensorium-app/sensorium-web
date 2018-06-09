@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button,  Form, FormGroup, Label, Input, FormText,Col } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import 'firebase/firestore'
@@ -105,61 +105,101 @@ class RegistrationForm extends React.Component {
   addSensate(e){
     console.log(this.state);
 
+    /*ga('send', {
+      hitType: 'event',
+      eventCategory: 'user',
+      eventAction: 'register',
+      eventLabel: this.state.email
+    });*/
+
     if(!this.state.acceptsTerms){
       console.log('Did not acccept terms');
+      alert('Please read and accept our terms and privacy policy');
     }else{
 
-      const userState = this.state;
-      const dbCollection = this.db.collection('sensates');
+      //const userState = this.state;
 
-      firebaseConf.auth().createUserWithEmailAndPassword(userState.email, userState.password).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
+      if( 
+        (this.state.name && this.state.name.length > 0) &&
+        (this.state.email && this.state.email.length > 0) &&
+        (this.state.password && this.state.password.length > 0)
+      ){
 
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
+        //const dbCollection = this.db.collection('sensates');
 
-      firebaseConf.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          console.log('user signed in');
+        firebaseConf.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error)=> {
+          var errorCode = error.code;
+          var errorMessage = error.message;
 
-          const sensate = {
-            uid: user.uid,
-            name: userState.name,
-            lastName: userState.lastName,
-            secondLastName:userState.secondLastName,
-            email: userState.email,
-            gender: userState.gender,
-            dateTimeOfBirth: userState.dateTimeOfBirth.toDate(),
-            skills:{},
-            hobbies: {},
-            interests:{},
-            languagesSpoken:{},
-            desiredClusters: {
-                dateTimeOfBirth: userState.dateOfBirthCluster,
-                monthAndDay: userState.monthAndDayCluster,
-                monthAndYear: userState.monthAndYearCluster,
-                month: userState.monthCluster,
-                skills: userState.skillsCluster,
-                hobbies: userState.hobbiesCluster,
-                interests: userState.interestsCluster
-            }
-          };
+          console.log(errorCode);
+          console.log(errorMessage);
+          var errorToShow = 'An error occured on user, please contact us';
+          switch(errorCode){
+            case 'auth/weak-password':
+              errorToShow = 'Please provide at least a 6 character password';
+              break;
+            case 'auth/email-already-in-use':
+              errorToShow = 'That email has already registered, hang on please.';
+              break;
+          }
 
-          console.log(sensate);
+          alert(errorToShow);
+          
+        });
 
-          dbCollection.add(sensate).then((res)=>{
-            console.log(res);
-            //this.setState(initialState);
-          }).catch((err)=>{
-            console.log(err);
-          });
+        firebaseConf.auth().onAuthStateChanged((user) =>{
+          if (user) {
+            console.log('user signed in');
 
-        } else {
-          console.log('User signed out');
-        }
-      });
+            const sensate = {
+              uid: user.uid,
+              name: this.state.name,
+              lastName: this.state.lastName,
+              secondLastName:this.state.secondLastName,
+              email: this.state.email,
+              gender: this.state.gender,
+              dateTimeOfBirth: this.state.dateTimeOfBirth.toDate(),
+              skills:{},
+              hobbies: {},
+              interests:{},
+              languagesSpoken:{},
+              desiredClusters: {
+                  dateTimeOfBirth: this.state.dateOfBirthCluster,
+                  monthAndDay: this.state.monthAndDayCluster,
+                  monthAndYear: this.state.monthAndYearCluster,
+                  month: this.state.monthCluster,
+                  skills: this.state.skillsCluster,
+                  hobbies: this.state.hobbiesCluster,
+                  interests: this.state.interestsCluster
+              }
+            };
+
+            console.log(sensate);
+
+            this.db.collection('sensates').add(sensate).then((res)=>{
+              console.log(res);
+              
+              firebaseConf.auth().signOut().then(() =>{
+                this.setState(initialState);
+                console.log('Successful registration!');
+                alert('Successful registration!');
+              }).catch((error)=> {
+                console.log(error);
+                alert('An error ocurred, please contact us');
+              });
+
+            }).catch((err)=>{
+              console.log(err);
+              alert('An error ocurred, please contact us');
+            });
+
+          } else {
+            console.log('User signed out');
+          }
+        });
+      }else{
+        alert('Please fill in all the required information');
+      }
       
     }
 
@@ -177,26 +217,27 @@ class RegistrationForm extends React.Component {
             />
           </Col>
           <Col sm={6}>
-            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Lastname? Not necessary though" 
+            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Lastname (optional)" 
               value={this.state.lastName}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="email" required name="email" id="email" className="input-line" placeholder="Your email" 
+            <Input type="email" required name="email" id="email" className="input-line" placeholder="Email" 
               value={this.state.email}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="password" required name="password" id="password" className="input-line" placeholder="Your password" 
+            <Input type="password" required name="password" id="password" className="input-line" placeholder="Password" 
               value={this.state.password}
               onChange={this.handleInputChange}
             />
           </Col>
+          <Col sm={3}></Col>
           <Col sm={6}>
                 <label required className="text-left mt-3">Date Of Birth</label>
-                <DatePicker className="DatePicker"
+                <DatePicker className="DatePicker input-line"
                     selected={this.state.dateTimeOfBirth}
                     onChange={this.handleDateChange}
                     showYearDropdown
@@ -204,45 +245,28 @@ class RegistrationForm extends React.Component {
                     maxTime={moment()}
                     placeholderText="Date Of Birth"
                 />
-              </Col>
+          </Col>
+          <Col sm={3}></Col>
         </FormGroup>
-        <FormGroup row>
-{/*          <Label for="examplePassword" sm={2} className="label">Last Name</Label>
-*/}          
-        </FormGroup>
-        {/* <FormGroup row>
-              <Col sm={12}>
-                
-                <DatePicker className="DatePicker"
-                    selected={this.state.dateTimeOfBirth}
-                    onChange={this.handleDateChange}
-                    showYearDropdown
-                    showMonthDropdown
-                    maxTime={moment()}
-                    placeholderText="Date Of Birth"
-                />
-              </Col>
-        </FormGroup> */}
         
         <FormGroup row>
-          <Label for="acceptsTerms" sm={10}>Are you ok with our 
-            
-            <Link href="/Terms" to="/Terms" onClick={this.handleShow} target="_blank"> Terms and Conditions </Link>
-            
-            and 
-            <Link href="/Privacy" to="/Privacy" target="_blank"> Privacy Policy </Link>
-            ?
-          </Label>
-          <Col sm={2}>
+          <Col sm={1}>
             <FormGroup check>
               <Label check>
                 <Input type="checkbox" id="acceptsTerms" name="acceptsTerms" 
                   value={this.state.acceptsTerms}
                   onChange={this.handleInputChange}/>{' '}
-                  Yes
               </Label>
             </FormGroup>
           </Col>
+          <Label for="acceptsTerms" sm={11}>Are you ok with our 
+            
+            <Link href="/Terms" to="/Terms"  target="_blank"> Terms and Conditions </Link>
+            
+            and 
+            <Link href="/Privacy" to="/Privacy" target="_blank"> Privacy Policy </Link>
+            ?
+          </Label>
         </FormGroup>
         <a className="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
