@@ -210,8 +210,8 @@ class RegistrationForm extends React.Component {
        <Form className="custom-form">
         <FormGroup row>
 {/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
-*/}          <Col sm={6}>
-            <Input type="text" required name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
+*/}        <Col sm={6}>
+            <Input type="text" required name="name" id="name"     className="input-line" placeholder="Your cool sensate name" 
               value={this.state.name}
               onChange={this.handleInputChange}
             />
@@ -236,8 +236,8 @@ class RegistrationForm extends React.Component {
           </Col>
           <Col sm={3}></Col>
           <Col sm={6}>
-                <label required className="text-left mt-3">Date Of Birth</label>
-                <DatePicker className="DatePicker input-line"
+                <label required className="text-left mt-3" for="date">Date Of Birth</label>
+                <DatePicker className="DatePicker input-line" id="date"
                     selected={this.state.dateTimeOfBirth}
                     onChange={this.handleDateChange}
                     showYearDropdown
@@ -256,7 +256,7 @@ class RegistrationForm extends React.Component {
                 <Input type="checkbox" id="acceptsTerms" name="acceptsTerms" 
                   value={this.state.acceptsTerms}
                   onChange={this.handleInputChange}/>{' '}
-              </Label>
+              </Label> 
             </FormGroup>
           </Col>
           <Label for="acceptsTerms" sm={11}>Are you ok with our 

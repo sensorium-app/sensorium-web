@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import {Container, Row, Col, Jumbotron, Button } from 'reactstrap';
 import {Image, Modal} from 'react-bootstrap';
 import RegistrationForm from './form.jsx'; 
+import Slide from 'react-reveal/Slide';
+import Rotate from 'react-reveal/Rotate';
+import Fade from 'react-reveal/Fade';
+
 import './style/Home.css';
 import './style/style.css';
 import './style/responsive.css';
@@ -19,6 +23,7 @@ export default class Home extends Component {
     };
   }
 
+  
   handleClose() {
     this.setState({ show: false });
   }
@@ -36,9 +41,11 @@ export default class Home extends Component {
           <Container>
               <Row>
                   <Col md={12}>
+                      <Fade left>
                       <div className="block">
-                          <a className="btn btn-grad-peach" href="#form" role="button" >Pre-Register</a>
+                          <a className="btn btn-grad-peach wow bounceIn" href="#form" role="button" >Pre-Register</a>
                       </div>
+                      </Fade>
                   </Col>
               </Row>
           </Container>
@@ -72,8 +79,9 @@ export default class Home extends Component {
                   </div>
 
                 </h3>
+                <Fade>
                 <a className=" btn btn-grad-peach learn-more" href="/about">Learn More</a>
-
+                </Fade>
               </section>
                 <div >
                 </div>
@@ -87,35 +95,59 @@ export default class Home extends Component {
     if you want youcan make this a component*/}
     <Container >
       <Col xs="12" md="4" className="text-center">
+      <Fade top>
+
           <div className="s-cards bg-grad-green">
+            <Slide cascade top>
             <h2>WHAT?</h2>
+              <p className="text-justify">
+              A virtual archipelago for Sensate  to connect and thrive in a home tailor made for Homo Sensoriums. Share, visit and be reborn as a Sensate and experience the wonder and beauty of our common humanity and shared values with a truly global community.</p>
               <p className="text-justify">
               This project is aimed to create connections between people that share core human values.
               We want to create a network that embraces empathy, love, collaboration and compassion throughout the world.
+              
               </p>
+            </Slide>
 {/*              <a className="btn btn-grad-green">read more..</a>
-*/}          </div>
+*/}       </div>
+      </Fade>
       </Col>
       <Col xs="12" md="4" className="text-center">
+      <Fade top>
+
           <div className="empty-box"></div>
           <div className=" s-cards bg-grad-pink">
+          <Slide cascade top>
           <h2>WHY?</h2>
           <p className="text-justify">
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
+            </p>
+            <p classname="text-justify">
+            Because Sense8 is not just a work of art of piece of entertainment, it's a movement, it's a revolution, its the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives and changing the world, simultaneously.
           </p>
+          </Slide>
 {/*          <a className="btn btn-grad-pink">read more..</a>
 */}          </div>
+</Fade>
       </Col>
       <Col xs="12" md="4" className="text-center">
+           <Fade top>
            <div className="s-cards bg-grad-blue">
+           <Slide cascade top>
             <h2>WHEN?</h2>
+            <p className="text-justify">
+                Right here, right now. We hope to expand this global community space to not only encompass means of connecting and sharing media but also interactive features, video games and other new tools to make like within this clustered hub a truly inspirational experience.
+              </p>
               <p className="text-justify">
                 We're on a pre-registration phase, which means you can register with some basic data.
                 Our technology will create clusters automatically, but you will be able to participate
                 actively once we launch an official release very soon.
               </p>
+                
+              </Slide>
 {/*              <a className="btn btn-grad-blue">read more..</a>
 */}          </div>
+            </Fade>
       </Col>
     </Container>
     <Container id="form">
@@ -124,9 +156,11 @@ export default class Home extends Component {
             <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
             <Row >
           <Col md={4} className="mt-5">
-            <h2>Impossibility is still just a registration away from reality.</h2>
+          <Rotate top left cascade>
+            <h2>Impossibility is still just a registration away  from reality.</h2>
               <p>Register for the first social network that was literally born in a fandom!</p>
-            </Col>
+          </Rotate>
+          </Col>
             
           <Col md={8}>
           <RegistrationForm classname="s-head"/>
@@ -141,9 +175,10 @@ export default class Home extends Component {
           <Col xs={12} sm={4} className="person-wrapper">
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
-            <Image src="assets/person-1.jpg" circle className="profile-pic"/>
+            <Fade bottom><Image src="assets/person-1.jpg" circle className="profile-pic"/></Fade>
+            <Rotate to left cascade>
             <h4>"...it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
-            <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p>
+            <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p></Rotate>
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
           </Col>
@@ -167,11 +202,11 @@ export default class Home extends Component {
             <Button onClick={this.handleClose} className="btn btn-grad-blue">Close</Button>
           </Modal.Footer>
         </Modal>
-
+        <Fade >
         <Container>
           <Row>
             <Col md={6}>
-                <h4>This project is open sourced</h4>
+               <h4>This project is open sourced</h4>
                 <code>$ git clone https://github.com/sensorium-app/sensorium-web.git sensorium</code>
             </Col>
             <Col md={6}>
@@ -182,6 +217,7 @@ export default class Home extends Component {
             </Col>
           </Row>
         </Container>
+        </Fade>
       </Row>
     )
   }
