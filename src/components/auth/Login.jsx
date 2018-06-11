@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Image } from 'react-bootstrap';
 
 export default class Login extends React.Component {
     constructor(props, context) {
@@ -8,7 +9,10 @@ export default class Login extends React.Component {
     render() {
 
         return (
-            <h1>Login</h1>
+            <div>
+                <Image src="assets/small-header.jpg" className="header-image" />
+                <h1>Login</h1>
+            </div>
         )
     }
 }

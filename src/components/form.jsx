@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom'; 
+import PrivateRoute from './auth/PrivateRoute';
 
 import 'firebase/firestore'
 import firebaseConf from './../config/FirebaseConfig';
@@ -40,11 +41,11 @@ const initialState = {
       focused: false,
       input: ''
     };
-
+        
 class RegistrationForm extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props,context);
 
     this.state = initialState;
 
@@ -133,13 +134,16 @@ class RegistrationForm extends React.Component {
 
           console.log(errorCode);
           console.log(errorMessage);
-          var errorToShow = 'An error occured on user, please contact us';
+          var errorToShow = '';
           switch(errorCode){
             case 'auth/weak-password':
               errorToShow = 'Please provide at least a 6 character password';
               break;
             case 'auth/email-already-in-use':
               errorToShow = 'That email has already registered, hang on please.';
+              break;
+            default:
+              errorToShow = 'An error occured on user, please contact us';
               break;
           }
 
@@ -178,15 +182,18 @@ class RegistrationForm extends React.Component {
 
             this.db.collection('sensates').add(sensate).then((res)=>{
               console.log(res);
-              
-              firebaseConf.auth().signOut().then(() =>{
+              console.log(this.props, this.context);
+
+              this.props.history.push('/profile')
+
+              /*firebaseConf.auth().signOut().then(() =>{
                 this.setState(initialState);
                 console.log('Successful registration!');
                 alert('Successful registration!');
               }).catch((error)=> {
                 console.log(error);
                 alert('An error ocurred, please contact us');
-              });
+              });*/
 
             }).catch((err)=>{
               console.log(err);
@@ -236,7 +243,7 @@ class RegistrationForm extends React.Component {
           </Col>
           <Col sm={3}></Col>
           <Col sm={6}>
-                <label required className="text-left mt-3" for="date">Date Of Birth</label>
+                <label required className="text-left mt-3" htmlFor="date">Date Of Birth</label>
                 <DatePicker className="DatePicker input-line" id="date"
                     selected={this.state.dateTimeOfBirth}
                     onChange={this.handleDateChange}
@@ -268,6 +275,7 @@ class RegistrationForm extends React.Component {
             ?
           </Label>
         </FormGroup>
+
         <a className="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
       
@@ -277,4 +285,4 @@ class RegistrationForm extends React.Component {
 }
 
 
-export default RegistrationForm;
+export default withRouter(RegistrationForm);

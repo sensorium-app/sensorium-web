@@ -122,7 +122,7 @@ export default class Home extends Component {
           <p className="text-justify">
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
             </p>
-            <p classname="text-justify">
+            <p className="text-justify">
             Because Sense8 is not just a work of art of piece of entertainment, it's a movement, it's a revolution, its the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives and changing the world, simultaneously.
           </p>
           </Slide>
