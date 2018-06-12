@@ -136,7 +136,7 @@ export default class Home extends Component {
            
             <h2>WHEN?</h2>
             <p className="text-justify">
-                Right here, right now. We hope to expand this global community space to not only encompass means of connecting and sharing media but also interactive features, video games and other new tools to make like within this clustered hub a truly inspirational experience.
+                Right here, right now. We hope to expand this global community space to not only encompass means of connecting and sharing media but also interactive features, video games and other new tools to make life within this clustered hub a truly inspirational experience.
               </p>
               <p className="text-justify">
                 We're on a pre-registration phase, which means you can register with some basic data.
