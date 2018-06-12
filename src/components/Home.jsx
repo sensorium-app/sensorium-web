@@ -98,7 +98,7 @@ export default class Home extends Component {
       <Fade top>
 
           <div className="s-cards bg-grad-green">
-            <Slide cascade top>
+            
             <h2>WHAT?</h2>
               <p className="text-justify">
               A virtual archipelago for Sensate  to connect and thrive in a home tailor made for Homo Sensoriums. Share, visit and be reborn as a Sensate and experience the wonder and beauty of our common humanity and shared values with a truly global community.</p>
@@ -107,7 +107,7 @@ export default class Home extends Component {
               We want to create a network that embraces empathy, love, collaboration and compassion throughout the world.
               
               </p>
-            </Slide>
+            
 {/*              <a className="btn btn-grad-green">read more..</a>
 */}       </div>
       </Fade>
@@ -117,7 +117,7 @@ export default class Home extends Component {
 
           <div className="empty-box"></div>
           <div className=" s-cards bg-grad-pink">
-          <Slide cascade top>
+          
           <h2>WHY?</h2>
           <p className="text-justify">
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
@@ -125,7 +125,7 @@ export default class Home extends Component {
             <p className="text-justify">
             Because Sense8 is not just a work of art of piece of entertainment, it's a movement, it's a revolution, its the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives and changing the world, simultaneously.
           </p>
-          </Slide>
+
 {/*          <a className="btn btn-grad-pink">read more..</a>
 */}          </div>
 </Fade>
@@ -133,7 +133,7 @@ export default class Home extends Component {
       <Col xs="12" md="4" className="text-center">
            <Fade top>
            <div className="s-cards bg-grad-blue">
-           <Slide cascade top>
+           
             <h2>WHEN?</h2>
             <p className="text-justify">
                 Right here, right now. We hope to expand this global community space to not only encompass means of connecting and sharing media but also interactive features, video games and other new tools to make like within this clustered hub a truly inspirational experience.
@@ -144,7 +144,7 @@ export default class Home extends Component {
                 actively once we launch an official release very soon.
               </p>
                 
-              </Slide>
+              
 {/*              <a className="btn btn-grad-blue">read more..</a>
 */}          </div>
             </Fade>
@@ -157,7 +157,7 @@ export default class Home extends Component {
             <Row >
           <Col md={4} className="mt-5">
           <Rotate top left cascade>
-            <h2>Impossibility is still just a registration away  from reality.</h2>
+            <h2>Impossibility is a registration away from reality.</h2>
               <p>Register for the first social network that was literally born in a fandom!</p>
           </Rotate>
           </Col>

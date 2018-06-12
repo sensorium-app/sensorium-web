@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route,Link,Redirect,withRouter } from 'react-router-dom';
-import PrivateRoute from './components/auth/PrivateRoute';
+import { BrowserRouter as Router,Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './components/Home';
 import About from './components/About';
 import News from './components/News';
@@ -9,14 +9,13 @@ import Navbar from './components/CustomNavbar';
 import Footer from './components/Footer';
 import Terms from './components/Terms';
 import Privacy from './components/Privacy';
-import Login from './components/auth/Login';
 import Profile from './components/user/Profile';
 import 'firebase/firestore';
 import firebaseConf from './config/FirebaseConfig';
 
-/*import ReactGA from 'react-ga';
+import ReactGA from 'react-ga';
 ReactGA.initialize('UA-120543225-1');
-ReactGA.pageview(window.location.pathname + window.location.search);*/
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 class App extends Component {
   constructor (props){
@@ -24,14 +23,6 @@ class App extends Component {
     this.db = firebaseConf.firestore();
     const settings = { timestampsInSnapshots: true};
     this.db.settings(settings);
-    //this.db.collection('sensates').add({id:1, name:'leo', email:'@'});
-    
-    /*let messagesRef = this.db.collection("sensates").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-        //this.state.messages.push({uid: doc.id, email: doc.data().email})
-      });
-    });*/
   }
   
   render() {
@@ -40,12 +31,13 @@ class App extends Component {
         <div>
           <Navbar />
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/news" component={News} />
-          <Route path="/terms" component={Terms} />
-          <Route path="/privacy" component={Privacy} />
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <ScrollToTop>
+            <Route path="/about" component={About} />
+            <Route path="/news" component={News} />
+            <Route path="/terms" component={Terms} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/profile" component={Profile} />
+          </ScrollToTop>
           <Footer />
         </div>
       </Router>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Image } from 'react-bootstrap';
 
-export default class Login extends React.Component {
+export default class Login extends Component {
     constructor(props, context) {
         super(props, context);
     }

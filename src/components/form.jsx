@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { Link,withRouter } from 'react-router-dom'; 
-import PrivateRoute from './auth/PrivateRoute';
 
 import 'firebase/firestore'
 import firebaseConf from './../config/FirebaseConfig';
@@ -37,9 +36,7 @@ const initialState = {
 
       acceptsTerms: false,
 
-      items: [],
-      focused: false,
-      input: ''
+      disabledBtn: false
     };
         
 class RegistrationForm extends React.Component {
@@ -126,7 +123,7 @@ class RegistrationForm extends React.Component {
         (this.state.password && this.state.password.length > 0)
       ){
 
-        //const dbCollection = this.db.collection('sensates');
+        this.setState({disabledBtn: true});
 
         firebaseConf.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error)=> {
           var errorCode = error.code;
@@ -182,18 +179,17 @@ class RegistrationForm extends React.Component {
 
             this.db.collection('sensates').add(sensate).then((res)=>{
               console.log(res);
-              console.log(this.props, this.context);
 
-              this.props.history.push('/profile')
-
-              /*firebaseConf.auth().signOut().then(() =>{
-                this.setState(initialState);
-                console.log('Successful registration!');
-                alert('Successful registration!');
-              }).catch((error)=> {
-                console.log(error);
-                alert('An error ocurred, please contact us');
-              });*/
+              this.setState(initialState, () => {
+                firebaseConf.auth().signOut().then(() =>{
+                    this.props.history.push('/profile')
+                    console.log('Logged out');
+                }).catch((error)=> {
+                    console.log(error);
+                    alert('An error ocurred, please contact us');
+                });
+                
+              });
 
             }).catch((err)=>{
               console.log(err);
@@ -276,7 +272,7 @@ class RegistrationForm extends React.Component {
           </Label>
         </FormGroup>
 
-        <a className="btn btn-grad-peach" onClick={this.addSensate.bind(this)}>Register!</a>
+        <a className="btn btn-grad-peach" disabled={this.state.disabledBtn} onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
       
    
