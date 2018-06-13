@@ -67,15 +67,14 @@ export default class Home extends Component {
 
                   <span>divided from the experiences of those who do not share our</span>
                   <div className="rw-words rw-words-1 grad-text">
-                      <span>race</span>
-                      <span>ethnicity</span>
-                      <span>faith</span>
-                      <span>ideology</span>
-                      <span>gender</span>
-                      <span>sexuality</span>
-                      <span>profession</span>
-                      <span>body</span>
-                      <span>mind</span>
+                      <span className="grad-text-span">ethnicity</span>
+                      <span className="grad-text-span">faith</span>
+                      <span className="grad-text-span">ideology</span>
+                      <span className="grad-text-span">gender</span>
+                      <span className="grad-text-span">sexuality</span>
+                      <span className="grad-text-span">profession</span>
+                      <span className="grad-text-span">body</span>
+                      <span className="grad-text-span">mind</span>
                   </div>
 
                 </h3>

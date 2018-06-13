@@ -41,7 +41,7 @@ h3 {
   padding: 10px;
 }
 
-.grad-text p,span {
+.grad-text-span {
    -webkit-animation: changeColor 20s ease-in-out  infinite;
    animation: changeColor 20s ease-in-out infinite;
    font-weight: bolder;

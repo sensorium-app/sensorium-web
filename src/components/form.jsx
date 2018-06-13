@@ -237,10 +237,12 @@ class RegistrationForm extends React.Component {
               onChange={this.handleInputChange}
             />
           </Col>
-          <Col sm={3}></Col>
-          <Col sm={6}>
+          <Col sm={2}></Col>
+          <Col sm={8}>
                 <label required className="text-left mt-3" htmlFor="date">Date Of Birth</label>
+                <br />
                 <DatePicker className="DatePicker input-line" id="date"
+                    inline
                     selected={this.state.dateTimeOfBirth}
                     onChange={this.handleDateChange}
                     showYearDropdown
@@ -249,7 +251,7 @@ class RegistrationForm extends React.Component {
                     placeholderText="Date Of Birth"
                 />
           </Col>
-          <Col sm={3}></Col>
+          <Col sm={2}></Col>
         </FormGroup>
         
         <FormGroup row>
