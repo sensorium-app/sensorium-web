@@ -21,7 +21,7 @@ class Profile extends Component {
     render() {
         return (
             <div className="container text-center">
-                <Image src="assets/small-header.jpg" className="header-image" />
+                <br/><br/>
                 <h1>Welcome! Thank you for registering.</h1>
                 <p>You have just been reborn into Sensorium...</p>
                 <p>The psycellium is working hard to find your cluster. Be patient, the reward will be amazing.</p>

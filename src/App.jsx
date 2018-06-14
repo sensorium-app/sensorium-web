@@ -13,9 +13,9 @@ import Profile from './components/user/Profile';
 import 'firebase/firestore';
 import firebaseConf from './config/FirebaseConfig';
 
-import ReactGA from 'react-ga';
+/*import ReactGA from 'react-ga';
 ReactGA.initialize('UA-120543225-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
+ReactGA.pageview(window.location.pathname + window.location.search);*/
 
 class App extends Component {
   constructor (props){

@@ -266,10 +266,10 @@ class RegistrationForm extends React.Component {
           </Col>
           <Label for="acceptsTerms" sm={11}>Are you ok with our 
             
-            <Link href="/Terms" to="/Terms"  target="_blank"> Terms and Conditions </Link>
+            <Link href="/terms" to="/terms"  target="_blank"> Terms and Conditions </Link>
             
             and 
-            <Link href="/Privacy" to="/Privacy" target="_blank"> Privacy Policy </Link>
+            <Link href="/privacy" to="/privacy" target="_blank"> Privacy Policy </Link>
             ?
           </Label>
         </FormGroup>

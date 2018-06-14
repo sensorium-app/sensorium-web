@@ -59,13 +59,9 @@ export default class Home extends Component {
             <Row text-center="true">
               <Col md={12}>
               <section className="rw-wrapper">
-                <h3 className="rw-sentence">
-                  <span>Division remains a force within the world.</span>
-                  <span> We each exist within our own confines,</span>
-
-                  <br />
-
-                  <span>divided from the experiences of those who do not share our</span>
+                <h3 className="rw-sentence h3-responsive">
+                <span>Division remains a force within the world. We each exist within our own confines, 
+                divided from the experiences of those who do not share our</span>
                   <div className="rw-words rw-words-1 grad-text">
                       <span className="grad-text-span">ethnicity</span>
                       <span className="grad-text-span">faith</span>
@@ -79,7 +75,7 @@ export default class Home extends Component {
 
                 </h3>
                 <Fade>
-                <a className=" btn btn-grad-peach learn-more" href="/about">Learn More</a>
+                  <a className=" btn btn-grad-peach learn-more" href="/about">Learn More</a>
                 </Fade>
               </section>
                 <div >
@@ -114,8 +110,7 @@ export default class Home extends Component {
       <Col xs="12" md="4" className="text-center">
       <Fade top>
 
-          <div className="empty-box"></div>
-          <div className=" s-cards bg-grad-pink">
+          <div className="s-cards bg-grad-pink">
           
           <h2>WHY?</h2>
           <p className="text-justify">
@@ -156,8 +151,10 @@ export default class Home extends Component {
             <Row >
           <Col md={4} className="mt-5">
           <Rotate top left cascade>
-            <h2>Impossibility is a registration away from reality.</h2>
+            <div>
+              <h2>Impossibility is a registration away from reality.</h2>
               <p>Register for the first social network that was literally born in a fandom!</p>
+            </div>
           </Rotate>
           </Col>
             
@@ -175,9 +172,12 @@ export default class Home extends Component {
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
             <Fade bottom><Image src="assets/person-1.jpg" circle className="profile-pic"/></Fade>
-            <Rotate to left cascade>
-            <h4>"...it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
-            <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p></Rotate>
+            <Rotate top left cascade>
+              <div>
+                <h4>"...it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
+                <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p>
+              </div>
+            </Rotate>
           </Col>
           <Col xs={12} sm={4} className="person-wrapper">
           </Col>
@@ -203,6 +203,7 @@ export default class Home extends Component {
         </Modal>
         <Fade >
         <Container>
+        <Fade bottom>
           <Row>
             <Col md={6}>
                <h4>This project is open sourced</h4>
@@ -215,6 +216,7 @@ export default class Home extends Component {
                 </p>
             </Col>
           </Row>
+          </Fade>
         </Container>
         </Fade>
       </Row>

@@ -7,7 +7,7 @@ export default class News extends Component {
     return (
       <div>
 
-        <Image src="assets/small-header.jpg" className="header-image" />
+        <br/><br/>
         <Grid>
           <h2>News</h2>
           <Row>

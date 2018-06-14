@@ -1,5 +1,4 @@
 nav.navbar, .navbar-default {
-  background-color: transparent !important;
   position: absolute;
   z-index: 9999;
   width: 100%;
