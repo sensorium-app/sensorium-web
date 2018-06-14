@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 import './style/CustomNavbar.css'
 
 export default class CustomNavbar extends Component {
+  constructor(props){
+    super(props);
+
+    console.log(props);
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect className="navbar-light blue lighten-2">

@@ -19,8 +19,11 @@ export default class Home extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false
+      show: false,
+      authUser: props.authUser
     };
+
+    console.log(this.props.authUser)
   }
 
   
@@ -147,23 +150,25 @@ export default class Home extends Component {
     <Container id="form">
         
             
-            <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
-            <Row >
-          <Col md={4} className="mt-5">
-          <Rotate top left cascade>
-            <div>
-              <h2>Impossibility is a registration away from reality.</h2>
-              <p>Register for the first social network that was literally born in a fandom!</p>
-            </div>
-          </Rotate>
-          </Col>
-            
-          <Col md={8}>
-          <RegistrationForm classname="s-head"/>
+            {this.state.authUser ? null :
+              <Jumbotron className="bg-grad-blue s-cards text-center mt-5">
+                <Row >
+                  <Col md={4} className="mt-5">
+                  <Rotate top left cascade>
+                    <div>
+                      <h2>Impossibility is a registration away from reality.</h2>
+                      <p>Register for the first social network that was literally born in a fandom!</p>
+                    </div>
+                  </Rotate>
+                  </Col>
+                    
+                  <Col md={8}>
+                  <RegistrationForm classname="s-head"/>
 
-          </Col>
-          </Row>
-            </Jumbotron>
+                  </Col>
+                </Row>
+              </Jumbotron>
+            }
           
         
         
@@ -184,24 +189,6 @@ export default class Home extends Component {
         </Row>
       </Container>
 
-       <Modal show={this.state.show} onHide={this.handleClose} >
-          <Modal.Header closeButton className="s-modal-head bg-grad-green">
-            <Modal.Title >
-            <div text-center="" className="grad-text">
-              <h3> "Who's standing here?"</h3>
-            </div>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body >
-
-                    <RegistrationForm classname="s-head"/>
-                       
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose} className="btn btn-grad-blue">Close</Button>
-          </Modal.Footer>
-        </Modal>
-        <Fade >
         <Container>
         <Fade bottom>
           <Row>
@@ -218,7 +205,7 @@ export default class Home extends Component {
           </Row>
           </Fade>
         </Container>
-        </Fade>
+
       </Row>
     )
   }

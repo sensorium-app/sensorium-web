@@ -180,16 +180,11 @@ class RegistrationForm extends React.Component {
             this.db.collection('sensates').add(sensate).then((res)=>{
               console.log(res);
 
-              this.setState(initialState, () => {
-                firebaseConf.auth().signOut().then(() =>{
-                    this.props.history.push('/profile')
-                    console.log('Logged out');
-                }).catch((error)=> {
-                    console.log(error);
-                    alert('An error ocurred, please contact us');
-                });
+              //this.setState(initialState, () => {
                 
-              });
+                this.props.history.push('/profile');
+                
+              //});
 
             }).catch((err)=>{
               console.log(err);
@@ -197,7 +192,7 @@ class RegistrationForm extends React.Component {
             });
 
           } else {
-            console.log('User signed out');
+            console.log('User not logged in');
           }
         });
       }else{
