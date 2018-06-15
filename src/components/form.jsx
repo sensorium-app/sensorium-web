@@ -13,11 +13,11 @@ import './style/style.css';
 import './style/form.css';
 
 const initialState = {
-      name: '',
+      name: 'LeoTest'+new Date().getTime(),
       lastName: '',
       secondLastName: '',
-      email: '',
-      password: '',
+      email: 'le'+new Date().getTime()+'o@d.com',
+      password: 'leron8',
       gender: '',
       dateTimeOfBirth: moment().subtract(18, 'years'),
       languagesSpoken: {},

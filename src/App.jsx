@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router,Route } from 'react-router-dom';
+import { BrowserRouter as Router,Route,Redirect } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './components/Home';
 import About from './components/About';
@@ -13,9 +13,9 @@ import Profile from './components/user/Profile';
 import 'firebase/firestore';
 import firebaseConf from './config/FirebaseConfig';
 
-import ReactGA from 'react-ga';
+/*import ReactGA from 'react-ga';
 ReactGA.initialize('UA-120543225-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
+ReactGA.pageview(window.location.pathname + window.location.search);*/
 
 class App extends Component {
   constructor (props){
@@ -32,6 +32,7 @@ class App extends Component {
 
   componentDidMount() {
     firebaseConf.auth().onAuthStateChanged(authUser => {
+      console.log(authUser)
       authUser
         ? this.setState(() => ({ authUser }))
         : this.setState(() => ({ authUser: null }));
@@ -42,14 +43,14 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navbar authUser={this.state.authUser} />
-          <Route exact path="/" render={()=><Home authUser={this.state.authUser} />} />
+          {this.state.authUser && <Navbar authUser={this.state.authUser} />}
+          <Route exact path="/" render={()=> (this.state.authUser &&  <Home authUser={this.state.authUser} />) || <Home authUser=""/>} />
           <ScrollToTop>
             <Route path="/about" component={About} />
             <Route path="/news" component={News} />
             <Route path="/terms" component={Terms} />
             <Route path="/privacy" component={Privacy} />
-            <Route path="/profile" render={()=><Profile authUser={this.state.authUser} />} />
+            <Route path="/profile" render={()=> (this.state.authUser && <Profile authUser={this.state.authUser}/>) || <Redirect to="/" /> } />
           </ScrollToTop>
           <Footer />
         </div>

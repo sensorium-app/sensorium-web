@@ -8,6 +8,10 @@ export default class CustomNavbar extends Component {
     super(props);
 
     console.log(props);
+
+    this.state={
+      authUser: props.authUser
+    };
   }
 
   render() {
@@ -30,6 +34,9 @@ export default class CustomNavbar extends Component {
             <NavItem eventKey={3} componentClass={Link} href="/news" to="/news">
               News
             </NavItem>
+            {!this.state.authUser ? null : <NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
+              Profile
+            </NavItem> }
           </Nav>
         </Navbar.Collapse>
       </Navbar>
