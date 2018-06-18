@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Terms from './components/Terms';
 import Privacy from './components/Privacy';
 import Profile from './components/user/Profile';
+import Login from './components/auth/Login';
 import 'firebase/firestore';
 import firebaseConf from './config/FirebaseConfig';
 
@@ -43,14 +44,19 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {this.state.authUser && <Navbar authUser={this.state.authUser} />}
-          <Route exact path="/" render={()=> (this.state.authUser &&  <Home authUser={this.state.authUser} />) || <Home authUser=""/>} />
+          {this.state.authUser && <Navbar authUser={this.state.authUser} /> }
+          {!this.state.authUser && <Navbar authUser={null} /> }
+          <Route exact path="/" render={()=> this.state.authUser && <Home authUser={this.state.authUser} /> } />
+          <Route exact path="/" render={()=> !this.state.authUser && <Home authUser={null}/> } />
           <ScrollToTop>
             <Route path="/about" component={About} />
             <Route path="/news" component={News} />
             <Route path="/terms" component={Terms} />
             <Route path="/privacy" component={Privacy} />
-            <Route path="/profile" render={()=> (this.state.authUser && <Profile authUser={this.state.authUser}/>) || <Redirect to="/" /> } />
+            <Route path="/profile" render={()=> this.state.authUser && <Profile authUser={this.state.authUser} />} />
+            <Route path="/profile" render={()=> !this.state.authUser && <Redirect to="/" />} />
+            <Route path="/login" render={()=> !this.state.authUser && <Login/> }/>
+            <Route path="/login" render={()=> this.state.authUser && <Redirect to="/profile" /> }/>
           </ScrollToTop>
           <Footer />
         </div>

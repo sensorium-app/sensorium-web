@@ -43,7 +43,14 @@ export default class Home extends Component {
       <section className="hero-area">
           <Container>
               <Row>
-                  <Col md={12}>
+                <Col md={6}>
+                      <Fade left>
+                      <div className="block">
+                          <a className="btn btn-grad-peach wow bounceIn" href="/login" role="button" >Login</a>
+                      </div>
+                      </Fade>
+                  </Col>
+                  <Col md={6}>
                       <Fade left>
                       <div className="block">
                           <a className="btn btn-grad-peach wow bounceIn" href="#form" role="button" >Pre-Register</a>
