@@ -13,11 +13,11 @@ import './style/style.css';
 import './style/form.css';
 
 const initialState = {
-      name: 'LeoTest'+new Date().getTime(),
+      name: '',
       lastName: '',
       secondLastName: '',
-      email: 'le'+new Date().getTime()+'o@d.com',
-      password: 'leron8',
+      email: '',
+      password: '',
       gender: '',
       dateTimeOfBirth: moment().subtract(18, 'years'),
       languagesSpoken: {},
@@ -180,15 +180,18 @@ class RegistrationForm extends React.Component {
             this.db.collection('sensates').add(sensate).then((res)=>{
               console.log(res);
 
-              //this.setState(initialState, () => {
-                
+              var user = firebaseConf.auth().currentUser;
+
+              user.sendEmailVerification().then(() =>{
                 this.props.history.push('/profile');
-                
-              //});
+              }).catch((error) =>{
+                console.log(error);
+                alert('Error verifying email, please contact us');
+              });
 
             }).catch((err)=>{
               console.log(err);
-              alert('An error ocurred, please contact us');
+              alert('An error ocurred registering, please contact us');
             });
 
           } else {

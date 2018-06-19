@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import {Container, Row, Col, Jumbotron, Button } from 'reactstrap';
-import {Image, Modal} from 'react-bootstrap';
-import RegistrationForm from './form.jsx'; 
-import Slide from 'react-reveal/Slide';
+import {Container, Row, Col, Jumbotron} from 'reactstrap';
+import {Image} from 'react-bootstrap';
+import RegistrationForm from './form.jsx';
 import Rotate from 'react-reveal/Rotate';
 import Fade from 'react-reveal/Fade';
 
@@ -43,13 +42,15 @@ export default class Home extends Component {
       <section className="hero-area">
           <Container>
               <Row>
-                <Col md={6}>
+                {this.state.authUser ? null :
+                  <Col md={6}>
                       <Fade left>
-                      <div className="block">
-                          <a className="btn btn-grad-peach wow bounceIn" href="/login" role="button" >Login</a>
-                      </div>
+                        <div className="block">
+                            <a className="btn btn-grad-peach wow bounceIn" href="/login" role="button" >Login</a>
+                        </div>
                       </Fade>
                   </Col>
+                }
                   <Col md={6}>
                       <Fade left>
                       <div className="block">

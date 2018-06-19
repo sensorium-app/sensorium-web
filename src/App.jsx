@@ -11,12 +11,11 @@ import Terms from './components/Terms';
 import Privacy from './components/Privacy';
 import Profile from './components/user/Profile';
 import Login from './components/auth/Login';
-import 'firebase/firestore';
 import firebaseConf from './config/FirebaseConfig';
 
-/*import ReactGA from 'react-ga';
+import ReactGA from 'react-ga';
 ReactGA.initialize('UA-120543225-1');
-ReactGA.pageview(window.location.pathname + window.location.search);*/
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 class App extends Component {
   constructor (props){
@@ -53,8 +52,7 @@ class App extends Component {
             <Route path="/news" component={News} />
             <Route path="/terms" component={Terms} />
             <Route path="/privacy" component={Privacy} />
-            <Route path="/profile" render={()=> this.state.authUser && <Profile authUser={this.state.authUser} />} />
-            <Route path="/profile" render={()=> !this.state.authUser && <Redirect to="/" />} />
+            <Route path="/profile" render={()=> this.state.authUser ? <Profile authUser={this.state.authUser} /> : <Redirect to="/"/> } />
             <Route path="/login" render={()=> !this.state.authUser && <Login/> }/>
             <Route path="/login" render={()=> this.state.authUser && <Redirect to="/profile" /> }/>
           </ScrollToTop>
