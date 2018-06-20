@@ -137,7 +137,7 @@ export default class Login extends Component {
                             : null 
                         } 
                         <Col sm="6">
-                            <div className="panel panel-primary text-center">
+                            <div className="panel panel-primary text-center hidden-xs">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Welcome Back!</h3>
                                 </div>

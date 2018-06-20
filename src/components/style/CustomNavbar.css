@@ -6,10 +6,11 @@ nav.navbar, .navbar-default {
 @media only screen and (max-width: 600px) {
     nav.navbar, .navbar-default {
       background-color: #5DA4E2 !important;
-      position: relative;
+      position: absolute;
       width: 100%;
     }
 }
+
 .navbar-default {
   background-image: none;
   border: none;

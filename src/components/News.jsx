@@ -20,7 +20,7 @@ export default class News extends Component {
             </Col>
             <Col xs={12} sm={4} className="sidebar-section">
               <Image src="assets/team.jpg" />
-              <p>Meet our team.</p>
+              <p className="hidden-xs">Meet our team.</p>
             </Col>
           </Row>
         </Grid>

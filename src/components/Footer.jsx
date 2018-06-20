@@ -9,14 +9,13 @@ class Footer extends Component {
       <section id="footer">
       <Container>
         <Row  text-center="true">
-          <div className="col-xs-12 col-sm-4 col-md-4">
-            
+          <div className="col-xs-4 col-sm-4 col-md-4">
           </div>
-          <div className="col-xs-12 col-sm-4 col-md-4">
-            
+          
+          <div className="col-xs-4 col-sm-4 col-md-4">            
           </div>
 
-          <div className="col-xs-12 col-sm-4 col-md-4 footer-content">
+          <div className="col-xs-4 col-sm-4 col-md-4 footer-content">
             <h5>Quick links</h5>
             <ul className="list-unstyled quick-links">
               <li><a href="/"><i className="fa fa-angle-double-right"></i>Home</a></li>
@@ -28,7 +27,7 @@ class Footer extends Component {
 
         </Row>
         <Row>
-          <div className="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5 footer-content">
+          <div className="col-xs-12 col-sm-12 col-md-12 mt-2 footer-content">
             <ul className="list-unstyled list-inline social text-center">
             <li className="list-inline-item"><a href="https://twitter.com/sensoriumapp" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a></li>
             <li className="list-inline-item"><a href="https://fb.me/SensoriumApp" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>  

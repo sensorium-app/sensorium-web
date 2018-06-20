@@ -12,7 +12,7 @@ section .section-title {
 #footer {
     height: 100vh;
     background-image: url("/assets/footer-bg.png");
-    background-size: 100% auto;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom;
 }
