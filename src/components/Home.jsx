@@ -163,7 +163,7 @@ export default class Home extends Component {
             </Fade>
       </Col>
     </Container>
-    <Container>
+    <Container id="form">
         
             
             {this.state.authUser ? null :
