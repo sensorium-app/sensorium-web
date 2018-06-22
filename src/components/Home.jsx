@@ -209,12 +209,14 @@ export default class Home extends Component {
             <Row className="text-center">
               <Col md={6}>
                 <h2>This project is open sourced</h2>
-                  <code>$ git clone https://github.com/sensorium-app/sensorium-web.git sensorium</code>
+                <i className="fa fa-github git-logo"></i><code>$ git clone https://github.com/sensorium-app/sensorium-web.git</code>
               </Col>
               <Col md={6}>
                   <h4>Help this project grow!</h4>
                   <p>We strongly believe in united people reaching common goals. 
-                    This project was conceived as open source and we value each and everyone's opinion and contributions.
+                    This project was conceived as open source and we value each and everyone's opinion and contributions.<br />
+                    <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank">Join us on Slack!</a>
+                    
                   </p>
               </Col>
             </Row>
