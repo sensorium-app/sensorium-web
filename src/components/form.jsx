@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link,withRouter } from 'react-router-dom'; 
 
 import 'firebase/firestore'
@@ -7,8 +7,9 @@ import firebaseConf from './../config/FirebaseConfig';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
-import 'react-datepicker/dist/react-datepicker.css';
+import InfiniteCalendar from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css';
+// import 'react-datepicker/dist/react-datepicker.css';
 import './style/style.css';
 import './style/form.css';
 
@@ -42,6 +43,7 @@ const initialState = {
 class RegistrationForm extends React.Component {
 
   constructor(props, context) {
+
     super(props,context);
 
     this.state = initialState;
@@ -55,7 +57,16 @@ class RegistrationForm extends React.Component {
 
     this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
-    
+     this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+  // date dropdown
+  toggle() {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
   }
 
   /** Generic function for state management of input elements */
@@ -205,6 +216,7 @@ class RegistrationForm extends React.Component {
     }
 
   }
+  
   render() {
     
     return (
@@ -239,15 +251,22 @@ class RegistrationForm extends React.Component {
           <Col sm={8}>
                 <label required className="text-left mt-3" htmlFor="date">Date Of Birth</label>
                 <br />
-                <DatePicker className="DatePicker input-line" id="date"
-                    inline
-                    selected={this.state.dateTimeOfBirth}
-                    onChange={this.handleDateChange}
-                    showYearDropdown
-                    showMonthDropdown
-                    maxTime={moment()}
-                    placeholderText="Date Of Birth"
-                />
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} >
+                  <DropdownToggle caret className="btn btn-grad-blue">
+                    Date of Birth
+                  </DropdownToggle>
+                <DropdownMenu>
+                <DropdownItem>
+                  <InfiniteCalendar className="DatePicker input-line" id="date"          selected={this.state.dateTimeOfBirth}
+                          onChange={this.handleDateChange}
+                          width={400}
+                          height={200}
+                      />
+                </DropdownItem>
+              </DropdownMenu>
+      </Dropdown>
+                
+               
           </Col>
           <Col sm={2}></Col>
         </FormGroup>
