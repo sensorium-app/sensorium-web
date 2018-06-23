@@ -40,7 +40,7 @@ export default class About extends Component {
                 <h4 className="card-title">Sensorium!</h4>
                 <p>Imagine a world where we could connect to the wisdom of those who live around the world, share intimate moments with a core group of people, or visit with an individual who sounds different than ourselves. That is Sensorium.</p>
                 <p>You will be matched with a core group of people throughout the world. What factors brought you together? Your birthdays and other factors comming up. Matched to individuals who share you birthday and other factors, you can begin to connect to that wisdom that this world so desperately needs.</p>
-                <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank">Join us on Slack!</a>
+                <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank" rel="noopener noreferrer">Join us on Slack!</a>
               </div>
 
             </div>

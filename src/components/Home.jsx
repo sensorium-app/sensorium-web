@@ -215,7 +215,7 @@ export default class Home extends Component {
                   <h4>Help this project grow!</h4>
                   <p>We strongly believe in united people reaching common goals. 
                     This project was conceived as open source and we value each and everyone's opinion and contributions.<br />
-                    <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank">Join us on Slack!</a>
+                    <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank" rel="noopener noreferrer">Join us on Slack!</a>
                     
                   </p>
               </Col>
