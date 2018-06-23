@@ -53,15 +53,15 @@ export default class Home extends Component {
                       </Fade>
                   </Col>
                 }
-              </Row>
-              <Row>
-                <Col md={6}>
-                      <Fade left>
+                {this.state.authUser ? null :
+                  <Col md={6}>
+                    <Fade left>
                       <div className="block">
                           <a className="btn btn-grad-peach wow bounceIn" href="#form" role="button" >Pre-Register</a>
                       </div>
-                      </Fade>
+                     </Fade>
                   </Col>
+                }
               </Row>
           </Container>
       </section>
