@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { Link,withRouter } from 'react-router-dom'; 
+import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
 
-import 'firebase/firestore'
+import { Modal } from 'react-bootstrap';
+
+import { Link,withRouter } from 'react-router-dom'; 
 import firebaseConf from './../config/FirebaseConfig';
 
 import DatePicker from 'react-datepicker';
@@ -20,7 +21,7 @@ const initialState = {
       email: '',
       password: '',
       gender: '',
-      dateTimeOfBirth: moment().subtract(18, 'years'),
+      dateTimeOfBirth: null,
       languagesSpoken: {},
         
       dateOfBirthCluster: true,
@@ -37,7 +38,9 @@ const initialState = {
 
       acceptsTerms: false,
 
-      disabledBtn: false
+      disabledBtn: false,
+      modalOpen:false,
+      maxDate: moment().subtract(18, 'years').toDate()
     };
         
 class RegistrationForm extends React.Component {
@@ -57,16 +60,13 @@ class RegistrationForm extends React.Component {
 
     this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
-     this.toggle = this.toggle.bind(this);
-    this.state = {
-      dropdownOpen: false
-    };
+    this.toggle = this.toggle.bind(this);
   }
   // date dropdown
   toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
-    }));
+    this.setState({
+      modalOpen: !this.state.modalOpen
+    });
   }
 
   /** Generic function for state management of input elements */
@@ -106,6 +106,7 @@ class RegistrationForm extends React.Component {
   }
 
   handleDateChange(date) {
+    console.log(date);
     this.setState({
       dateTimeOfBirth: date
     });
@@ -133,6 +134,11 @@ class RegistrationForm extends React.Component {
         (this.state.email && this.state.email.length > 0) &&
         (this.state.password && this.state.password.length > 0)
       ){
+
+        if(!this.state.dateTimeOfBirth){
+          alert('Please select your date of birth');
+          return;
+        }
 
         this.setState({disabledBtn: true});
 
@@ -170,7 +176,7 @@ class RegistrationForm extends React.Component {
               secondLastName:this.state.secondLastName,
               email: this.state.email,
               gender: this.state.gender,
-              dateTimeOfBirth: this.state.dateTimeOfBirth.toDate(),
+              dateTimeOfBirth: this.state.dateTimeOfBirth,
               skills:{},
               hobbies: {},
               interests:{},
@@ -224,7 +230,7 @@ class RegistrationForm extends React.Component {
         <FormGroup row>
 {/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
 */}        <Col sm={6}>
-            <Input type="text" required name="name" id="name"     className="input-line" placeholder="Your cool sensate name" 
+            <Input type="text" required name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
               value={this.state.name}
               onChange={this.handleInputChange}
             />
@@ -249,22 +255,45 @@ class RegistrationForm extends React.Component {
           </Col>
           <Col sm={2}></Col>
           <Col sm={8}>
-                <label required className="text-left mt-3" htmlFor="date">Date Of Birth</label>
                 <br />
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} >
+                <a className="btn btn-grad-green" onClick={this.toggle}>Date of birth</a>
+
+                { this.state.modalOpen &&
+                  <div className="static-modal">
+                    <Modal.Dialog>
+                  
+                      <Modal.Body>
+                        <InfiniteCalendar id="date" selected={this.state.dateTimeOfBirth}
+                            width={(window.innerWidth <= 650) ? (window.innerWidth-40) : 650}
+                            height={window.innerHeight - 350}
+                            rowHeight={70}
+                            display="years"
+                            maxDate={this.state.maxDate}
+                            onSelect={this.handleDateChange}
+                        />
+                      </Modal.Body>
+                  
+                      <Modal.Footer>
+                        <a className="btn btn-grad-peach" onClick={this.toggle}>Select</a>
+                      </Modal.Footer>
+                    </Modal.Dialog>
+                  </div>
+                }
+
+                {/*<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} >
                   <DropdownToggle caret className="btn btn-grad-blue">
                     Date of Birth
                   </DropdownToggle>
                 <DropdownMenu>
                 <DropdownItem>
-                  <InfiniteCalendar className="DatePicker input-line" id="date"          selected={this.state.dateTimeOfBirth}
+                  <InfiniteCalendar className="DatePicker input-line" id="date" selected={this.state.dateTimeOfBirth}
                           onChange={this.handleDateChange}
                           width={400}
                           height={200}
                       />
                 </DropdownItem>
               </DropdownMenu>
-      </Dropdown>
+            </Dropdown>*/}
                 
                
           </Col>
