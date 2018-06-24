@@ -262,10 +262,8 @@ class RegistrationForm extends React.Component {
                   <div className="static-modal">
                     <Modal.Dialog>
                   
-                      <Modal.Body>
+                      <Modal.Body className="calendarStyle">
                         <InfiniteCalendar id="date" selected={this.state.dateTimeOfBirth}
-                            width={(window.innerWidth <= 650) ? (window.innerWidth-40) : 650}
-                            height={window.innerHeight - 350}
                             rowHeight={70}
                             display="years"
                             maxDate={this.state.maxDate}

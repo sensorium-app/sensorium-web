@@ -113,3 +113,8 @@ background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%
   font-size:1.2em;
   padding-left: 25px;
 }
+
+.calendarStyle.div{
+  width: 100%;
+  height: 60%;
+}

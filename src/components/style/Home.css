@@ -219,10 +219,9 @@ em {font-family: -webkit-pictograph; font-weight: lighter;}
 section.about {
   height: 100vh;
   position: relative;
-  padding: 50px 0;
-  background-image: url('/assets/about.png');
+  padding: 1em 0;
+  background-image: url('/assets/about.svg');
   background-repeat: no-repeat;
-  background-size: 100% 100vh;
 }
 
 section.about h2 {
