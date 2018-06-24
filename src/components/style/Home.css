@@ -31,7 +31,7 @@
 @media (min-width: 1200px) {
 
   .bgimg {
-          background-image:url('/assets/s8.jpg');
+          background-image:url('/assets/s8.svg');
           background-repeat: no-repeat;
           background-position: center;
           background-size:cover;
@@ -44,7 +44,7 @@
   @media (min-width: 992px) and (max-width: 1199px) {
   
     .bgimg {
-      background-image:url('/assets/s8.jpg');
+      background-image:url('/assets/s8.svg');
       background-repeat: no-repeat;
       background-position: center;
       background-size:cover;
@@ -56,7 +56,7 @@
   @media (min-width: 768px) and (max-width: 991px) {
   
     .bgimg {
-      background-image:url('/assets/s8.jpg');
+      background-image:url('/assets/s8.svg');
       background-repeat: no-repeat;
       background-position: center;
       background-size:cover;
