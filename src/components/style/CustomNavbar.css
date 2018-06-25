@@ -3,6 +3,7 @@ nav.navbar, .navbar-default {
   z-index: 9999;
   width: 100%;
 }
+
 @media only screen and (max-width: 600px) {
     nav.navbar, .navbar-default {
       background-color: #5DA4E2 !important;

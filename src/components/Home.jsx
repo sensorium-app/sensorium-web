@@ -9,6 +9,7 @@ import './style/Home.css';
 import './style/style.css';
 import './style/responsive.css';
 
+
 export default class Home extends Component {
   
   constructor(props, context) {
