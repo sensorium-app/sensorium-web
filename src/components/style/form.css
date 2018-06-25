@@ -114,7 +114,14 @@ background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%
   padding-left: 25px;
 }
 
-.calendarStyle.div{
+.static-modal{
+  position: absolute;
   width: 100%;
+}
+.calendarStyle{
+  width: 70%;
   height: 60%;
+}
+.dateModal{
+  background-color:transparent !important;
 }

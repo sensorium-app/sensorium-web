@@ -2,15 +2,14 @@ import React from 'react';
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
 
 import { Modal } from 'react-bootstrap';
+import Media from "react-media";
 
 import { Link,withRouter } from 'react-router-dom'; 
 import firebaseConf from './../config/FirebaseConfig';
 
-// import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-// import 'react-datepicker/dist/react-datepicker.css';
 import './style/style.css';
 import './style/form.css';
 
@@ -62,7 +61,7 @@ class RegistrationForm extends React.Component {
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.toggle = this.toggle.bind(this);
   }
-  // date dropdown
+  // date Modal
   toggle() {
     this.setState({
       modalOpen: !this.state.modalOpen
@@ -242,13 +241,13 @@ class RegistrationForm extends React.Component {
             />
           </Col>
           <Col sm={6}>
-            <Input type="email" required name="email" id="email" className="input-line" placeholder="Email" 
+            <Input type="email" required name="email" id="email" className="input-line" placeholder=" Email" 
               value={this.state.email}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="password" required name="password" id="password" className="input-line" placeholder="Password" 
+            <Input type="password" required name="password" id="password" className="input-line" placeholder=" Password" 
               value={this.state.password}
               onChange={this.handleInputChange}
             />
@@ -260,16 +259,38 @@ class RegistrationForm extends React.Component {
 
                 { this.state.modalOpen &&
                   <div className="static-modal">
-                    <Modal.Dialog>
+                    <Modal.Dialog className="dateModal">
                   
                       <Modal.Body className="calendarStyle">
-                        <InfiniteCalendar id="date" selected={this.state.dateTimeOfBirth}
+                      
+                      <Media query="(max-width: 599px)">
+
+                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
                             rowHeight={70}
+                            displayOptions={{
+                              layout: 'portrait'
+                             }}
+                             width={370}
                             display="years"
                             maxDate={this.state.maxDate}
                             onSelect={this.handleDateChange}
                         />
+                        </Media>
+                        <Media query="(min-width: 599px)">
+                             
+                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
+                            rowHeight={70}
+                            displayOptions={{
+                              layout: 'landscape'
+                             }}
+                             width={550}
+                            display="years"
+                            maxDate={this.state.maxDate}
+                            onSelect={this.handleDateChange}
+                        />
+                        </Media>
                       </Modal.Body>
+
                   
                       <Modal.Footer>
                         <a className="btn btn-grad-peach" onClick={this.toggle}>Select</a>
