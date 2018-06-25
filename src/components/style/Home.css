@@ -312,6 +312,7 @@ section.about .badge-link img {
   section.about h2 {
     font-size: 70px;
   }
+  
 }
 
 .rw-wrapper {
@@ -419,6 +420,12 @@ section.about .badge-link img {
   -webkit-box-shadow: 0px 0px 34px -7px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 34px -7px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 34px -7px rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 999px){
+  .s-cards{
+    margin-top:20px;
+  }
 }
 
 .s-head {

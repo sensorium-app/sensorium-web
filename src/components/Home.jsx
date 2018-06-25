@@ -139,7 +139,6 @@ export default class Home extends Component {
 */}       </div>
       </Fade>
       </Col>
-      <br/>
       <Col xs="12" md="4" className="text-center">
       <Fade top>
 
@@ -155,9 +154,8 @@ export default class Home extends Component {
 
 {/*          <a className="btn btn-grad-pink">read more..</a>
 */}          </div>
-</Fade>
+        </Fade>
       </Col>
-      <br/>
       <Col xs="12" md="4" className="text-center">
            <Fade top>
            <div className="s-cards bg-grad-blue">
