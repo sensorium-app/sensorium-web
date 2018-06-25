@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Input, Row, Col } from 'reactstrap';
 import { Image } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom'; 
+import Particles from 'react-particles-js';
 
 import firebaseConf from './../../config/FirebaseConfig';
 import '../style/style.css';
@@ -71,17 +72,86 @@ export default class Login extends Component {
     render() {
 
         return (
-            
+          
             <div>
                 {this.state.redirectToProfile && <Redirect to="/profile"/>}
                 <br /><br /><br />
-                <div className="">           
+                <div>           
                     <Row>
+                    <div className="particles">
+                        <Particles 
+                            params={{                                
+                                    particles: {
+                                      number: {
+                                        value: 40,
+                                        density: {
+                                          enable: true,
+                                          value_area: 800
+                                        }
+                                      },
+                                        color: {
+                                        value: "#000000"
+                                      },
+                                      
+                                      line_linked: {
+                                        enable: true,
+                                        distance: 150,
+                                        color: "#000000",
+                                        opacity: 0.4,
+                                        width: 1
+                                      },
+                                      move: {
+                                        enable: true,
+                                        speed: 6,
+                                        direction: "none",
+                                        random: false,
+                                        straight: false,
+                                        out_mode: "out",
+                                        bounce: false,
+                                        attract: {
+                                          enable: false,
+                                          rotateX: 600,
+                                          rotateY: 1200
+                                        }
+                                      }
+                                    },
+                                    interactivity: {
+                                      detect_on: "window",
+                                      events: {
+                                        onhover: {
+                                          enable: true,
+                                          mode: "grab"
+                                        },
+                                        onclick: {
+                                          enable: true,
+                                          mode: "push"
+                                        },
+                                        resize: true
+                                      },
+                                      modes: {
+                                        grab: {
+                                          distance: 170.41996348143653,
+                                          line_linked: {
+                                            opacity: 1
+                                          }
+                                        }
+                                        
+                                      }
+                                    }
+                                  
+                            }}
+                          style={{
+                            width: '100%',
+                            height: '100%'
+                            
+                        }}
+                        />
+                    </div>
                         { !this.state.showResetPassword ?
                             <Col sm="4" className="mt-5 col-sm-offset-4">
                                 <div className="panel mt-5 bg-grad-blue text-center">
                                     <div className="p-5">
-                                        <h2 className="login-panel-heading">Welcome!</h2>
+                                        <h2 className="login-panel-heading">Welcome Back!</h2>
                                         <h3 className="login-panel-heading">We are so excited to see you again</h3>
                                     </div>
                                     <div className="panel-body">
