@@ -109,6 +109,7 @@ class RegistrationForm extends React.Component {
     this.setState({
       dateTimeOfBirth: date
     });
+    this.toggle();
   }
 
   addSensate(e){
@@ -260,7 +261,7 @@ class RegistrationForm extends React.Component {
                 { this.state.modalOpen &&
                   <div className="static-modal">
                     <Modal.Dialog className="dateModal">
-                  
+                      
                       <Modal.Body className="calendarStyle">
                       
                       <Media query="(max-width: 599px)">
@@ -271,6 +272,32 @@ class RegistrationForm extends React.Component {
                               layout: 'portrait'
                              }}
                              width={370}
+                            display="years"
+                            maxDate={this.state.maxDate}
+                            onSelect={this.handleDateChange}
+                        />
+                        </Media>
+                        <Media query="(max-width: 399px)">
+
+                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
+                            rowHeight={70}
+                            displayOptions={{
+                              layout: 'portrait'
+                             }}
+                             width={320}
+                            display="years"
+                            maxDate={this.state.maxDate}
+                            onSelect={this.handleDateChange}
+                        />
+                        </Media>
+                        <Media query="(max-width: 329px)">
+
+                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
+                            rowHeight={70}
+                            displayOptions={{
+                              layout: 'portrait'
+                             }}
+                             width={270}
                             display="years"
                             maxDate={this.state.maxDate}
                             onSelect={this.handleDateChange}
@@ -290,11 +317,7 @@ class RegistrationForm extends React.Component {
                         />
                         </Media>
                       </Modal.Body>
-
-                  
-                      <Modal.Footer>
-                        <a className="btn btn-grad-peach" onClick={this.toggle}>Select</a>
-                      </Modal.Footer>
+                      <Modal.Header onClick={this.toggle}><a className="btn btn-grad-peach"  onClick={this.toggle}>Submit</a></Modal.Header>
                     </Modal.Dialog>
                   </div>
                 }
