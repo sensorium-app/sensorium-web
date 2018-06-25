@@ -30,7 +30,9 @@ class Footer extends Component {
           <div className="col-xs-12 col-sm-12 col-md-12 mt-2 footer-content">
             <ul className="list-unstyled list-inline social text-center">
             <li className="list-inline-item"><a href="https://twitter.com/sensoriumapp" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a></li>
-            <li className="list-inline-item"><a href="https://fb.me/SensoriumApp" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li>  
+            <li className="list-inline-item"><a href="https://fb.me/SensoriumApp" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a></li> 
+            <li className="list-inline-item"><a href="https://instagram.com/sensoriumapp/" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a></li> 
+            <li className="list-inline-item"><a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank" rel="noopener noreferrer"><i className="fa fa-slack"></i></a></li>             
               <li className="list-inline-item"><a href="mailto:info@sensorium.online" target="_blank" rel="noopener noreferrer"><i className="fa fa-envelope"></i></a></li>
             </ul>
           </div>

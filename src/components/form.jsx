@@ -272,6 +272,8 @@ class RegistrationForm extends React.Component {
                               layout: 'portrait'
                              }}
                              width={370}
+                             height={400}
+
                             display="years"
                             maxDate={this.state.maxDate}
                             onSelect={this.handleDateChange}
@@ -279,12 +281,14 @@ class RegistrationForm extends React.Component {
                         </Media>
                         <Media query="(max-width: 399px)">
 
-                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
+                        <InfiniteCalendar id="date" selected={this.state.dateTimeOfBirth}
                             rowHeight={70}
                             displayOptions={{
                               layout: 'portrait'
                              }}
                              width={320}
+                             height={400}
+
                             display="years"
                             maxDate={this.state.maxDate}
                             onSelect={this.handleDateChange}
@@ -310,7 +314,8 @@ class RegistrationForm extends React.Component {
                             displayOptions={{
                               layout: 'landscape'
                              }}
-                             width={550}
+                            width={550}
+                            height={400}
                             display="years"
                             maxDate={this.state.maxDate}
                             onSelect={this.handleDateChange}
