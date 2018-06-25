@@ -4,9 +4,6 @@
   and (max-device-width: 812px) 
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: portrait) { 
-  .hero-area{
-  	margin-top: -20vh !important;
-  }
   #footer{
   	color: #1c1c1c !important;
   }
