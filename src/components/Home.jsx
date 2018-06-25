@@ -9,7 +9,6 @@ import './style/Home.css';
 import './style/style.css';
 import './style/responsive.css';
 
-
 export default class Home extends Component {
   
   constructor(props, context) {
@@ -38,14 +37,16 @@ export default class Home extends Component {
 
     return (
       <Row>
-      <header className="masthead row bgimg">
-      <Col md={12}>
+      <header className="masthead row">
+      
+      <Col md={12} className="headContainer">
+      <img className="headBG" src="/assets/s8.svg" alt="" srcSet="/assets/s8.svg"/>
       <section className="hero-area">
-          <Container className="text-center">
-              <Row>
-                <h1 className="white-text visible-xs">Isolated above,</h1>
+          {/* <Container className="text-center">
+              <Row> */}
+                {/*<h1 className="white-text visible-xs">Isolated above,</h1>
                 <h1 className="white-text visible-xs">connected below</h1>
-                {this.state.authUser ? null :
+                 {this.state.authUser ? null :
                   <Col md={6}>
                       <Fade left>
                         <div className="block">
@@ -53,35 +54,34 @@ export default class Home extends Component {
                         </div>
                       </Fade>
                   </Col>
-                }
+                } */}
                 {this.state.authUser ? null :
-                  <Col md={6}>
+                  // <Col md={6}>
                     <Fade left>
                       <div className="block">
-                          <a className="btn btn-grad-peach wow bounceIn" href="#form" role="button" >Pre-Register</a>
+                          <a className="btn btn-grad-peach wow bounceIn registerBtn" href="#form" role="button" >Pre-Register</a>
                       </div>
                      </Fade>
-                  </Col>
+                  // </Col>
                 }
-              </Row>
-          </Container>
+              {/* </Row>
+          </Container> */}
       </section>
       </Col>
     </header>
 
     <section className="about row">
+
+      <img className="aboutBG" src="/assets/about.svg" alt="" srcSet="/assets/about.svg"/>
        
-          <Container>
+          <Container className="aboutTextContainer">
             <Row text-center="true">
               <Col md={12}>
               <section className="rw-wrapper">
-                <h3 className="rw-sentence h3-responsive">
+                <h3 className="rw-sentence">
                 <span>Division remains a force within the world. We each exist within our own confines, 
-                divided from the experiences of those who do not share our:</span>
-                  
-
-                </h3>
-                <div className="text-center">
+                divided from the experiences of those who do not share our</span>
+                <span className="text-center">
                   <div className="h1-responsive text-center rw-words rw-words-1 grad-text">
                       <span className="grad-text-span">ethnicity</span>
                       <span className="grad-text-span">faith</span>
@@ -92,14 +92,26 @@ export default class Home extends Component {
                       <span className="grad-text-span">body</span>
                       <span className="grad-text-span">mind</span>
                   </div>
-                </div>
+                </span>
+                </h3>
+                {/* <div className="text-center">
+                  <div className="h1-responsive text-center rw-words rw-words-1 grad-text">
+                      <span className="grad-text-span">ethnicity</span>
+                      <span className="grad-text-span">faith</span>
+                      <span className="grad-text-span">ideology</span>
+                      <span className="grad-text-span">gender</span>
+                      <span className="grad-text-span">sexuality</span>
+                      <span className="grad-text-span">profession</span>
+                      <span className="grad-text-span">body</span>
+                      <span className="grad-text-span">mind</span>
+                  </div>
+                </div> */}
                 <br />
-                <Fade>
+                
+              </section>
+              <Fade>
                   <a className=" btn btn-grad-peach learn-more" href="/about">Learn More</a>
                 </Fade>
-              </section>
-                <div >
-                </div>
               </Col>
             </Row>
           </Container>
@@ -127,6 +139,7 @@ export default class Home extends Component {
 */}       </div>
       </Fade>
       </Col>
+      <br/>
       <Col xs="12" md="4" className="text-center">
       <Fade top>
 
@@ -144,6 +157,7 @@ export default class Home extends Component {
 */}          </div>
 </Fade>
       </Col>
+      <br/>
       <Col xs="12" md="4" className="text-center">
            <Fade top>
            <div className="s-cards bg-grad-blue">

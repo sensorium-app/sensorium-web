@@ -6,7 +6,7 @@ import { Modal } from 'react-bootstrap';
 import { Link,withRouter } from 'react-router-dom'; 
 import firebaseConf from './../config/FirebaseConfig';
 
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';

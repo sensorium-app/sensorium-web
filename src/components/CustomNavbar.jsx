@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './style/CustomNavbar.css'
-
+import Rotate from 'react-reveal/Rotate';
+import Fade from 'react-reveal/Fade';
 
 export default class CustomNavbar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     console.log(props);
 
-    this.state={
+    this.state = {
       authUser: props.authUser
     };
   }
@@ -18,12 +19,21 @@ export default class CustomNavbar extends Component {
   render() {
     return (
       <Navbar collapseOnSelect className="navbar-light blue lighten-2">
+
         <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Sensorium</Link>
-          </Navbar.Brand>
           <Navbar.Toggle />
+
+          <Navbar.Brand>
+            <Link to="/"><img clasname="logo" src="/assets/sensorium.svg"/></Link>
+          </Navbar.Brand>
+
+          {this.state.authUser ? null :
+          <Fade right>
+              <a className="btn btn-grad-peach wow bounceIn loginBtn" href="/login" role="button" >Login</a>
+          </Fade>
+          }
         </Navbar.Header>
+
         <Navbar.Collapse>
           <Nav pullRight>
             <NavItem eventKey={1} componentClass={Link} href="/" to="/">
@@ -37,7 +47,7 @@ export default class CustomNavbar extends Component {
             </NavItem>
             {!this.state.authUser ? null : <NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
               Profile
-            </NavItem> }
+            </NavItem>}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
