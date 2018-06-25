@@ -279,10 +279,11 @@ class RegistrationForm extends React.Component {
                             onSelect={this.handleDateChange}
                         />
                         </Media>
+
                         <Media query="(max-width: 399px)">
 
                         <InfiniteCalendar id="date" selected={this.state.dateTimeOfBirth}
-                            rowHeight={70}
+                            rowHeight={20}
                             displayOptions={{
                               layout: 'portrait'
                              }}

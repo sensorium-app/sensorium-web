@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Input, Row, Col } from 'reactstrap';
 import { Image } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom'; 
+import { Redirect, Link } from 'react-router-dom'; 
+
 import firebaseConf from './../../config/FirebaseConfig';
+import '../style/style.css';
+import '../style/form.css';
 
 const initialState = {
     email: '',
@@ -75,10 +78,11 @@ export default class Login extends Component {
                 <div className="">           
                     <Row>
                         { !this.state.showResetPassword ?
-                            <Col sm="6">
-                                <div className="panel panel-primary text-center">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title">Login sensate</h3>
+                            <Col sm="4" className="mt-5 col-sm-offset-4">
+                                <div className="panel mt-5 bg-grad-blue text-center">
+                                    <div className="p-5">
+                                        <h2 className="login-panel-heading">Welcome!</h2>
+                                        <h3 className="login-panel-heading">We are so excited to see you again</h3>
                                     </div>
                                     <div className="panel-body">
                                         <Row>
@@ -99,8 +103,14 @@ export default class Login extends Component {
                                         </Row>
                                         <br />
                                         <Row>
-                                            <Col sm={12}>
-                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Reset password</a>
+                                            <Col sm={6}>
+                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Forgot your Password?</a>
+                                            </Col>
+                                            <Col sm={6}>
+                                                Need an account? 
+                                                <Link href="/" to="/#form">
+                                                Register
+                                                </Link>
                                             </Col>
                                         </Row>
                                     </div>
@@ -110,8 +120,8 @@ export default class Login extends Component {
                         }
                         { this.state.showResetPassword ? 
                             <Col sm="6">
-                                <div className="panel panel-primary text-center">
-                                    <div className="panel-heading">
+                                <div className="panel text-center">
+                                    <div className="panel-heading bg-grad-blue p-5">
                                         <h3 className="panel-title">Reset password</h3>
                                     </div>
                                     <div className="panel-body">
@@ -136,17 +146,7 @@ export default class Login extends Component {
                             </Col>
                             : null 
                         } 
-                        <Col sm="6">
-                            <div className="panel panel-primary text-center hidden-xs">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Welcome Back!</h3>
-                                </div>
-                                <div className="panel-body">
-                                    <p>The archipelago and psycellium awaits.</p>
-                                    <Image src="assets/sense.jpg" className=" img-fluid about-profile-pic" rounded />
-                                </div>
-                            </div>
-                        </Col>
+                        
                     </Row>
                 </div>
 
