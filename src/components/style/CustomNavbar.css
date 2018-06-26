@@ -33,7 +33,7 @@ nav.navbar, .navbar-default {
 
 .navbar-brand>img{
   display: block;
-  height: -webkit-fill-available;
+  height: 100%;
 }
 
 .navbar-default .navbar-toggle{
