@@ -277,6 +277,7 @@ class RegistrationForm extends React.Component {
                             display="years"
                             maxDate={this.state.maxDate}
                             minDate={this.state.minDate}
+                            min={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
@@ -294,6 +295,7 @@ class RegistrationForm extends React.Component {
                             display="years"
                             maxDate={this.state.maxDate}
                             minDate={this.state.minDate}
+                            min={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
@@ -308,6 +310,7 @@ class RegistrationForm extends React.Component {
                             display="years"
                             maxDate={this.state.maxDate}
                             minDate={this.state.minDate}
+                            min={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
@@ -323,6 +326,7 @@ class RegistrationForm extends React.Component {
                             display="years"
                             maxDate={this.state.maxDate}
                             minDate={this.state.minDate}
+                            min={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
