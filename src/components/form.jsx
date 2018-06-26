@@ -39,7 +39,8 @@ const initialState = {
 
       disabledBtn: false,
       modalOpen:false,
-      maxDate: moment().subtract(18, 'years').toDate()
+      maxDate: moment().subtract(18, 'years').toDate(),
+      minDate: moment().subtract(100, 'years').toDate()
     };
         
 class RegistrationForm extends React.Component {
@@ -109,7 +110,6 @@ class RegistrationForm extends React.Component {
     this.setState({
       dateTimeOfBirth: date
     });
-    this.toggle();
   }
 
   addSensate(e){
@@ -276,6 +276,7 @@ class RegistrationForm extends React.Component {
 
                             display="years"
                             maxDate={this.state.maxDate}
+                            minDate={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
@@ -292,6 +293,7 @@ class RegistrationForm extends React.Component {
 
                             display="years"
                             maxDate={this.state.maxDate}
+                            minDate={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
@@ -305,6 +307,7 @@ class RegistrationForm extends React.Component {
                              width={270}
                             display="years"
                             maxDate={this.state.maxDate}
+                            minDate={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
@@ -319,6 +322,7 @@ class RegistrationForm extends React.Component {
                             height={400}
                             display="years"
                             maxDate={this.state.maxDate}
+                            minDate={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
                         </Media>
