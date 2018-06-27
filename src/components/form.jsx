@@ -39,7 +39,8 @@ const initialState = {
 
       disabledBtn: false,
       modalOpen:false,
-      maxDate: moment().subtract(18, 'years').toDate()
+      maxDate: moment().subtract(18, 'years').toDate(),
+      minDate: moment().subtract(100, 'years').toDate()
     };
         
 class RegistrationForm extends React.Component {
@@ -109,7 +110,6 @@ class RegistrationForm extends React.Component {
     this.setState({
       dateTimeOfBirth: date
     });
-    this.toggle();
   }
 
   addSensate(e){
@@ -259,31 +259,13 @@ class RegistrationForm extends React.Component {
                 <a className="btn btn-grad-green" onClick={this.toggle}>Date of birth</a>
 
                 { this.state.modalOpen &&
-                  <div className="static-modal">
-                    <Modal.Dialog className="dateModal">
+                  <div className="static-modal">                  
+                    <Modal.Dialog className="dateModal">                    
                       
                       <Modal.Body className="calendarStyle">
-                      
-                      <Media query="(max-width: 599px)">
 
-                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
+                        <InfiniteCalendar id="date" className="BBB" selected={this.state.dateTimeOfBirth}
                             rowHeight={70}
-                            displayOptions={{
-                              layout: 'portrait'
-                             }}
-                             width={370}
-                             height={400}
-
-                            display="years"
-                            maxDate={this.state.maxDate}
-                            onSelect={this.handleDateChange}
-                        />
-                        </Media>
-
-                        <Media query="(max-width: 399px)">
-
-                        <InfiniteCalendar id="date" selected={this.state.dateTimeOfBirth}
-                            rowHeight={20}
                             displayOptions={{
                               layout: 'portrait'
                              }}
@@ -292,38 +274,15 @@ class RegistrationForm extends React.Component {
 
                             display="years"
                             maxDate={this.state.maxDate}
+                            minDate={this.state.minDate}
+                            min={this.state.minDate}
                             onSelect={this.handleDateChange}
                         />
-                        </Media>
-                        <Media query="(max-width: 329px)">
-
-                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
-                            rowHeight={70}
-                            displayOptions={{
-                              layout: 'portrait'
-                             }}
-                             width={270}
-                            display="years"
-                            maxDate={this.state.maxDate}
-                            onSelect={this.handleDateChange}
-                        />
-                        </Media>
-                        <Media query="(min-width: 599px)">
-                             
-                        <InfiniteCalendar id="date"  style={{width:100}} selected={this.state.dateTimeOfBirth}
-                            rowHeight={70}
-                            displayOptions={{
-                              layout: 'landscape'
-                             }}
-                            width={550}
-                            height={400}
-                            display="years"
-                            maxDate={this.state.maxDate}
-                            onSelect={this.handleDateChange}
-                        />
-                        </Media>
                       </Modal.Body>
-                      <Modal.Header onClick={this.toggle}><a className="btn btn-grad-peach"  onClick={this.toggle}>Submit</a></Modal.Header>
+                      <Modal.Header onClick={this.toggle}>
+                      <a className="btn btn-grad-blue"  onClick={this.toggle}>Cancel</a>
+                      <a className="btn btn-grad-peach"  onClick={this.toggle}>Submit</a>
+                      </Modal.Header>
                     </Modal.Dialog>
                   </div>
                 }
