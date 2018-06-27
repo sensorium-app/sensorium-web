@@ -6,12 +6,14 @@ input{
   box-shadow:inset none !important;
 }
 input::-webkit-input-placeholder {
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(255, 255, 255, 1);
   font-size: 2vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
 }
-
+::placeholder {
+  color: rgb(255, 255, 255);
+}
 ::-webkit-input-placeholder .input-line:focus +::input-placeholder {
   color: #fff;
 }
@@ -38,7 +40,7 @@ input[type=text]:focus {
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;
-  color: #636363;
+  color: #272727;
   width: 100%;
   border: none;
   border-radius: 0;
