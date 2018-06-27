@@ -189,10 +189,10 @@ export default class Login extends Component {
                             : null
                         }
                         { this.state.showResetPassword ? 
-                            <Col sm="6">
+                            <Col sm="4"  className="mt-5 col-sm-offset-4">
                                 <div className="panel text-center">
                                     <div className="panel-heading bg-grad-blue p-5">
-                                        <h3 className="panel-title">Reset password</h3>
+                                        <h3 className="panel-title">Reset Password</h3>
                                     </div>
                                     <div className="panel-body">
                                         <Row>

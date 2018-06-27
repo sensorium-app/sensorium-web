@@ -1472,4 +1472,5 @@ box-shadow: 0px 10px 52px -13px rgba(0,0,0,0);
   z-index: -1;
   width: 100vw;
   height: 100vh;
+  opacity: 0.5;
 }
