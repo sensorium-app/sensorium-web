@@ -7,16 +7,11 @@ input{
 }
 input::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 1);
-  font-size: 2vh;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  font-size: 0.7em;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-::placeholder {
-  color: rgb(255, 255, 255);
-}
-::-webkit-input-placeholder .input-line:focus +::input-placeholder {
-  color: #fff;
-}
+
 input[type=text] {
     width: 100%;
     padding: 12px 20px;
