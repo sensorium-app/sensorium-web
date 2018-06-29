@@ -222,10 +222,12 @@ export default class Home extends Component {
             <Row className="text-center">
               <Col md={6}>
                 <h2>This project is open sourced</h2>
-                <i className="fa fa-github git-logo"></i><code>$ git clone https://github.com/sensorium-app/sensorium-web.git</code>
+                <i className="fa fa-github git-logo"></i><br/>
+                <code>$ git clone https://github.com/sensorium-app/sensorium-web.git</code><br />
+                <code>$ git clone https://github.com/sensorium-app/sensorium-backEnd.git</code>
               </Col>
               <Col md={6}>
-                  <h4>Help this project grow!</h4>
+                  <h2>Help this project grow!</h2>
                   <p>We strongly believe in united people reaching common goals. 
                     This project was conceived as open source and we value each and everyone's opinion and contributions.<br />
                     <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank" rel="noopener noreferrer">Join us on Slack!</a>
@@ -235,6 +237,28 @@ export default class Home extends Component {
             </Row>
             </Fade>
         </Container>
+        <hr/>
+        <Row className="show-grid text-center">
+          <h2>Sense8 Projects also from the fans</h2>
+          <Col xs={12} sm={6}>
+            <Rotate top left cascade>
+              <div>
+                <h4>Sense8 Documentary, send a video expressing how Sense8 changed your life.</h4>
+                <p><br /> Martín Erhardt </p>
+                <a className="btn btn-grad-peach" href="https://youtu.be/-6ftl9ynx9k" target="_blank" rel="noopener noreferrer">Participate</a>
+              </div>
+            </Rotate>
+          </Col>
+          <Col xs={12} sm={6}>
+            <Rotate top left cascade>
+              <div>
+                <h4>Support this amazing art which honors the beauty and connection of Sense8</h4>
+                <p><br /> #SFSense8Mural</p>
+                <a className="btn btn-grad-peach" href="https://bit.ly/sfsense8mural" target="_blank" rel="noopener noreferrer">Support</a>
+              </div>
+            </Rotate>
+          </Col>
+        </Row>
       </Row>
     )
   }

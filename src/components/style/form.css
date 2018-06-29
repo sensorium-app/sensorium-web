@@ -8,9 +8,13 @@ input{
 
 input::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 1);
-  font-size: 0.7em;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  font-size: 2vh;
+}
+::placeholder {
+  color: rgb(255, 255, 255);
+}
+::-webkit-input-placeholder .input-line:focus +::input-placeholder {
+  color: #fff;
 }
 
 input[type=text] {
@@ -24,15 +28,12 @@ input[type=text] {
     box-shadow:inset none; 
 }
 
-input[type=text]:focus {
-}
-
 .input-line {
   box-shadow:inset none !important;
   background-color: transparent;
   margin-top: 30px;
   margin-bottom: 20px;
-  font-size: 25px;
+  /*font-size: 25px;*/
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;
@@ -116,10 +117,6 @@ background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%
   position: absolute;
   width: 100%;
 }
-/* .calendarStyle{
-  width: 70%;
-  height: 60%;
-} */
 
 .modal-dialog{
   border-radius: 1em;
