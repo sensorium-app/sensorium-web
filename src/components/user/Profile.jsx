@@ -19,10 +19,7 @@ class Profile extends Component {
         };
 
         this.db = firebaseConf.firestore();
-        
-    }
 
-    componentDidMount(){
         this.db.collection("sensates").where("uid", "==", this.state.authUser.uid)
         .get()
         .then((querySnapshot) =>{
@@ -34,10 +31,13 @@ class Profile extends Component {
                 .then((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
                         const sensates = doc.data();
-
-                        let numSensatesInCluster = this.state.numSensatesInCluster;
+                        console.log(sensates.sensates);
+                        let numSensatesInCluster = 0;
+                        console.log(numSensatesInCluster);
                         Object.keys(sensates.sensates).forEach((sensateId)=>{
-                            if(sensateId){
+                            console.log(sensateId)
+                            if(sensates.sensates[sensateId]){
+                                console.log(numSensatesInCluster);
                                 numSensatesInCluster = numSensatesInCluster + 1;
                             }
                         });
@@ -58,6 +58,11 @@ class Profile extends Component {
         .catch((error) =>{
             console.log("Error getting sensate: ", error);
         });
+        
+    }
+
+    componentDidMount(){
+        
     }
 
     componentDidUpdate(prevProps) {
