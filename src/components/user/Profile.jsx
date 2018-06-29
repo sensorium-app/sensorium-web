@@ -32,7 +32,7 @@ class Profile extends Component {
                     querySnapshot.forEach((doc)=>{
                         const sensates = doc.data();
                         console.log(sensates.sensates);
-                        let numSensatesInCluster = this.state.numSensatesInCluster;
+                        let numSensatesInCluster = 0;
                         console.log(numSensatesInCluster);
                         Object.keys(sensates.sensates).forEach((sensateId)=>{
                             console.log(sensateId)
