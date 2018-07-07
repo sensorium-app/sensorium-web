@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Input, Row, Col } from 'reactstrap';
-import { Image } from 'react-bootstrap';
 import { Redirect, Link } from 'react-router-dom'; 
 import Particles from 'react-particles-js';
 
