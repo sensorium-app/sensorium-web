@@ -45,7 +45,7 @@ class App extends Component {
         <div>
           {this.state.authUser && <Navbar authUser={this.state.authUser} /> }
           {!this.state.authUser && <Navbar authUser={null} /> }
-          <Route exact path="/" render={()=> this.state.authUser && <Home authUser={this.state.authUser} /> } />
+          <Route exact path="/" render={()=> this.state.authUser && <Redirect to="/profile"/> } />
           <Route exact path="/" render={()=> !this.state.authUser && <Home authUser={null}/> } />
           <ScrollToTop>
             <Route path="/about" component={About} />

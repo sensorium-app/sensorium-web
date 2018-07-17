@@ -13,6 +13,13 @@ import 'react-infinite-calendar/styles.css';
 import './style/style.css';
 import './style/form.css';
 
+const newDate = new Date();
+console.log(newDate);
+const maxDate = moment(newDate).subtract(18, 'years').toDate();
+console.log(maxDate)
+const minDate = moment(newDate).subtract(100, 'years').toDate();
+console.log(minDate)
+
 const initialState = {
       name: '',
       lastName: '',
@@ -21,6 +28,7 @@ const initialState = {
       password: '',
       gender: '',
       dateTimeOfBirth: null,
+      dateOfBirth: null,
       languagesSpoken: {},
         
       dateOfBirthCluster: true,
@@ -39,8 +47,8 @@ const initialState = {
 
       disabledBtn: false,
       modalOpen:false,
-      maxDate: moment().subtract(18, 'years').toDate(),
-      minDate: moment().subtract(100, 'years').toDate()
+      maxDate: maxDate,
+      minDate: minDate
     };
         
 class RegistrationForm extends React.Component {
@@ -106,9 +114,14 @@ class RegistrationForm extends React.Component {
   }
 
   handleDateChange(date) {
+    console.log(this.state.dateTimeOfBirth)
+    console.log(this.state.dateOfBirth)
     console.log(date);
+    const selectedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+    console.log(selectedDate);
+    
     this.setState({
-      dateTimeOfBirth: date
+      dateOfBirth: selectedDate
     });
   }
 
@@ -135,7 +148,7 @@ class RegistrationForm extends React.Component {
         (this.state.password && this.state.password.length > 0)
       ){
 
-        if(!this.state.dateTimeOfBirth){
+        if(!this.state.dateOfBirth){
           alert('Please select your date of birth');
           return;
         }
@@ -176,7 +189,7 @@ class RegistrationForm extends React.Component {
               secondLastName:this.state.secondLastName,
               email: this.state.email,
               gender: this.state.gender,
-              dateTimeOfBirth: this.state.dateTimeOfBirth,
+              dateOfBirth: this.state.dateOfBirth,
               skills:{},
               hobbies: {},
               interests:{},
