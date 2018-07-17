@@ -10,33 +10,34 @@ class Profile extends Component {
         console.log(props);
         this.state = {
             authUser: props.authUser,
-            dateTimeOfBirth: '',
+            dateOfBirth: '',
             desiredClusters: {},
             name: '',
             lastName:'',
             secondLastName: '',
-            numSensatesInCluster: 0
+            numSensatesInCluster: 0,
+            chat: []
         };
 
         this.db = firebaseConf.firestore();
+        this.clusterChatId = '';
 
-        this.db.collection("sensates").where("uid", "==", this.state.authUser.uid)
-        .get()
-        .then((querySnapshot) =>{
-            querySnapshot.forEach((doc)=>{
+        this.db.collection("sensates").doc(this.state.authUser.uid)
+        .onSnapshot((doc) =>{
+            if(doc.exists){
                 const sensate = doc.data();
-
+                console.log(sensate);
                 this.db.collection("clusters").where("sensates."+doc.id, "==", true)
-                .get()
-                .then((querySnapshot) =>{
+                .onSnapshot((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
-                        const sensates = doc.data();
-                        console.log(sensates.sensates);
+                        const clusterData = doc.data();
+                        console.log(clusterData.sensates);
+
                         let numSensatesInCluster = 0;
                         console.log(numSensatesInCluster);
-                        Object.keys(sensates.sensates).forEach((sensateId)=>{
+                        Object.keys(clusterData.sensates).forEach((sensateId)=>{
                             console.log(sensateId)
-                            if(sensates.sensates[sensateId]){
+                            if(clusterData.sensates[sensateId]){
                                 console.log(numSensatesInCluster);
                                 numSensatesInCluster = numSensatesInCluster + 1;
                             }
@@ -45,20 +46,47 @@ class Profile extends Component {
                         numSensatesInCluster = numSensatesInCluster - 1;
                         this.setState({numSensatesInCluster: numSensatesInCluster});
 
+                        //Cluster chat
+                        this.clusterChatId = doc.id;
+                        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').onSnapshot((messages)=>{
+                            console.log(messages);
+                            var chatMessages = [];
+
+                            messages.forEach((message)=> {
+                                console.log(message)
+                                console.log(message.data())
+                                
+                                chatMessages.push(message.data());
+                                
+                            });
+
+                            this.setState({
+                                chat: chatMessages
+                            })
+                              
+                        });
+
                     });
-                })
-                .catch((error) =>{
-                    console.log("Error getting cluster: ", error);
                 });
 
                 this.setState(sensate);
                 
-            });
-        })
-        .catch((error) =>{
-            console.log("Error getting sensate: ", error);
+            }else{
+                console.log("Sensate doesn't exist");
+                alert("Sensate doesn't exist");
+            }
         });
         
+    }
+
+    sendMessageToChat(){
+        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add({
+            text: 'hey'
+        }).then((res)=>{
+            console.log(res, 'update state');
+        }).catch((err)=>{
+            console.log(err);
+        });
     }
 
     componentDidMount(){
