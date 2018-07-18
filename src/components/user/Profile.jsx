@@ -22,12 +22,12 @@ class Profile extends Component {
         this.db = firebaseConf.firestore();
         this.clusterChatId = '';
 
-        this.db.collection("sensates").doc(this.state.authUser.uid)
+        this.db.collection("sensies").doc(this.state.authUser.uid)
         .onSnapshot((doc) =>{
             if(doc.exists){
                 const sensate = doc.data();
                 console.log(sensate);
-                this.db.collection("clusters").where("sensates."+doc.id, "==", true)
+                this.db.collection("clusters").where("sensies."+doc.id, "==", true)
                 .onSnapshot((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
                         const clusterData = doc.data();
