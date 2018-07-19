@@ -21,13 +21,16 @@ class Profile extends Component {
 
         this.db = firebaseConf.firestore();
         this.clusterChatId = '';
+        this.sensateListener;
+        this.clusterListener; 
+        this.chatListener;
 
-        this.db.collection("sensies").doc(this.state.authUser.uid)
+        this.sensateListener = this.db.collection("sensies").doc(this.state.authUser.uid)
         .onSnapshot((doc) =>{
             if(doc.exists){
                 const sensate = doc.data();
                 console.log(sensate);
-                this.db.collection("clusters").where("sensies."+doc.id, "==", true)
+                this.clusterListener = this.db.collection("clusters").where("sensates."+doc.id, "==", true)
                 .onSnapshot((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
                         const clusterData = doc.data();
@@ -48,7 +51,7 @@ class Profile extends Component {
 
                         //Cluster chat
                         this.clusterChatId = doc.id;
-                        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').onSnapshot((messages)=>{
+                        this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages').onSnapshot((messages)=>{
                             console.log(messages);
                             var chatMessages = [];
 
@@ -89,22 +92,21 @@ class Profile extends Component {
         });
     }
 
-    componentDidMount(){
-        
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
           window.scrollTo(0, 0)
         }
     }
 
-    goBack(){
-        this.props.history.push("/");
-    }
-
     logout(){
         firebaseConf.auth().signOut().then(()=> {
+            //unsubscribe from all listeners to avoid memory leaks
+            this.sensateListener();
+            this.clusterListener();
+            if(this.chatListener){
+                this.chatListener();
+            }
+
             this.props.history.push("/");
         }).catch((error)=> {
             console.log(error);
@@ -145,7 +147,7 @@ class Profile extends Component {
                 
                 <br />
                 <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
-                <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a>
+                <h4>We are working on a cluster chat option! It'll be released really soon. Thank you for your patience, that's one of the sensate values!</h4>
             </div>
         )
     }
