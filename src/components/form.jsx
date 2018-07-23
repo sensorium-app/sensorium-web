@@ -207,7 +207,7 @@ class RegistrationForm extends React.Component {
 
             console.log(sensate);
 
-            this.db.collection('sensates').add(sensate).then((res)=>{
+            this.db.collection('sensies').doc(user.uid).set(sensate).then((res)=>{
               console.log(res);
 
               var user = firebaseConf.auth().currentUser;
