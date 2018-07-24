@@ -40,7 +40,7 @@ export default class Home extends Component {
       <header className="masthead row">
       
       <Col md={12} className="headContainer">
-      <img className="headBG" src="/assets/s8.svg" alt="" srcSet="/assets/s8.svg"/>
+      <img rel="preload" className="headBG" src="/assets/s8.svg" alt="" srcSet="/assets/s8.svg"/>
       <section className="hero-area">
           {/* <Container className="text-center">
               <Row> */}
