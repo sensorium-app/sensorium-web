@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import {Container, Row, Col, Jumbotron} from 'reactstrap';
@@ -7,7 +8,7 @@ import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
 import firebaseConf from './../../config/FirebaseConfig';
-
+import Header from './profileComponents/Header';
 class Profile extends Component {
 
     constructor(props, context) {
@@ -20,7 +21,9 @@ class Profile extends Component {
             name: '',
             lastName:'',
             secondLastName: '',
-            numSensatesInCluster: 0
+            numSensatesInCluster: 0,
+            photo: require('./jane-doe.jpg'),
+
         };
 
         this.db = firebaseConf.firestore();
@@ -89,18 +92,15 @@ class Profile extends Component {
             this.props.history.push("/");
         });
     }
-
+    
     render() {
 
         return (
             
             // <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
             // <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a>
-            <Container >
-                <Row>
+            <Header photo={this.state.photo} />
 
-                </Row>
-            </Container>
         )
     }
 }
