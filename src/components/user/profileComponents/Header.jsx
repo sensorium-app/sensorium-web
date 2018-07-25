@@ -1,13 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ProfilePhoto from './ProfilePhoto'
+import React from 'react';
+import PropTypes from 'prop-types';
+import ProfilePhoto from './ProfilePhoto';
+import {Container, Row, Col, Jumbotron} from 'reactstrap';
+import Fade from 'react-reveal/Fade';
 import '../../style/style.css';
-import './styles/header.css'
+import './styles/header.css';
 
 const Header = (props) => (
-  <header className="">
+  <header className="bg-grad-blue">
     <div className="header-box">
-    <ProfilePhoto image={props.photo} />
+        <Container>
+        <Col md={2}>
+            <ProfilePhoto image={props.photo} />
+            
+        </Col>
+        </Container>
     </div>
   </header>
 )

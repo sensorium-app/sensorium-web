@@ -9,6 +9,7 @@ import '../style/style.css';
 import '../style/responsive.css';
 import firebaseConf from './../../config/FirebaseConfig';
 import Header from './profileComponents/Header';
+import ProfileDetails from './profileComponents/ProfileDetails';
 class Profile extends Component {
 
     constructor(props, context) {
@@ -100,7 +101,7 @@ class Profile extends Component {
             // <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
             // <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a>
             <Header photo={this.state.photo}  />
-
+            <
         )
     }
 }
