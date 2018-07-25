@@ -100,8 +100,8 @@ class Profile extends Component {
             
             // <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
             // <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a>
-            <Header photo={this.state.photo}  />
-            <
+            <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName} />
+            
         )
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProfilePhoto from './ProfilePhoto';
+import ProfileDetails from './ProfileDetails';
 import {Container, Row, Col, Jumbotron} from 'reactstrap';
 import Fade from 'react-reveal/Fade';
 import '../../style/style.css';
@@ -12,7 +13,7 @@ const Header = (props) => (
         <Container>
         <Col md={2}>
             <ProfilePhoto image={props.photo} />
-            
+            <ProfileDetails name={props.name} lastname={props.lastname}/>
         </Col>
         </Container>
     </div>
@@ -20,7 +21,9 @@ const Header = (props) => (
 )
 
 Header.propTypes = {
-  photo: PropTypes.string.isRequired
+  photo: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  lastname: PropTypes.string.isRequired
 }
 
 export default Header
