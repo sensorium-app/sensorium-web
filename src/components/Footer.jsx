@@ -4,10 +4,19 @@ import './style/Footer.css';
 import './style/responsive.css';
 
 class Footer extends Component {
+  constructor(props) {
+    super(props);
+
+    console.log(props);
+
+    this.state = {
+      authUser: props.authUser
+    };
+  }
   render() {
     return (
       <section id="footer">
-      <Container>
+      {! this.state.authUser?null: <Container>
         <Row  text-center="true">
           <div className="col-xs-4 col-sm-4 col-md-4">
           </div>
@@ -44,7 +53,7 @@ class Footer extends Component {
           </div>
           <hr />
         </Row>  
-      </Container>
+      </Container>}
     </section>
     );
   }
