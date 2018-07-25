@@ -36,18 +36,43 @@ export default class CustomNavbar extends Component {
 
         <Navbar.Collapse>
           <Nav pullRight>
+           {!this.state.authUser? 
             <NavItem eventKey={1} componentClass={Link} href="/" to="/">
               Home
-            </NavItem>
-            <NavItem eventKey={2} componentClass={Link} href="/about" to="/about">
+            </NavItem>:null}
+           {!this.state.authUser ?  <NavItem eventKey={2} componentClass={Link} href="/about" to="/about">
               About
-            </NavItem>
-            <NavItem eventKey={3} componentClass={Link} href="/news" to="/news">
+            </NavItem>:null}
+            
+            {!this.state.authUser ?<NavItem eventKey={3} componentClass={Link} href="/news" to="/news">
               News
-            </NavItem>
+            </NavItem>:null}
+            
+
             {!this.state.authUser ? null : <NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
-              Profile
+              Home
             </NavItem>}
+            {
+            !this.state.authUser?null:<NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
+              Notifications
+            </NavItem>
+            }
+            {
+            !this.state.authUser?null:<NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
+              Messages
+            </NavItem>
+            }
+            {
+            !this.state.authUser?null:<NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
+              Explore
+            </NavItem>
+            }
+            {
+            !this.state.authUser?null:<NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
+              Settings
+            </NavItem>
+            }
+
           </Nav>
         </Navbar.Collapse>
       </Navbar>
