@@ -8,14 +8,15 @@ import './styles/header.css';
 
 const ProfileDetails = (props) => (
     <div className="details-text">
-        <h1>{props.Name}</h1>
-        <h1>{props.lastname}</h1>
+        <h3>{props.name} {props.lastname}</h3>
+        <p>Total Sensates Found: {props.numSensatesInCluster}</p>
     </div>
     )
 
 ProfileDetails.propTypes = {
   name: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired
+  lastname: PropTypes.string.isRequired,
+  numSensatesInCluster: PropTypes.number.isRequired 
 }
 
 export default ProfileDetails

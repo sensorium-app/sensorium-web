@@ -13,7 +13,7 @@ const Header = (props) => (
         <Container>
         <Col md={2}>
             <ProfilePhoto image={props.photo} />
-            <ProfileDetails name={props.name} lastname={props.lastname}/>
+            <ProfileDetails name={props.name} lastname={props.lastname} numSensatesInCluster={props.numSensatesInCluster}/>
         </Col>
         </Container>
     </div>
@@ -23,7 +23,8 @@ const Header = (props) => (
 Header.propTypes = {
   photo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired
+  lastname: PropTypes.string.isRequired,
+  numSensatesInCluster: PropTypes.number.isRequired
 }
 
 export default Header

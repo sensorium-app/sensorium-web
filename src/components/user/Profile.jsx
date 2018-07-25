@@ -19,11 +19,11 @@ class Profile extends Component {
             authUser: props.authUser,
             dateTimeOfBirth: '',
             desiredClusters: {},
-            name: '',
-            lastName:'',
+            name: 'Prateek',
+            lastName:'Gupta',
             secondLastName: '',
             numSensatesInCluster: 0,
-            photo: require('./jane-doe.jpg'),
+            photo: require('./profilepic.png'),
 
         };
 
@@ -100,7 +100,7 @@ class Profile extends Component {
             
             // <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
             // <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a>
-            <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName} />
+            <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster} />
             
         )
     }
