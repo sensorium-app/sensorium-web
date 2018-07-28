@@ -8,38 +8,30 @@ import '../../style/style.css';
 import './styles/header.css';
 
 const Header = (props) => (
-  <header className="bg-grad-blue">
+  <header className="bg-grad-blue  profile-box">
     <div className="header-box">
-        <Container>
-        <Col md={3}>
-            <Col md={6}>
+        <Row>
+        
+            <Col md={5}>
                 <ProfilePhoto image={props.photo} />
             </Col>
             <Col md={6}>
-            <ProfileDetails name={props.name} lastname={props.lastname} numSensatesInCluster={props.numSensatesInCluster}/>
+            <ProfileDetails lastname={props.lastname} name={props.name} numSensatesInCluster={props.numSensatesInCluster}/>
             </Col>
-        </Col>
-        <Col md={5}></Col>
-        <Col md={4}>
-            <Row>
-                <Col xs={6} md={6} sm={6}>
-                {/* this is supposed to be status either if the dude is online or not */}
-                <h5>cluster memeber1 <i className="fa fa-circle"></i></h5>
-                <h5>cluster memeber1</h5>
-                <h5>cluster memeber1</h5>
-                <h5>cluster memeber1 <i className="fa fa-circle"></i></h5>
+        
+        </Row>
+        <Row className="mt-3">
+                <Col md={3}>
+                    <a className="btn btn-info "><h5 className="white-text">Profile</h5></a>
                 </Col>
-                
-                <Col xs={6} md={6} sm={6}>
-                <h5>cluster memeber1</h5>
-                <h5>cluster memeber1</h5>
-                <h5>cluster memeber1 <i className="fa fa-circle"></i></h5>
-                <h5>cluster memeber1</h5>
-
+                <Col md={3} >
+                    <a className="btn btn-info "><h5 className="white-text">Cluster</h5></a>
                 </Col>
-            </Row>
-        </Col>
-        </Container>
+                <Col md={3}>
+                    <a className="btn btn-info "><h5 className="white-text">Settings</h5></a>
+                </Col>
+            
+        </Row>
     </div>
   </header>
 )

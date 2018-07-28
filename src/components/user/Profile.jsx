@@ -10,6 +10,9 @@ import '../style/responsive.css';
 import firebaseConf from './../../config/FirebaseConfig';
 import Header from './profileComponents/Header';
 import ProfileDetails from './profileComponents/ProfileDetails';
+import Chat from './profileComponents/Chat';
+import { ChatFeed, Message } from 'react-chat-ui'
+
 class Profile extends Component {
 
     constructor(props, context) {
@@ -24,7 +27,14 @@ class Profile extends Component {
             secondLastName: '',
             numSensatesInCluster: 0,
             photo: require('./profilepic.png'),
-
+            messages: [
+                new Message({
+                id: 1,
+                message: "Hii i am awesome",
+                }), // Gray bubble
+                new Message({ id: 0, message: "I'm you -- the blue bubble!" }), // Blue bubble
+            ],
+            
         };
 
         this.db = firebaseConf.firestore();
@@ -97,11 +107,18 @@ class Profile extends Component {
     render() {
 
         return (
-            
-            // <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
-            // <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a>
+            <div>
+            <Row>
+            {/* <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
+            <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a> */}
+            <Col>
             <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster} />
-            
+            </Col>
+            <Col md={4} className="p-5">
+            <Chat messages={this.state.messages} is_typing={this.state.is_typing} />
+            </Col>
+            </Row>
+            </div>
         )
     }
 }

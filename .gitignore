@@ -5,7 +5,7 @@
 
 # testing
 /coverage
-
+/FirebaseConfig
 # production
 /build
 

@@ -1,16 +1,13 @@
 .profile-photo {
   
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    border-radius: 50%;
-    background: white;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.44);
+    width: 70%;
+    
 
   }
   .profile-photo  
   img {
     width: 100%;
     border-radius: 50%;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.44);
 
   }

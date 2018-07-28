@@ -4,7 +4,7 @@ import ProfilePhoto from './ProfilePhoto';
 import {Container, Row, Col, Jumbotron} from 'reactstrap';
 import Fade from 'react-reveal/Fade';
 import '../../style/style.css';
-import './styles/header.css';
+import './styles/profiledetails.css';
 
 const ProfileDetails = (props) => (
     <div className="details-text">
@@ -14,9 +14,9 @@ const ProfileDetails = (props) => (
     )
 
 ProfileDetails.propTypes = {
-  name: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired,
-  numSensatesInCluster: PropTypes.number.isRequired 
+    lastname: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    numSensatesInCluster: PropTypes.number.isRequired 
 }
 
 export default ProfileDetails

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './styles/profilephoto.css'
 const ProfilePhoto = (props) => (
   <div className='profile-photo'>
-    <img src={props.image} alt='Profile photo' />
+    <img src={props.image} alt='Profile photo' className="img-fluid circle"/>
   </div>
 )
 

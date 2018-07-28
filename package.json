@@ -12,6 +12,7 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-transition-group": "^15.6.2",
     "react-bootstrap": "^0.32.1",
+    "react-chat-ui": "^0.3.2",
     "react-dom": "^16.3.2",
     "react-fontawesome": "^1.6.1",
     "react-ga": "^2.5.3",

@@ -15,8 +15,8 @@ class Footer extends Component {
   }
   render() {
     return (
-      <section id="footer">
-      {! this.state.authUser?null: <Container>
+     <div> {! this.state.authUser?null: <section id="footer">
+      <Container>
         <Row  text-center="true">
           <div className="col-xs-4 col-sm-4 col-md-4">
           </div>
@@ -53,8 +53,8 @@ class Footer extends Component {
           </div>
           <hr />
         </Row>  
-      </Container>}
-    </section>
+      </Container>
+    </section>}</div>
     );
   }
 }
