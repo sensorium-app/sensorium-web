@@ -149,7 +149,7 @@ export default class Home extends Component {
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
             </p>
             <p className="text-justify">
-            Because Sense8 is not just a work of art or piece of entertainment, it's a movement, it's a revolution, it is the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives, and changing the world.
+            Because Sense8 is not just a work of art or piece of entertainment, it's a movement, it's a revolution, it is the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals are connected to one another, enriching each other's lives, and changing the world.
           </p>
 
 {/*          <a className="btn btn-grad-pink">read more..</a>
@@ -162,11 +162,11 @@ export default class Home extends Component {
            
             <h2>WHEN?</h2>
             <p className="text-justify">
-                Right here, right now. We hope to expand this global community space to not only encompass media networking but also interactive features, video games, and other new tools to make life within this clustered hub a truly inspirational experience.
+                Right here, right now. We hope to expand this global community to not only encompass media networking but also include interactive features, video games, and other new tools to make life within this clustered hub a truly inspirational experience.
               </p>
               <p className="text-justify">
                 We are currently in pre-registration phase which means you can register with some basic data.
-                Our technology will create clusters automatically, but you will be able to participate actively once we launch an official release.
+                Our technology will create clusters automatically, but you will be able to actively participate once we launch an official release.
               </p>
                 
               
@@ -185,8 +185,7 @@ export default class Home extends Component {
                   <Rotate top left cascade>
                     <div>
                       <h2>Impossibility is a registration away from reality.</h2>
-                      <p>Register for the first social network that was literally born in a fandom!</p>
-                        {/* We definitely need a better selling point than this. Any ideas? -- Ilyas*/}
+                      <p>Register for the first social network inspired by the need to unite the world.</p>
                     </div>
                   </Rotate>
                   </Col>
@@ -208,7 +207,7 @@ export default class Home extends Component {
             <Fade bottom><Image src="assets/person-1.jpg" circle className="profile-pic"/></Fade>
             <Rotate top left cascade>
               <div>
-                <h4>"...It should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
+                <h4>"...It should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
                 <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p>
               </div>
             </Rotate>
