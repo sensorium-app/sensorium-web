@@ -47,7 +47,7 @@ export default class CustomNavbar extends Component {
             {!this.state.authUser ?<NavItem eventKey={3} componentClass={Link} href="/news" to="/news">
               News
             </NavItem>:null}
-            
+
 
             {!this.state.authUser ? null : <NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
               Home
