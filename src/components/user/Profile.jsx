@@ -7,6 +7,7 @@ import Fade from 'react-reveal/Fade';
 import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
+import './profileComponents/styles/profile.css';
 import firebaseConf from './../../config/FirebaseConfig';
 import Header from './profileComponents/Header';
 import ProfileDetails from './profileComponents/ProfileDetails';
@@ -107,18 +108,16 @@ class Profile extends Component {
     render() {
 
         return (
-            <div>
-            <Row>
-            {/* <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
-            <a className="btn btn-grad-peach" onClick={this.goBack.bind(this)}>Go back to home page</a> */}
-            <Col>
+            <Row noGutters >
+
+            <Col md={3} className="no-padd">
             <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster} />
             </Col>
-            <Col md={4} className="p-5">
+            
+            <Col md={8} className="mt-5">
             <Chat messages={this.state.messages} is_typing={this.state.is_typing} />
             </Col>
             </Row>
-            </div>
         )
     }
 }

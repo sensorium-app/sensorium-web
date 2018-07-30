@@ -8,32 +8,46 @@ import '../../style/style.css';
 import './styles/header.css';
 
 const Header = (props) => (
-  <header className="bg-grad-blue  profile-box">
-    <div className="header-box">
-        <Row>
-        
-            <Col md={5}>
-                <ProfilePhoto image={props.photo} />
-            </Col>
-            <Col md={6}>
-            <ProfileDetails lastname={props.lastname} name={props.name} numSensatesInCluster={props.numSensatesInCluster}/>
-            </Col>
-        
-        </Row>
-        <Row className="mt-3">
-                <Col md={3}>
-                    <a className="btn btn-info "><h5 className="white-text">Profile</h5></a>
-                </Col>
-                <Col md={3} >
-                    <a className="btn btn-info "><h5 className="white-text">Cluster</h5></a>
-                </Col>
-                <Col md={3}>
-                    <a className="btn btn-info "><h5 className="white-text">Settings</h5></a>
-                </Col>
-            
-        </Row>
+    <div class="profile-bar">
+    <div class="avatar">
+        <ProfilePhoto image={props.photo} />    
     </div>
-  </header>
+    <div class="user-name">
+        <ProfileDetails lastname={props.lastname} name={props.name} numSensatesInCluster={props.numSensatesInCluster}/>
+    </div>
+    <div class="profile-buttons">
+        <a class="btn profile-btn-grad"><i class="fa fa-home"></i></a>
+        <a class="btn profile-btn-grad"><i class="fa fa-infinity"></i></a>
+        <a class="btn profile-btn-grad"><i class="fa fa-bell"></i></a>
+        <a class="btn profile-btn-grad"><i class="fa fa-comment-alt"></i></a>
+        <a class="btn profile-btn-grad"><i class="fa fa-cog"></i></a>
+    </div>
+    <div class="cluster-name">
+        <h3>clusetr name</h3>
+        <div class="cluster-members">
+                <ul>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />Member 1</li>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />member 2</li>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />member 3</li>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />member 4</li>
+                </ul>
+            </div>
+    </div>
+    
+    <div class="archiplago">
+           <h3>archiplago</h3>
+           
+    <div class="archilago-members">
+            <ul>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />Member 1</li>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />member 2</li>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />member 3</li>
+                    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />member 4</li>
+                </ul>
+    </div>
+    </div>
+</div>
+  
 )
 
 Header.propTypes = {
