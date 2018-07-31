@@ -41,10 +41,10 @@ export default class Login extends Component {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorCode, errorMessage);
-                alert('Please provide your correct email and password');
+                alert('Please provide a valid email and password.');
             });
         }else{
-            alert('Please type your email and password');
+            alert('Please type your email and password.');
         }
                 
     }
@@ -52,15 +52,15 @@ export default class Login extends Component {
     resetPwd(){
         if(this.state.emailForRecovery){
             firebaseConf.auth().sendPasswordResetEmail(this.state.emailForRecovery).then(() =>{
-                alert('Please check your email for the following steps');
+                alert('We have sent a password reset link to your email. Please check your email for further instructions.');
                 this.toggleResetPassword();
                 this.setState({emailForRecovery: ''})
             }).catch((error) =>{
                 console.log(error);
-                alert('Error resetting password, please contact us');
+                alert('Error resetting password. Please contact us.');
             });
         }else{
-            alert('Please type your email');
+            alert('Please type your email.');
         }
     }
 
@@ -151,7 +151,7 @@ export default class Login extends Component {
                                 <div className="panel mt-5 bg-grad-blue text-center">
                                     <div className="p-5">
                                         <h2 className="login-panel-heading">Welcome Back!</h2>
-                                        <h3 className="login-panel-heading">We are so excited to see you again</h3>
+                                        <h3 className="login-panel-heading">We are so excited to see you again.</h3>
                                     </div>
                                     <div className="panel-body">
                                         <Row>
@@ -173,7 +173,7 @@ export default class Login extends Component {
                                         <br />
                                         <Row>
                                             <Col sm={6}>
-                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Forgot your Password?</a>
+                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Forgot your password?</a>
                                             </Col>
                                             <Col sm={6}>
                                                 Need an account? 
