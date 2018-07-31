@@ -38,7 +38,7 @@ const initialState = {
       acceptsTerms: false,
 
       disabledBtn: false,
-      modalOpen:false,
+      modalOpen: false,
       maxDate: moment().subtract(18, 'years').toDate(),
       minDate: moment().subtract(100, 'years').toDate()
     };
@@ -123,8 +123,8 @@ class RegistrationForm extends React.Component {
     });*/
 
     if(!this.state.acceptsTerms){
-      console.log('Did not acccept terms');
-      alert('Please read and accept our terms and privacy policy');
+      console.log('Did not accept terms');
+      alert('Please read and accept the Terms and Conditions before continuing.');
     }else{
 
       //const userState = this.state;
@@ -136,7 +136,7 @@ class RegistrationForm extends React.Component {
       ){
 
         if(!this.state.dateTimeOfBirth){
-          alert('Please select your date of birth');
+          alert('Please select your date of birth.');
           return;
         }
 
@@ -151,13 +151,13 @@ class RegistrationForm extends React.Component {
           var errorToShow = '';
           switch(errorCode){
             case 'auth/weak-password':
-              errorToShow = 'Please provide at least a 6 character password';
+              errorToShow = 'The password must be at least six characters.';
               break;
             case 'auth/email-already-in-use':
-              errorToShow = 'That email has already registered, hang on please.';
+              errorToShow = 'This email address is already in use.';
               break;
             default:
-              errorToShow = 'An error occured on user, please contact us';
+              errorToShow = 'An error occurred. Please contact us for more information.';
               break;
           }
 
@@ -203,20 +203,20 @@ class RegistrationForm extends React.Component {
                 this.props.history.push('/profile');
               }).catch((error) =>{
                 console.log(error);
-                alert('Error verifying email, please contact us');
+                alert('Email verification error. Please contact us for more information.');
               });
 
             }).catch((err)=>{
               console.log(err);
-              alert('An error ocurred registering, please contact us');
+              alert('Registration error. Please contact us for more information.');
             });
 
           } else {
-            console.log('User not logged in');
+            console.log('User not logged in.');
           }
         });
       }else{
-        alert('Please fill in all the required information');
+        alert('Please fill in all of the required information.');
       }
       
     }
