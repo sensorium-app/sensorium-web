@@ -31,7 +31,7 @@ body{
         "avatar user-name"
         "profile-buttons profile-buttons"
         "cluster-name cluster-name"
-        "archiplago archiplago"
+        "archipelago archipelago"
         ;
         background-color: rgb(60, 84, 121);
         color:white;
@@ -68,7 +68,7 @@ body{
     padding: 10px;
     
 }
-.profile-bar .archiplago  h3{
+.profile-bar .archipelago  h3{
     padding: 10px;
     
 }
@@ -76,16 +76,16 @@ body{
 .profile-bar .user-name{
     grid-area: user-name;
 }
-.profile-bar .archiplago{
-    grid-area: archiplago;
+.profile-bar .archipelago{
+    grid-area: archipelago;
     color:white;
     padding: 10px;
 }
-.profile-bar .archiplago li img{
+.profile-bar .archipelago li img{
     width: 10%;
     border-radius: 50%;
 }
-.profile-bar .archiplago  li{
+.profile-bar .archipelago  li{
     list-style-type: none;
     
 }
