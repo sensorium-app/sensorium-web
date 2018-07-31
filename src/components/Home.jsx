@@ -119,7 +119,7 @@ export default class Home extends Component {
     </section>
     {/*i know that we can use this componenets and shoudn't be written like this
      but i will change this later or
-    if you want youcan make this a component*/}
+    if you want you can make this a component*/}
     <Container >
       <Col xs="12" md="4" className="text-center">
       <Fade top>
@@ -128,10 +128,10 @@ export default class Home extends Component {
             
             <h2>WHAT?</h2>
               <p className="text-justify">
-              A virtual archipelago for Sensate  to connect and thrive in a home tailor made for Homo Sensoriums. Share, visit and be reborn as a Sensate and experience the wonder and beauty of our common humanity and shared values with a truly global community.</p>
+              A virtual archipelago for Sensates to connect and thrive in a home tailor made for Homo Sensoriums. Share, visit, and be reborn as a Sensate. Experience the wonder and beauty of our common humanity and shared values with a truly global community.</p>
               <p className="text-justify">
               This project is aimed to create connections between people that share core human values.
-              We want to create a network that embraces empathy, love, collaboration and compassion throughout the world.
+              We want to create a network that embraces empathy, love, collaboration, and compassion throughout the world.
               
               </p>
             
@@ -149,7 +149,7 @@ export default class Home extends Component {
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
             </p>
             <p className="text-justify">
-            Because Sense8 is not just a work of art of piece of entertainment, it's a movement, it's a revolution, its the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives and changing the world, simultaneously.
+            Because Sense8 is not just a work of art or piece of entertainment, it's a movement, it's a revolution, it is the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives, and changing the world.
           </p>
 
 {/*          <a className="btn btn-grad-pink">read more..</a>
@@ -162,12 +162,11 @@ export default class Home extends Component {
            
             <h2>WHEN?</h2>
             <p className="text-justify">
-                Right here, right now. We hope to expand this global community space to not only encompass means of connecting and sharing media but also interactive features, video games and other new tools to make life within this clustered hub a truly inspirational experience.
+                Right here, right now. We hope to expand this global community space to not only encompass media networking but also interactive features, video games, and other new tools to make life within this clustered hub a truly inspirational experience.
               </p>
               <p className="text-justify">
-                We're on a pre-registration phase, which means you can register with some basic data.
-                Our technology will create clusters automatically, but you will be able to participate
-                actively once we launch an official release very soon.
+                We are currently in pre-registration phase which means you can register with some basic data.
+                Our technology will create clusters automatically, but you will be able to participate actively once we launch an official release.
               </p>
                 
               
@@ -187,6 +186,7 @@ export default class Home extends Component {
                     <div>
                       <h2>Impossibility is a registration away from reality.</h2>
                       <p>Register for the first social network that was literally born in a fandom!</p>
+                        {/* We definitely need a better selling point than this. Any ideas? -- Ilyas*/}
                     </div>
                   </Rotate>
                   </Col>
@@ -208,7 +208,7 @@ export default class Home extends Component {
             <Fade bottom><Image src="assets/person-1.jpg" circle className="profile-pic"/></Fade>
             <Rotate top left cascade>
               <div>
-                <h4>"...it should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
+                <h4>"...It should come as no surprise that the Sense8 fandom will also be among the first in television history to create an online universe based on the Wachowski Sisters’ creation, connecting sensates around the world, much like the heroes of their beloved series."</h4>
                 <p>Siddy Nickhead<br /> <a href="https://medearants.wordpress.com" target="_blank" rel="noopener noreferrer">https://medearants.wordpress.com</a></p>
               </div>
             </Rotate>
@@ -221,7 +221,7 @@ export default class Home extends Component {
           <Fade bottom>
             <Row className="text-center">
               <Col md={6}>
-                <h2>This project is open sourced</h2>
+                <h2>This project is open-sourced.</h2>
                 <i className="fa fa-github git-logo"></i><br/>
                 <code>$ git clone https://github.com/sensorium-app/sensorium-web.git</code><br />
                 <code>$ git clone https://github.com/sensorium-app/sensorium-backEnd.git</code>
@@ -229,7 +229,7 @@ export default class Home extends Component {
               <Col md={6}>
                   <h2>Help this project grow!</h2>
                   <p>We strongly believe in united people reaching common goals. 
-                    This project was conceived as open source and we value each and everyone's opinion and contributions.<br />
+                    This project was conceived as open-source and we value each and everyone's opinion and contributions.<br />
                     <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank" rel="noopener noreferrer">Join us on Slack!</a>
                     
                   </p>
@@ -252,7 +252,7 @@ export default class Home extends Component {
           <Col xs={12} sm={6}>
             <Rotate top left cascade>
               <div>
-                <h4>Support this amazing art which honors the beauty and connection of Sense8</h4>
+                <h4>Support this amazing art which honors the beauty and connection of Sense8.</h4>
                 <p><br /> #SFSense8Mural</p>
                 <a className="btn btn-grad-peach" href="https://bit.ly/sfsense8mural" target="_blank" rel="noopener noreferrer">Support</a>
               </div>
