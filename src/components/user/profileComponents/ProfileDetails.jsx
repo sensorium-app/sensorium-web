@@ -14,7 +14,6 @@ const ProfileDetails = (props) => (
     )
 
 ProfileDetails.propTypes = {
-    lastname: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     numSensatesInCluster: PropTypes.number.isRequired 
 }

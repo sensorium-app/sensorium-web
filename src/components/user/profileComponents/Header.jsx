@@ -8,23 +8,23 @@ import '../../style/style.css';
 import './styles/header.css';
 
 const Header = (props) => (
-    <div class="profile-bar">
-    <div class="avatar">
+    <div className="profile-bar">
+    <div className="avatar">
         <ProfilePhoto image={props.photo} />    
     </div>
-    <div class="user-name">
+    <div className="user-name">
         <ProfileDetails lastname={props.lastname} name={props.name} numSensatesInCluster={props.numSensatesInCluster}/>
     </div>
-    <div class="profile-buttons">
-        <a class="btn profile-btn-grad"><i class="fa fa-home"></i></a>
-        <a class="btn profile-btn-grad"><i class="fa fa-infinity"></i></a>
-        <a class="btn profile-btn-grad"><i class="fa fa-bell"></i></a>
-        <a class="btn profile-btn-grad"><i class="fa fa-comment-alt"></i></a>
-        <a class="btn profile-btn-grad"><i class="fa fa-cog"></i></a>
+    <div className="profile-buttons">
+        <a className="btn profile-btn-grad"><i className="fa fa-home"></i></a>
+        <a className="btn profile-btn-grad"><i className="fa fa-infinity"></i></a>
+        <a className="btn profile-btn-grad"><i className="fa fa-bell"></i></a>
+        <a className="btn profile-btn-grad"><i className="fa fa-comment-alt"></i></a>
+        <a className="btn profile-btn-grad"><i className="fa fa-cog"></i></a>
     </div>
-    <div class="cluster-name">
+    <div className="cluster-name">
         <h3>Cluster name</h3>
-        <div class="cluster-members">
+        <div className="cluster-members">
                 <ul>
                     <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />Member 1</li>
                     <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />Member 2</li>
@@ -34,10 +34,10 @@ const Header = (props) => (
             </div>
     </div>
     
-    <div class="archipelago">
+    <div className="archipelago">
            <h3>Archipelago</h3>
            
-    <div class="archipelago-members">
+    <div className="archipelago-members">
             <ul>
                     <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />Member 1</li>
                     <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />Member 2</li>
@@ -53,7 +53,6 @@ const Header = (props) => (
 Header.propTypes = {
   photo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired,
   numSensatesInCluster: PropTypes.number.isRequired
 }
 
