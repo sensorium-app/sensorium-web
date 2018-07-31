@@ -31,7 +31,7 @@ class Profile extends Component {
             messages: [
                 new Message({
                 id: 1,
-                message: "Hii i am awesome", // I see you Prateek. I'm rolling my eyes...just so you know.
+                message: "Hii i am awesome",
                 }), // Gray bubble
                 new Message({ id: 0, message: "I'm you -- the blue bubble!" }), // Blue bubble
             ],
@@ -68,7 +68,7 @@ class Profile extends Component {
                     });
                 })
                 .catch((error) =>{
-                    console.log("Error retrieving cluster: ", error);
+                    console.log("Error getting cluster: ", error);
                 });
 
                 this.setState(sensate);
@@ -76,7 +76,7 @@ class Profile extends Component {
             });
         })
         .catch((error) =>{
-            console.log("Error retrieving sensate: ", error);
+            console.log("Error getting sensate: ", error);
         });
         
     }
@@ -100,7 +100,7 @@ class Profile extends Component {
             this.props.history.push("/");
         }).catch((error)=> {
             console.log(error);
-            alert('An error occurred during sign-out.');
+            alert('Error on signout');
             this.props.history.push("/");
         });
     }
