@@ -1,4 +1,4 @@
-$profile-bar-bgcolor: #f6feff;
+$profile-bar-bgcolor: #f6feef;
 
 body{
     margin:0;
@@ -16,8 +16,8 @@ body{
     color: white;
     transition: 1s;
     -webkit-box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
-  box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 52px -13px rgba(0,0,0,0.75);
 }
 .profile-btn-grad i{
     font-size: 1.5em;
@@ -41,7 +41,9 @@ body{
         background-color: $profile-bar-bgcolor;
         color:white;
         /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
- 
+        -webkit-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        -moz-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
     .avatar img{
         grid-area: avatar;
         border-radius: 50%;
@@ -63,7 +65,10 @@ body{
         padding: 10px;
         
     }
-
+    .cluster-name h3{
+        background-color: #e6e6e6;
+        padding: 10px;
+    }
     
     .cluster-name li img{
         width: 10%;
@@ -74,14 +79,11 @@ body{
         list-style-type: none;
     }
 
-    .cluster-name  h3{
-    padding: 10px;
     
-    }
 
     .archipelago  h3{
-    padding: 10px;
-    
+        padding: 10px;
+        background-color: #e6e6e6;
     }
     
     .user-name{
@@ -97,8 +99,9 @@ body{
     width: 10%;
     border-radius: 50%;
     }
+
     .archipelago  li{
         list-style-type: none;
-        
     }
+    
 }

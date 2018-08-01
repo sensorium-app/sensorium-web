@@ -146,7 +146,7 @@ class Profile extends Component {
             </Col>
             
             <Col md={8} className="mt-5">
-               { /*<Chat messages={this.state.messages} is_typing={this.state.is_typing} /> */}
+               {/* <Chat messages={this.state.messages} is_typing={this.state.is_typing} />  */}
             </Col>
             </Row>
         )

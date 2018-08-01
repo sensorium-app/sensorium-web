@@ -30,9 +30,12 @@ body {
   grid-template-columns: 50% 50%;
   grid-auto-rows: min-content min-content min-content min-content;
   grid-template-areas: "avatar user-name" "profile-buttons profile-buttons" "cluster-name cluster-name" "archipelago archipelago";
-  background-color: #3c5479;
+  background-color: #f6feef;
   color: white;
-  /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */ }
+  /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
+  -webkit-box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75); }
   .profile-bar .avatar img {
     grid-area: avatar;
     border-radius: 50%;
@@ -46,29 +49,25 @@ body {
     grid-area: cluster-name;
     color: white;
     padding: 10px; }
+  .profile-bar .cluster-name h3 {
+    background-color: #e6e6e6;
+    padding: 10px; }
   .profile-bar .cluster-name li img {
     width: 10%;
     border-radius: 50%; }
   .profile-bar .cluster-name li {
     list-style-type: none; }
-  .profile-bar .cluster-name h3 {
-    padding: 10px; }
   .profile-bar .archipelago h3 {
-    padding: 10px; }
+    padding: 10px;
+    background-color: #e6e6e6; }
   .profile-bar .user-name {
     grid-area: user-name; }
   .profile-bar .archipelago {
     grid-area: archipelago;
     color: white;
     padding: 10px; }
-
-.profile-bar .archipelago li img {
-  width: 10%;
-  border-radius: 50%; }
-
-.profile-bar .archipelago li {
-  list-style-type: none; }
-
-@media (max-width: 600px) {
-  .profile-bar {
-    width: 80vw; } }
+  .profile-bar .archipelago li img {
+    width: 10%;
+    border-radius: 50%; }
+  .profile-bar .archipelago li {
+    list-style-type: none; }
