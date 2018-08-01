@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ReactDOM } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
@@ -12,7 +12,9 @@ import firebaseConf from './../../config/FirebaseConfig';
 import Header from './profileComponents/Header';
 import ProfileDetails from './profileComponents/ProfileDetails';
 import Chat from './profileComponents/Chat';
-import { ChatFeed, Message } from 'react-chat-ui'
+import { Input, Button } from 'react-chat-elements';
+
+import moment from 'moment';
 
 class Profile extends Component {
 
@@ -23,22 +25,18 @@ class Profile extends Component {
             authUser: props.authUser,
             dateOfBirth: '',
             desiredClusters: {},
-            name: 'Prateek',
-            lastName:'Gupta',
+            name: '',
+            lastName:'',
             secondLastName: '',
             numSensatesInCluster: 0,
             photo: require('./profilepic.png'),
-            messages: [
-                new Message({
-                id: 1,
-                message: "Hii i am awesome", // I see you Prateek. I'm rolling my eyes...just so you know.
-                }), // Gray bubble
-                new Message({ id: 0, message: "I'm you -- the blue bubble!" }), // Blue bubble
-            ],
-            
+            messages: []
         };
 
         this.db = firebaseConf.firestore();
+        const settings = { timestampsInSnapshots: true};
+        this.db.settings(settings);
+
         this.clusterChatId = '';
         this.sensateListener;
         this.clusterListener; 
@@ -70,20 +68,34 @@ class Profile extends Component {
 
                         //Cluster chat
                         this.clusterChatId = doc.id;
-                        this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages').onSnapshot((messages)=>{
+                        this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
+                        .orderBy("date", "asc").limit(100)
+                        .onSnapshot((messages)=>{
                             console.log(messages);
                             var chatMessages = [];
 
                             messages.forEach((message)=> {
                                 console.log(message)
-                                console.log(message.data())
-                                
-                                chatMessages.push(message.data());
+                                var msg = message.data();
+                                console.log(msg)
+
+                                //position
+                                if(msg.user._id === this.state.authUser.uid){
+                                    msg['position'] = 'right';
+                                }else{
+                                    msg['position'] = 'left';
+                                }
+                                console.log(msg.date.seconds * 1000)
+                                console.log(moment(msg.date.seconds * 1000))
+                                console.log(moment(moment(msg.date.seconds * 1000)).fromNow())
+                                msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
+
+                                chatMessages.push(msg);
                                 
                             });
 
                             this.setState({
-                                chat: chatMessages
+                                messages: chatMessages
                             })
                               
                         });
@@ -102,13 +114,38 @@ class Profile extends Component {
     }
 
     sendMessageToChat(){
-        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add({
-            text: 'hey'
-        }).then((res)=>{
+        const date = new Date();
+        const dateNumber = date.getTime();
+        const message = {
+            "_id": dateNumber,
+            "text": this.chatText.state.value,
+            "createdAt": date,
+            "system": false,
+            "user": {
+              "_id": this.state.authUser.uid,
+              "name": this.state.name,
+              "avatar": this.state.photo
+            },
+            "id": dateNumber,
+            "type": "text",
+            "date": date,
+            "status": "sent",
+            "avatar": this.state.photo
+        }
+        console.log(message, this.chatText.state.value)
+        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add(message).then((res)=>{
             console.log(res, 'update state');
+            this.chatText.clear();
         }).catch((err)=>{
             console.log(err);
         });
+    }
+
+    componentDidMount(){
+        //why isn't this working?
+        //https://stackoverflow.com/questions/28889826/react-set-focus-on-input-after-render
+        //this.chatText.getDOMNode().focus();
+        //ReactDOM.findDOMNode(this.chatText).focus()
     }
 
     componentDidUpdate(prevProps) {
@@ -145,8 +182,29 @@ class Profile extends Component {
             <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
             </Col>
             
-            <Col md={8} className="mt-5">
-               { /*<Chat messages={this.state.messages} is_typing={this.state.is_typing} /> */}
+            <Col md={8} className="mt-7">
+               { <Chat messages={this.state.messages} />}
+               { <Input
+                    placeholder="Type your message"
+                    defaultValue=""
+                    ref={(input) => { this.chatText = input; }} 
+                    multiline={true}
+                    // buttonsFloat='left'
+                    onKeyPress={(e) => {
+                        if (e.shiftKey && e.charCode === 13) {
+                            return true;
+                        }
+                        if (e.charCode === 13) {
+                            this.sendMessageToChat();
+                            e.preventDefault();
+                            return false;
+                        }
+                    }}
+                    rightButtons={
+                        <Button
+                            text='Send'
+                            onClick={this.sendMessageToChat.bind(this)} />
+                    } /> }
             </Col>
             </Row>
         )

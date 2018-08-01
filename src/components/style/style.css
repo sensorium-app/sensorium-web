@@ -1,5 +1,5 @@
 /*Custom CSS baby*/
-*{
+/**{
   border: red 1px solid;
 }
 div{
@@ -7,7 +7,7 @@ div{
 }
 p{
   border: #ff9a44 1px solid;
-}
+}*/
 h1,h2,h3,h4,h5,h6{
   border: rgb(0, 0, 0) 1px solid;
 }
@@ -292,6 +292,10 @@ box-shadow: 0px 10px 52px -13px rgba(0,0,0,0);
 .mt-5,
 .my-5 {
   margin-top: 3rem !important;
+}
+
+.mt-7{
+  margin-top: 7rem !important;
 }
 
 .mr-5,
