@@ -182,10 +182,6 @@ class Profile extends Component {
             <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
             </Col>
             
-<<<<<<< HEAD
-            <Col md={8} className="mt-5">
-               {/* <Chat messages={this.state.messages} is_typing={this.state.is_typing} />  */}
-=======
             <Col md={8} className="mt-7">
                { <Chat messages={this.state.messages} />}
                { <Input
@@ -209,7 +205,6 @@ class Profile extends Component {
                             text='Send'
                             onClick={this.sendMessageToChat.bind(this)} />
                     } /> }
->>>>>>> dc8fb3d5ef96c33bffd9286c1ad9a81cd6d01dda
             </Col>
             </Row>
         )
