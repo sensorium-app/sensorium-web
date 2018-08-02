@@ -89,6 +89,9 @@ class Profile extends Component {
                                 console.log(moment(msg.date.seconds * 1000))
                                 console.log(moment(moment(msg.date.seconds * 1000)).fromNow())
                                 msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
+                                msg['date'] = moment(msg.date.seconds * 1000);
+                                msg['title'] = msg.user.name;
+                                //msg['copiableDate'] = true;
 
                                 chatMessages.push(msg);
                                 
@@ -179,11 +182,15 @@ class Profile extends Component {
             <Row noGutters >
 
             <Col md={3} className="no-padd">
-            <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
+                <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
             </Col>
             
             <Col md={8} className="mt-7">
-               { <Chat messages={this.state.messages} />}
+                <div className="scrollable">
+                { <Chat messages={this.state.messages} />}
+               </div>
+
+               <div className="input">
                { <Input
                     placeholder="Type your message"
                     defaultValue=""
@@ -205,6 +212,7 @@ class Profile extends Component {
                             text='Send'
                             onClick={this.sendMessageToChat.bind(this)} />
                     } /> }
+                </div>
             </Col>
             </Row>
         )
