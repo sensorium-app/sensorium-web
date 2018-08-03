@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import '../../style/style.css';
+import './styles/chat.css';
 import 'react-chat-elements/dist/main.css';
 import { MessageList } from 'react-chat-elements';
 
 const Chat = (props) => (
-  <div className="right-panel">
+  <div>
     <MessageList
-    className='message-list'
-    lockable={false}
-    downButtonBadge={10}
-    toBottomHeight={'100%'}
+    className='scrollable'
+    lockable={true}
     dataSource={props.messages} />
   </div>
 )

@@ -2,13 +2,6 @@
     padding: 0 !important;
 }
 
-.scrollable{
-    position: absolute;
-    height: 500px;
-    width: 100%;
-    overflow-y: auto;
-}
-
 .input{
     position: fixed;
     bottom: 0px;
