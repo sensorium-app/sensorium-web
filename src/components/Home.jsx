@@ -127,11 +127,12 @@ export default class Home extends Component {
           <div className="s-cards bg-grad-green">
             
             <h2>WHAT?</h2>
-              <p className="text-center">
-              A virtual archipelago for Sensates to connect and thrive in a home tailored to Homo Sensoriums. Share, visit, and be reborn as a Sensate. Experience the wonder and beauty of our common humanity and shared values with a truly global community.</p>
-              <p className="text-center">
+              <p className="text-justify">
+              A virtual archipelago for Sensates to connect and thrive in a home tailor made for Homo Sensoriums. Share, visit, and be reborn as a Sensate. Experience the wonder and beauty of our common humanity and shared values with a truly global community.</p>
+              <p className="text-justify">
               This project is aimed to create connections between people that share core human values.
               We want to create a network that embraces empathy, love, collaboration, and compassion throughout the world.
+              
               </p>
             
 {/*              <a className="btn btn-grad-green">read more..</a>
@@ -144,10 +145,10 @@ export default class Home extends Component {
           <div className="s-cards bg-grad-pink">
           
           <h2>WHY?</h2>
-          <p className="text-center">
+          <p className="text-justify">
             Because this world desperately needs more peace and unity that can only be achieved through the connections of deep human souls.
             </p>
-            <p className="text-center">
+            <p className="text-justify">
             Because Sense8 is not just a work of art or piece of entertainment, it's a movement, it's a revolution, it is the future we want to create. Sensates need a safe haven where like-minded and compassionate individuals like themselves are connected to one another, enriching each other's lives, and changing the world.
           </p>
 
@@ -160,10 +161,10 @@ export default class Home extends Component {
            <div className="s-cards bg-grad-blue">
            
             <h2>WHEN?</h2>
-            <p className="text-center">
+            <p className="text-justify">
                 Right here, right now. We hope to expand this global community space to not only encompass media networking but also interactive features, video games, and other new tools to make life within this clustered hub a truly inspirational experience.
               </p>
-              <p className="text-center">
+              <p className="text-justify">
                 We are currently in pre-registration phase which means you can register with some basic data.
                 Our technology will create clusters automatically, but you will be able to participate actively once we launch an official release.
               </p>
@@ -184,7 +185,8 @@ export default class Home extends Component {
                   <Rotate top left cascade>
                     <div>
                       <h2>Impossibility is a registration away from reality.</h2>
-                      <p>Register for the first social network created by us fans, for us fans!</p>
+                      <p>Register for the first social network that was literally born in a fandom!</p>
+                        {/* We definitely need a better selling point than this. Any ideas? -- Ilyas*/}
                     </div>
                   </Rotate>
                   </Col>
@@ -237,11 +239,11 @@ export default class Home extends Component {
         </Container>
         <hr/>
         <Row className="show-grid text-center">
-          <h2>Fan-made Sense8 Projects</h2>
+          <h2>Sense8 Projects also from the fans</h2>
           <Col xs={12} sm={6}>
             <Rotate top left cascade>
               <div>
-                <h4>Sense8 Documentary: send a video expressing how Sense8 changed your life.</h4>
+                <h4>Sense8 Documentary, send a video expressing how Sense8 changed your life.</h4>
                 <p><br /> Martín Erhardt </p>
                 <a className="btn btn-grad-peach" href="https://youtu.be/-6ftl9ynx9k" target="_blank" rel="noopener noreferrer">Participate</a>
               </div>

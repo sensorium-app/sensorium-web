@@ -14,9 +14,6 @@ import ProfileDetails from './profileComponents/ProfileDetails';
 import Chat from './profileComponents/Chat';
 import { Input, Button } from 'react-chat-elements';
 
-import 'react-chat-elements/dist/main.css';
-import { MessageList } from 'react-chat-elements';
-
 import moment from 'moment';
 
 class Profile extends Component {
@@ -92,10 +89,6 @@ class Profile extends Component {
                                 console.log(moment(msg.date.seconds * 1000))
                                 console.log(moment(moment(msg.date.seconds * 1000)).fromNow())
                                 msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
-                                msg['date'] = moment(msg.date.seconds * 1000);
-                                msg['title'] = msg.user.name;
-                                msg['titleColor'] = 'blue'
-                                //msg['copiableDate'] = true;
 
                                 chatMessages.push(msg);
                                 
@@ -179,17 +172,12 @@ class Profile extends Component {
             this.props.history.push("/");
         });
     }
-
-    onScroll(e){
-        console.log(e)
-    }
     
     render() {
 
         return (
             <Row noGutters >
 
-<<<<<<< HEAD
             <Col md={3} className="no-padd">
             <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
             </Col>
@@ -218,43 +206,6 @@ class Profile extends Component {
                             onClick={this.sendMessageToChat.bind(this)} />
                     } /> }
             </Col>
-=======
-                <Col md={3} className="no-padd">
-                    <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
-                </Col>
-                
-                <Col md={8} className="mt-7">
-
-                        <Chat messages={this.state.messages}/>
-
-                    <div className='input'>
-                    <Input
-                            placeholder="Type your message"
-                            defaultValue=""
-                            
-                            ref={(input) => { this.chatText = input; }} 
-                            multiline={true}
-                            // buttonsFloat='left'
-                            onKeyPress={(e) => {
-                                if (e.shiftKey && e.charCode === 13) {
-                                    return true;
-                                }
-                                if (e.charCode === 13) {
-                                    this.sendMessageToChat();
-                                    e.preventDefault();
-                                    return false;
-                                }
-                            }}
-                            rightButtons={
-                                <Button
-                                    text='Send'
-                                    type='outline'
-                                    color='black'
-                                    onClick={this.sendMessageToChat.bind(this)} />
-                            } />
-                    </div>
-                </Col>
->>>>>>> 3eedc2cba5b82fc2219fa06dcb415d06cc15bc1d
             </Row>
         )
     }
