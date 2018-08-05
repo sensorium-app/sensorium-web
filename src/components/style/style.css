@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-
-=======
-/*Custom CSS baby*/
-/**{
-  border: red 1px solid;
-}
-div{
-  border: green 1px solid;
-}
-p{
-  border: #ff9a44 1px solid;
-}*/
-h1,h2,h3,h4,h5,h6{
-  border: rgb(0, 0, 0) 1px solid;
-}
->>>>>>> dc8fb3d5ef96c33bffd9286c1ad9a81cd6d01dda
 .btn-grad-peach{
   background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
   border-radius: 25px;

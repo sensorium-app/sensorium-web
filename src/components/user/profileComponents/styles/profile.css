@@ -1,3 +1,9 @@
 .no-padd{
     padding: 0 !important;
 }
+
+.input{
+    position: fixed;
+    bottom: 0px;
+    width: 65%;
+}
