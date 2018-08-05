@@ -8,14 +8,11 @@ import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
-import firebaseConf from './../../config/FirebaseConfig';
+import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import Header from './profileComponents/Header';
 import ProfileDetails from './profileComponents/ProfileDetails';
 import Chat from './profileComponents/Chat';
 import { Input, Button } from 'react-chat-elements';
-
-import 'react-chat-elements/dist/main.css';
-import { MessageList } from 'react-chat-elements';
 
 import moment from 'moment';
 
@@ -72,10 +69,14 @@ class Profile extends Component {
                         //Cluster chat
                         this.clusterChatId = doc.id;
                         this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
-                        .orderBy("date", "asc").limit(100)
+                        .orderBy("date", "desc").limit(50)
                         .onSnapshot((messages)=>{
                             console.log(messages);
                             var chatMessages = [];
+
+                            /*messages.slice().reverse().forEach((message)=> {
+                                console.log(message);
+                            })*/
 
                             messages.forEach((message)=> {
                                 console.log(message)
@@ -88,11 +89,13 @@ class Profile extends Component {
                                 }else{
                                     msg['position'] = 'left';
                                 }
-                                console.log(msg.date.seconds * 1000)
-                                console.log(moment(msg.date.seconds * 1000))
-                                console.log(moment(moment(msg.date.seconds * 1000)).fromNow())
-                                msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
-                                msg['date'] = moment(msg.date.seconds * 1000);
+                                console.log()
+                                if(msg.date && msg.date.seconds){
+                                    console.log(moment(msg.date.seconds * 1000))
+                                    console.log(moment(moment(msg.date.seconds * 1000)).fromNow())
+                                    msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
+                                    msg['date'] = moment(msg.date.seconds * 1000);
+                                }
                                 msg['title'] = msg.user.name;
                                 msg['titleColor'] = 'blue'
                                 //msg['copiableDate'] = true;
@@ -101,8 +104,16 @@ class Profile extends Component {
                                 
                             });
 
+                            var count = 0;
+                            var chatMessagesReversed = [];
+                            for(var i=chatMessages.length-1; i>=0; i--){
+                                count = count + 1;
+                                console.log(i, count)
+                                chatMessagesReversed.push(chatMessages[i])
+                            }
+                            
                             this.setState({
-                                messages: chatMessages
+                                messages: chatMessagesReversed
                             })
                               
                         });
@@ -121,12 +132,14 @@ class Profile extends Component {
     }
 
     sendMessageToChat(){
+        const serverDate = firebase.firestore.FieldValue.serverTimestamp();
+        console.log(serverDate);
         const date = new Date();
         const dateNumber = date.getTime();
         const message = {
             "_id": dateNumber,
             "text": this.chatText.state.value,
-            "createdAt": date,
+            "createdAt": serverDate,
             "system": false,
             "user": {
               "_id": this.state.authUser.uid,
@@ -135,14 +148,14 @@ class Profile extends Component {
             },
             "id": dateNumber,
             "type": "text",
-            "date": date,
+            "date": serverDate,
             "status": "sent",
             "avatar": this.state.photo
         }
         console.log(message, this.chatText.state.value)
+        this.chatText.clear();
         this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add(message).then((res)=>{
             console.log(res, 'update state');
-            this.chatText.clear();
         }).catch((err)=>{
             console.log(err);
         });
@@ -193,7 +206,7 @@ class Profile extends Component {
                     <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
                 </Col>
                 
-                <Col md={8} className="mt-7">
+                <Col md={9} className="mt-7">
 
                         <Chat messages={this.state.messages}/>
 
