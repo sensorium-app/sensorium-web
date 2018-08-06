@@ -43,6 +43,7 @@ body{
         -webkit-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
         -moz-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
         box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        overflow-y: auto;
     .avatar img{
         grid-area: avatar;
         border-radius: 50%;

@@ -33,9 +33,8 @@ body {
   /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
   -webkit-box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
-  box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75); 
-  overflow-y: auto;
-}
+  box-shadow: -2px 0px 17px -2px rgba(0, 0, 0, 0.75);
+  overflow-y: auto; }
   .profile-bar .avatar img {
     grid-area: avatar;
     border-radius: 50%;
