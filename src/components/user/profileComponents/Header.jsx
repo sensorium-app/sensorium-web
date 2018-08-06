@@ -17,11 +17,11 @@ const Header = (props) => (
     </div>
     <div className="profile-buttons mt-5">
         <a className="profile-btn-grad"><span className="lnr lnr-home"></span> </a>
-        <a className="profile-btn-grad"><span class="lnr lnr-envelope"></span></a>
-        <a className="profile-btn-grad"><span class="lnr lnr-user"></span></a>
-        <a className="profile-btn-grad"><span class="lnr lnr-users"></span></a>
+        <a className="profile-btn-grad"><span className="lnr lnr-envelope"></span></a>
+        <a className="profile-btn-grad"><span className="lnr lnr-user"></span></a>
+        <a className="profile-btn-grad"><span className="lnr lnr-users"></span></a>
         <a className="profile-btn-grad"><span className="lnr lnr-cog"></span> </a>
-        <a className="profile-btn-grad"><span class="lnr lnr-power-switch"></span></a>
+        <a className="profile-btn-grad"><span className="lnr lnr-power-switch"></span></a>
 
     </div>
     <div className="cluster-name">

@@ -219,7 +219,10 @@ class Profile extends Component {
                                     return true;
                                 }
                                 if (e.charCode === 13) {
-                                    this.sendMessageToChat();
+                                    if(this.chatText.state.value && /\S/.test(this.chatText.state.value)){
+                                        this.sendMessageToChat();
+                                    }
+                                    
                                     e.preventDefault();
                                     return false;
                                 }
