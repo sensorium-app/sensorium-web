@@ -9,8 +9,8 @@ import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
-import Header from './profileComponents/Header';
 import ProfileDetails from './profileComponents/ProfileDetails';
+import ProfileMenu from './profileComponents/ProfileMenu';
 import Chat from './profileComponents/Chat';
 import { Input, Button } from 'react-chat-elements';
 
@@ -71,7 +71,6 @@ class Profile extends Component {
                         this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
                         .orderBy("date", "desc").limit(50)
                         .onSnapshot((messages)=>{
-                            console.log(messages);
                             var chatMessages = [];
 
                             /*messages.slice().reverse().forEach((message)=> {
@@ -79,9 +78,7 @@ class Profile extends Component {
                             })*/
 
                             messages.forEach((message)=> {
-                                console.log(message)
                                 var msg = message.data();
-                                console.log(msg)
 
                                 //position
                                 if(msg.user._id === this.state.authUser.uid){
@@ -91,8 +88,6 @@ class Profile extends Component {
                                 }
                                 console.log()
                                 if(msg.date && msg.date.seconds){
-                                    console.log(moment(msg.date.seconds * 1000))
-                                    console.log(moment(moment(msg.date.seconds * 1000)).fromNow())
                                     msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
                                     msg['date'] = moment(msg.date.seconds * 1000);
                                 }
@@ -108,7 +103,6 @@ class Profile extends Component {
                             var chatMessagesReversed = [];
                             for(var i=chatMessages.length-1; i>=0; i--){
                                 count = count + 1;
-                                console.log(i, count)
                                 chatMessagesReversed.push(chatMessages[i])
                             }
                             
@@ -199,7 +193,12 @@ class Profile extends Component {
             <Row noGutters >
 
                 <Col md={3} className="no-padd">
-                    <Header photo={this.state.photo}  name={this.state.name} lastName={this.state.lastName | ''} numSensatesInCluster={this.state.numSensatesInCluster} />
+                    <ProfileMenu photo={this.state.photo} name={this.state.name} 
+                        lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
+                        menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
+                        bigScreen={this.props.bigScreen}>
+                    </ProfileMenu>
+                    <p>{this.props.menuOpen}</p>
                 </Col>
                 
                 <Col md={9} className="mt-7">

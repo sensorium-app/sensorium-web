@@ -16,12 +16,24 @@ export default class CustomNavbar extends Component {
     };
   }
 
+  menuController(event){
+    console.log(event)
+    this.props.menuControl();
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect className="navbar-light blue lighten-2">
 
         <Navbar.Header>
-          <Navbar.Toggle />
+          {this.state.authUser ? 
+            <button type="button" className="navbar-toggle collapsed" onClick={this.menuController.bind(this)}>
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            </button> : 
+              <Navbar.Toggle /> }
 
           <Navbar.Brand>
             <Link to="/"><img clasname="logo" src="/assets/sensorium.svg"/></Link>
