@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header';
-import { slide as Menu } from 'react-burger-menu'
+import { push as Menu } from 'react-burger-menu'
 
 class ProfileMenu extends React.Component {
     constructor(props) {
@@ -14,7 +14,9 @@ class ProfileMenu extends React.Component {
   
     render() {
       return (
-        <Menu isOpen={ this.props.menuOpen } noOverlay={this.props.bigScreen} onStateChange={(state) => this.handleStateChange(state)}>
+        <Menu isOpen={ this.props.menuOpen } noOverlay={this.props.bigScreen} 
+          onStateChange={(state) => this.handleStateChange(state)} pageWrapId={ "page-wrap" } 
+          outerContainerId={ "outer-container" }>
           <Header photo={this.props.photo} name={this.props.name} lastName={this.props.lastName | ''} numSensatesInCluster={this.props.numSensatesInCluster} />
         </Menu>
       );

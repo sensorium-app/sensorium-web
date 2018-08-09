@@ -190,7 +190,7 @@ class Profile extends Component {
     render() {
 
         return (
-            <Row noGutters >
+            <Row noGutters id="outer-container">
 
                 <Col md={3} className="no-padd">
                     <ProfileMenu photo={this.state.photo} name={this.state.name} 
@@ -201,7 +201,7 @@ class Profile extends Component {
                     <p>{this.props.menuOpen}</p>
                 </Col>
                 
-                <Col md={9} className="mt-7">
+                <Col md={9} className="mt-7" id="page-wrap">
 
                         <Chat messages={this.state.messages}/>
 
