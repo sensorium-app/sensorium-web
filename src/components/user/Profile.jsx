@@ -29,6 +29,7 @@ class Profile extends Component {
             lastName:'',
             secondLastName: '',
             numSensatesInCluster: 0,
+            sensatesInCluster: [],
             photo: require('./profilepic.png'),
             messages: []
         };
@@ -41,6 +42,9 @@ class Profile extends Component {
         this.sensateListener;
         this.clusterListener; 
         this.chatListener;
+
+        this.sensatesQueryArray = [];
+        this.sensatesList = [];
 
         this.sensateListener = this.db.collection("sensies").doc(this.state.authUser.uid)
         .onSnapshot((doc) =>{
@@ -60,11 +64,32 @@ class Profile extends Component {
                             if(clusterData.sensates[sensateId]){
                                 console.log(numSensatesInCluster);
                                 numSensatesInCluster = numSensatesInCluster + 1;
+                                this.sensatesQueryArray.push(
+                                    this.db.collection("sensies").doc(sensateId).get()
+                                );
                             }
                         });
                         //subtract his own reference
                         numSensatesInCluster = numSensatesInCluster - 1;
                         this.setState({numSensatesInCluster: numSensatesInCluster});
+
+                        Promise.all(this.sensatesQueryArray).then((sensatesMembers)=>{
+                            sensatesMembers.forEach((sensateMemberData)=>{
+                                if(sensateMemberData.exists){
+                                    const sensateMemberInfo = sensateMemberData.data();
+                                    this.sensatesList.push({
+                                        name: sensateMemberInfo.name,
+                                        lastName: sensateMemberInfo.lastName
+                                    });
+                                }
+                            });
+                            this.setState({
+                                sensatesInCluster: this.sensatesList
+                            });
+                            console.log(this.state.sensatesInCluster);
+                        }).catch((err)=>{
+                            console.log(err);
+                        });
 
                         //Cluster chat
                         this.clusterChatId = doc.id;
@@ -72,10 +97,6 @@ class Profile extends Component {
                         .orderBy("date", "desc").limit(50)
                         .onSnapshot((messages)=>{
                             var chatMessages = [];
-
-                            /*messages.slice().reverse().forEach((message)=> {
-                                console.log(message);
-                            })*/
 
                             messages.forEach((message)=> {
                                 var msg = message.data();
@@ -93,7 +114,6 @@ class Profile extends Component {
                                 }
                                 msg['title'] = msg.user.name;
                                 msg['titleColor'] = 'blue'
-                                //msg['copiableDate'] = true;
 
                                 chatMessages.push(msg);
                                 
@@ -195,6 +215,7 @@ class Profile extends Component {
                 <Col md={3} className="no-padd">
                     <ProfileMenu photo={this.state.photo} name={this.state.name} 
                         lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
+                        sensatesInClusterData={this.state.sensatesInCluster}
                         menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
                         bigScreen={this.props.bigScreen}>
                     </ProfileMenu>
