@@ -37,7 +37,7 @@ body{
         "archipelago archipelago"
         ;
         background-color: $profile-bar-bgcolor;
-        color:white;
+        color:black;
         /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
         -webkit-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
         -moz-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
@@ -60,7 +60,7 @@ body{
 
     .cluster-name{
         grid-area: cluster-name;
-        color:white;
+        color:black;
         padding: 10px;
         
     }
@@ -91,7 +91,7 @@ body{
     
     .archipelago{
         grid-area: archipelago;
-        color:white;
+        color:black;
         padding: 10px;
     }
     .archipelago li img{

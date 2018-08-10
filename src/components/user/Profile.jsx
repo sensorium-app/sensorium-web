@@ -50,19 +50,16 @@ class Profile extends Component {
         .onSnapshot((doc) =>{
             if(doc.exists){
                 const sensate = doc.data();
-                console.log(sensate);
+                
                 this.clusterListener = this.db.collection("clusters").where("sensates."+doc.id, "==", true)
                 .onSnapshot((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
                         const clusterData = doc.data();
-                        console.log(clusterData.sensates);
 
                         let numSensatesInCluster = 0;
-                        console.log(numSensatesInCluster);
+                        
                         Object.keys(clusterData.sensates).forEach((sensateId)=>{
-                            console.log(sensateId)
                             if(clusterData.sensates[sensateId]){
-                                console.log(numSensatesInCluster);
                                 numSensatesInCluster = numSensatesInCluster + 1;
                                 this.sensatesQueryArray.push(
                                     this.db.collection("sensies").doc(sensateId).get()
@@ -78,6 +75,7 @@ class Profile extends Component {
                                 if(sensateMemberData.exists){
                                     const sensateMemberInfo = sensateMemberData.data();
                                     this.sensatesList.push({
+                                        uid: sensateMemberInfo.uid,
                                         name: sensateMemberInfo.name,
                                         lastName: sensateMemberInfo.lastName
                                     });
@@ -86,7 +84,6 @@ class Profile extends Component {
                             this.setState({
                                 sensatesInCluster: this.sensatesList
                             });
-                            console.log(this.state.sensatesInCluster);
                         }).catch((err)=>{
                             console.log(err);
                         });

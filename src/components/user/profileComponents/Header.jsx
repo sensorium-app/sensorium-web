@@ -12,19 +12,25 @@ class Header extends Component {
         this.state={
             sensatesInClusterData: this.props.sensatesInClusterData
         }
-        console.log(this.props.sensatesInClusterData)
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.sensatesInClusterData)
-        //if(nextProps.sensatesInClusterData.length !== this.props.sensatesInClusterData.length){
-            this.setState({
-                sensatesInClusterData: nextProps.sensatesInClusterData
-            });
-            console.log(this.state.sensatesInClusterData)
-        //}
-        console.log(this.props.sensatesInClusterData)
+        this.setState({
+            sensatesInClusterData: nextProps.sensatesInClusterData
+        });
+    }
+
+    clusterMemberList(){
+        const data = this.state.sensatesInClusterData;
         
+        return data.map(clusterMember => {
+            return (
+                <li key={clusterMember.uid}>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" /> 
+                    { ' ' + clusterMember.name }
+                </li>
+            );
+        });
     }
 
     render() {
@@ -48,17 +54,12 @@ class Header extends Component {
                 <div className="cluster-name">
                     <h3>Cluster members</h3>
                     <div className="cluster-members">
-                            <ul>
-                                {
-                                    this.state.sensatesInClusterData.map((sensateMember)=>{
-                                        <li>
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Zq2XTzXmYGmzA9A34g00s7dDZQRKZtot0NGbja29zaDptKSW" />
-                                            {sensateMember.name + '' + sensateMember.lastname}
-                                        </li>
-                                    })
-                                }
-                            </ul>
-                        </div>
+                        <ul>
+                            {
+                                this.clusterMemberList()
+                            }
+                        </ul>
+                    </div>
                 </div>
                 
                 <div className="archipelago">
