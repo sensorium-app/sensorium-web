@@ -109,7 +109,7 @@ class Profile extends Component {
                                 }
                                 console.log()
                                 if(msg.date && msg.date.seconds){
-                                    msg['dateString'] = moment(moment(msg.date.seconds * 1000)).fromNow();
+                                    msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
                                     msg['date'] = moment(msg.date.seconds * 1000);
                                 }
                                 msg['title'] = msg.user.name;
