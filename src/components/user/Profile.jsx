@@ -57,6 +57,7 @@ class Profile extends Component {
                         const clusterData = doc.data();
 
                         let numSensatesInCluster = 0;
+                        this.sensatesQueryArray = [];
                         
                         Object.keys(clusterData.sensates).forEach((sensateId)=>{
                             if(clusterData.sensates[sensateId]){
@@ -69,6 +70,8 @@ class Profile extends Component {
                         //subtract his own reference
                         numSensatesInCluster = numSensatesInCluster - 1;
                         this.setState({numSensatesInCluster: numSensatesInCluster});
+
+                        this.sensatesList = [];
 
                         Promise.all(this.sensatesQueryArray).then((sensatesMembers)=>{
                             sensatesMembers.forEach((sensateMemberData)=>{
