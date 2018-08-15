@@ -16,7 +16,7 @@ export default class About extends Component {
               <div className="">
                 <div className="s-cards">
                   
-                    <h4 className="card-title">Divison?</h4>
+                    <h4 className="card-title">Division?</h4>
                     <p>Divisions do little more than isolate us from one another and from the wisdom and beauty that each one of us can share.  This isolation leads to pain, fear, ignorance, and hatred because division does not seek to understand.</p>
                   
                 </div>
