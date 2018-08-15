@@ -173,7 +173,7 @@ export default class Login extends Component {
                                         <br />
                                         <Row>
                                             <Col sm={6}>
-                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Forgot your password?</a>
+                                                <a tabIndex="0" onClick={this.toggleResetPassword.bind(this)}>Forgot your password?</a>
                                             </Col>
                                             <Col sm={6}>
                                                 Need an account? 
@@ -207,7 +207,7 @@ export default class Login extends Component {
                                         <br />
                                         <Row>
                                             <Col sm={12}>
-                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Login instead</a>
+                                                <a tabIndex="0" onClick={this.toggleResetPassword.bind(this)}>Login instead</a>
                                             </Col>
                                         </Row>
                                     </div>

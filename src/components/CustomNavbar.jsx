@@ -36,7 +36,7 @@ export default class CustomNavbar extends Component {
               <Navbar.Toggle /> }
 
           <Navbar.Brand>
-            <Link to="/"><img clasname="logo" src="/assets/sensorium.svg"/></Link>
+            <Link to="/"><img className="logo" src="/assets/sensorium.svg" alt="logo" /></Link>
           </Navbar.Brand>
 
           {this.state.authUser ? null :
