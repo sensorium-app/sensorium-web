@@ -94,18 +94,6 @@ export default class Home extends Component {
                   </div>
                 </span>
                 </h3>
-                {/* <div className="text-center">
-                  <div className="h1-responsive text-center rw-words rw-words-1 grad-text">
-                      <span className="grad-text-span">ethnicity</span>
-                      <span className="grad-text-span">faith</span>
-                      <span className="grad-text-span">ideology</span>
-                      <span className="grad-text-span">gender</span>
-                      <span className="grad-text-span">sexuality</span>
-                      <span className="grad-text-span">profession</span>
-                      <span className="grad-text-span">body</span>
-                      <span className="grad-text-span">mind</span>
-                  </div>
-                </div> */}
                 <br />
                 
               </section>
@@ -190,7 +178,7 @@ export default class Home extends Component {
                   </Col>
                     
                   <Col md={8}>
-                  <RegistrationForm classname="s-head"/>
+                  <RegistrationForm className="s-head"/>
 
                   </Col>
                 </Row>
