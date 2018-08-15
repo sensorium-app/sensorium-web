@@ -172,7 +172,7 @@ export default class Home extends Component {
                   <Rotate top left cascade>
                     <div>
                       <h2>Impossibility is a registration away from reality.</h2>
-                      <p>Register for the first social network created by us fans, for us fans!</p>
+                      <p>Register for the first social network created by us fans, for the fans!</p>
                     </div>
                   </Rotate>
                   </Col>

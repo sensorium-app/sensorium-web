@@ -9,19 +9,11 @@
   margin: 0 1em 1em 0;
 }
 
-.container {
-  margin: auto;
-  width: 50%;
-}
-
 .text-center {
   padding-bottom: 20px;
 }
 
-h4 {
-  text-align: center;
-}
-
+h4,
 .s-cards {
   text-align: center;
 }
