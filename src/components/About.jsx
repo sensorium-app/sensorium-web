@@ -5,7 +5,7 @@ import './style/About.css';
 export default class About extends Component {
   render() {
     return (
-      <div>
+      <div className = "backdrop">
         <br/><br/><br/>
         <div className="container">
           <Image src="assets/infinty.png" className=" img-fluid about-profile-pic" rounded/>
@@ -33,7 +33,7 @@ export default class About extends Component {
             </div>
           </Col>
 
-          <Col xs={12} sm={8} smOffset={2}>
+          <Col id = "intro" xs={12} sm={8} smOffset={2}>
 
             <div className="">
               <div className="s-cards" id="introducing">
