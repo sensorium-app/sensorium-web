@@ -136,7 +136,7 @@ class RegistrationForm extends React.Component {
     });*/
 
     if(!this.state.acceptsTerms){
-      console.log('Did not accept terms');
+      console.log('Did not accept Terms');
       alert('Please read and accept the Terms and Conditions before continuing.');
     }else{
 
@@ -180,7 +180,7 @@ class RegistrationForm extends React.Component {
 
         firebaseConf.auth().onAuthStateChanged((user) =>{
           if (user) {
-            console.log('user signed in');
+            console.log('User signed in');
 
             const sensate = {
               uid: user.uid,
@@ -243,25 +243,25 @@ class RegistrationForm extends React.Component {
         <FormGroup row>
 {/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
 */}        <Col sm={6}>
-            <Input type="text" required name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
+            <Input type="text" required name="name" id="name" className="input-line" placeholder="Sensate First Name" 
               value={this.state.name}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Lastname (optional)" 
+            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Sensate Last Name (Optional)" 
               value={this.state.lastName}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="email" required name="email" id="email" className="input-line" placeholder=" Email" 
+            <Input type="email" required name="email" id="email" className="input-line" placeholder="Email Address" 
               value={this.state.email}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="password" required name="password" id="password" className="input-line" placeholder=" Password" 
+            <Input type="password" required name="password" id="password" className="input-line" placeholder="Password" 
               value={this.state.password}
               onChange={this.handleInputChange}
             />
@@ -330,13 +330,13 @@ class RegistrationForm extends React.Component {
               </Label> 
             </FormGroup>
           </Col>
-          <Label for="acceptsTerms" sm={11}>Are you ok with our 
+          <Label for="acceptsTerms" sm={11}>Do you agree with the
             
             <Link href="/terms" to="/terms"  target="_blank"> Terms and Conditions </Link>
             
             and 
             <Link href="/privacy" to="/privacy" target="_blank"> Privacy Policy </Link>
-            ?
+            set out by Sensorium Online?
           </Label>
         </FormGroup>
 

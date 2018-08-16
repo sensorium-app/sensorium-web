@@ -8,7 +8,8 @@ input{
 
 input::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 1);
-  font-size: 2vh;
+  font-size: smaller;
+  text-align: left;
 }
 ::placeholder {
   color: rgb(255, 255, 255);
@@ -19,7 +20,6 @@ input::-webkit-input-placeholder {
 
 input[type=text] {
     width: 100%;
-    padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     -webkit-transition: 0.5s;
@@ -33,7 +33,6 @@ input[type=text] {
   background-color: transparent;
   margin-top: 30px;
   margin-bottom: 20px;
-  /*font-size: 25px;*/
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;

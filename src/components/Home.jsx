@@ -94,18 +94,6 @@ export default class Home extends Component {
                   </div>
                 </span>
                 </h3>
-                {/* <div className="text-center">
-                  <div className="h1-responsive text-center rw-words rw-words-1 grad-text">
-                      <span className="grad-text-span">ethnicity</span>
-                      <span className="grad-text-span">faith</span>
-                      <span className="grad-text-span">ideology</span>
-                      <span className="grad-text-span">gender</span>
-                      <span className="grad-text-span">sexuality</span>
-                      <span className="grad-text-span">profession</span>
-                      <span className="grad-text-span">body</span>
-                      <span className="grad-text-span">mind</span>
-                  </div>
-                </div> */}
                 <br />
                 
               </section>
@@ -184,13 +172,13 @@ export default class Home extends Component {
                   <Rotate top left cascade>
                     <div>
                       <h2>Impossibility is a registration away from reality.</h2>
-                      <p>Register for the first social network created by us fans, for us fans!</p>
+                      <p>Register for the first social network created by us fans, for the fans!</p>
                     </div>
                   </Rotate>
                   </Col>
                     
                   <Col md={8}>
-                  <RegistrationForm classname="s-head"/>
+                  <RegistrationForm className="s-head"/>
 
                   </Col>
                 </Row>

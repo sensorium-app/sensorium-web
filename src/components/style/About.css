@@ -1,3 +1,7 @@
+.backdrop {
+  background-image: radial-gradient(circle, white 50%, black);
+}
+
 .header-image {
   width: 100%;
   margin-top: -2em;
@@ -7,4 +11,29 @@
 .about-profile-pic {
   float: left;
   margin: 0 1em 1em 0;
+}
+
+.text-center {
+  padding-bottom: 20px;
+}
+
+h4,
+.s-cards {
+  text-align: center;
+}
+
+#divisions {
+  background-image: linear-gradient(white, pink);
+}
+
+#technology {
+  background-image: linear-gradient(white, lightblue);
+}
+
+#intro {
+  padding-top: 25px;
+}
+
+#introducing {
+  background-image: linear-gradient(to right, pink, lightblue);
 }
