@@ -175,13 +175,6 @@ class Profile extends Component {
         });
     }
 
-    componentDidMount(){
-        //why isn't this working?
-        //https://stackoverflow.com/questions/28889826/react-set-focus-on-input-after-render
-        //this.chatText.getDOMNode().focus();
-        //ReactDOM.findDOMNode(this.chatText).focus()
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
           window.scrollTo(0, 0)

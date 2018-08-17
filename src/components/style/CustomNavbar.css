@@ -14,10 +14,13 @@
 }
 
 nav.navbar, .navbar-default {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 9999;
   width: 100%;
 }
+
 .navbar-default .navbar-toggle{
   float: left;
   margin-right: 0;
