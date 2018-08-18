@@ -21,15 +21,15 @@ body {
 }
 .profile-btn-grad {
   border-radius: 25px;
-  margin: 5px;
+  margin: 1px;
   font-size: 1.5em;
   text-decoration: none;
   color: white;
   transition: 1s;
   padding: 15px;
-  padding-left: 7px; }
+  padding-left: 3px; }
   .profile-btn-grad .lnr {
-    font-size: 30px;
+    font-size: 25px;
     color: #1c1c1c;
     display: inline; }
 
