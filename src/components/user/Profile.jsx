@@ -8,6 +8,8 @@ import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
+import './profileComponents/styles/chat.css';
+
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileDetails from './profileComponents/ProfileDetails';
 import ProfileMenu from './profileComponents/ProfileMenu';
@@ -223,7 +225,7 @@ class Profile extends Component {
                     <Input
                             placeholder="Type your message"
                             defaultValue=""
-                            
+                            className="chat-input"
                             ref={(input) => { this.chatText = input; }} 
                             multiline={true}
                             // buttonsFloat='left'
@@ -241,11 +243,10 @@ class Profile extends Component {
                                 }
                             }}
                             rightButtons={
-                                <Button
-                                    text='Send'
-                                    type='outline'
-                                    color='black'
-                                    onClick={this.sendMessageToChat.bind(this)} />
+                                <button
+                                    className="send-button"
+                                    
+                                    onClick={this.sendMessageToChat.bind(this)}><span className="lnr lnr-rocket"></span> </button>
                             } />
                     </div>
                 </Col>
