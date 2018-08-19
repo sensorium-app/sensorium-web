@@ -1,9 +1,12 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import ProfilePhoto from './ProfilePhoto';
 import ProfileDetails from './ProfileDetails';
 import '../../style/style.css';
 import './styles/header.css';
+import Profile from '../Profile';
+import firebaseConf, {firebase} from './../../../config/FirebaseConfig';
 
 class Header extends Component {
 
@@ -23,6 +26,25 @@ class Header extends Component {
             );
         });
     }
+    
+    logout(){
+        //unsubscribe from all listeners to avoid memory leaks
+        this.sensateListener();
+        this.clusterListener();
+        if(this.chatListener){
+            this.chatListener();
+        }
+
+        firebaseConf.auth().signOut().then(()=> {
+            
+            this.props.history.push("/");
+
+        }).catch((error)=> {
+            console.log(error);
+            alert('An error occurred during sign-out.');
+            this.props.history.push("/");
+        });
+    }
 
     render() {
         return (
@@ -39,7 +61,7 @@ class Header extends Component {
                     <a className="profile-btn-grad"><span className="lnr lnr-user"></span></a>
                     <a className="profile-btn-grad"><span className="lnr lnr-users"></span></a>
                     <a className="profile-btn-grad"><span className="lnr lnr-cog"></span> </a>
-                    <a className="profile-btn-grad"><span className="lnr lnr-power-switch"></span></a>
+                    <a className="profile-btn-grad" onClick="this.logout.bind(this)"><span className="lnr lnr-power-switch"></span></a>
 
                 </div>
                 <div className="cluster-name">
@@ -76,4 +98,4 @@ Header.propTypes = {
   numSensatesInCluster: PropTypes.number.isRequired
 }
 
-export default Header
+export default withRouter(Profile);

@@ -183,24 +183,7 @@ class Profile extends Component {
         }
     }
 
-    logout(){
-        //unsubscribe from all listeners to avoid memory leaks
-        this.sensateListener();
-        this.clusterListener();
-        if(this.chatListener){
-            this.chatListener();
-        }
-
-        firebaseConf.auth().signOut().then(()=> {
-            
-            this.props.history.push("/");
-
-        }).catch((error)=> {
-            console.log(error);
-            alert('An error occurred during sign-out.');
-            this.props.history.push("/");
-        });
-    }
+    
     
     render() {
 
