@@ -5,7 +5,7 @@ import ProfilePhoto from './ProfilePhoto';
 import ProfileDetails from './ProfileDetails';
 import '../../style/style.css';
 import './styles/header.css';
-import Profile from '../Profile';
+import Home from '../../Home';
 import firebaseConf, {firebase} from './../../../config/FirebaseConfig';
 
 class Header extends Component {
@@ -98,4 +98,4 @@ Header.propTypes = {
   numSensatesInCluster: PropTypes.number.isRequired
 }
 
-export default withRouter(Profile);
+export default withRouter(Header);
