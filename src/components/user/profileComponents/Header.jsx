@@ -28,13 +28,7 @@ class Header extends Component {
     }
     
     logout(){
-        //unsubscribe from all listeners to avoid memory leaks
-        this.sensateListener();
-        this.clusterListener();
-        if(this.chatListener){
-            this.chatListener();
-        }
-
+        
         firebaseConf.auth().signOut().then(()=> {
             
             this.props.history.push("/");
