@@ -14,7 +14,7 @@ import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileDetails from './profileComponents/ProfileDetails';
 import ProfileMenu from './profileComponents/ProfileMenu';
 import Chat from './profileComponents/Chat';
-import { Input, Button } from 'react-chat-elements';
+import ChatInput from './profileComponents/ChatInput';
 
 import moment from 'moment';
 
@@ -50,14 +50,13 @@ class Profile extends Component {
         
     }
 
-    sendMessageToChat(){
+    sendMessageToChat(chatText){
         const serverDate = firebase.firestore.FieldValue.serverTimestamp();
-        console.log(serverDate);
         const date = new Date();
         const dateNumber = date.getTime();
         const message = {
             "_id": dateNumber,
-            "text": this.chatText.state.value,
+            "text": chatText,
             "createdAt": serverDate,
             "system": false,
             "user": {
@@ -71,8 +70,8 @@ class Profile extends Component {
             "status": "sent",
             "avatar": this.state.photo
         }
-        console.log(message, this.chatText.state.value)
-        this.chatText.clear();
+        console.log(message, chatText)
+        
         this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add(message).then((res)=>{
             console.log(res, 'update state');
         }).catch((err)=>{
@@ -215,36 +214,10 @@ class Profile extends Component {
                 
                 <Col md={9} className="mt-7" id="page-wrap">
 
-                        <Chat messages={this.state.messages}/>
+                    <Chat messages={this.state.messages}/>
 
-                    <div className='input'>
-                    <Input
-                            placeholder="Type your message"
-                            defaultValue=""
-                            className="chat-input"
-                            ref={(input) => { this.chatText = input; }} 
-                            multiline={true}
-                            // buttonsFloat='left'
-                            onKeyPress={(e) => {
-                                if (e.shiftKey && e.charCode === 13) {
-                                    return true;
-                                }
-                                if (e.charCode === 13) {
-                                    if(this.chatText.state.value && /\S/.test(this.chatText.state.value)){
-                                        this.sendMessageToChat();
-                                    }
-                                    
-                                    e.preventDefault();
-                                    return false;
-                                }
-                            }}
-                            rightButtons={
-                                <button
-                                    className="send-button"
-                                    
-                                    onClick={this.sendMessageToChat.bind(this)}><span className="lnr lnr-rocket"></span> </button>
-                            } />
-                    </div>
+                    <ChatInput chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
+
                 </Col>
             </Row>
         )
