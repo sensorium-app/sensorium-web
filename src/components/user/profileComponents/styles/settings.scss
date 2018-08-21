@@ -1,0 +1,49 @@
+$profile-bar-bgcolor: #f6feef;
+$text-color-main: rgb(27, 27, 27);
+$scroll-track: #f6feef;
+$scroll-thumb: #e9f0e5;
+$scroll-thumb-hover: #dde4d9;
+body{
+    margin:0;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: $scroll-track; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: $scroll-thumb; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: $scroll-thumb-hover; 
+}
+
+.settings-page{
+    padding:15px;
+    padding-top:70px; 
+    height: 100vh;
+    display:grid;
+    grid-gap:10px;
+    grid-template-columns: 50% 50%;
+    grid-auto-rows: min-content min-content min-content min-content ;
+    grid-template-areas: 
+        "avatar user-name"
+        "profile-buttons profile-buttons"
+        "personal-settings personal-settings"
+        "cluster-settings cluster-settings"
+        ;
+        background-color: $profile-bar-bgcolor;
+        color: $text-color-main;
+        /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
+        -webkit-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        -moz-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        overflow-y: auto;
+}

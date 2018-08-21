@@ -48,7 +48,7 @@ export default class CustomNavbar extends Component {
 
         <Navbar.Collapse>
           <Nav pullRight>
-           {!this.state.authUser? 
+           {/* {!this.state.authUser? 
             <NavItem eventKey={1} componentClass={Link} href="/" to="/">
               Home
             </NavItem>:null}
@@ -78,7 +78,7 @@ export default class CustomNavbar extends Component {
             !this.state.authUser?null:<NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
               Explore
             </NavItem>
-            }
+            } */}
             {
             !this.state.authUser?null:<NavItem eventKey={4} componentClass={Link} href="/profile" to="/profile">
               Settings
