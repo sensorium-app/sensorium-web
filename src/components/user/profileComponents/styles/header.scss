@@ -6,18 +6,33 @@ body{
     top: 0;
     left: 0;
 }
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f6feef; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #e9f0e5; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #dde4d9; 
+}
 .profile-btn-grad{
     border-radius: 25px;
-    margin:5px;
+    margin: 1px;
     font-size: 1.5em;
     text-decoration: none;
     color: white;
     transition: 1s;
     padding: 15px;
-    padding-left: 7px;
+    padding-left: 3px; 
      
     .lnr{
-        font-size: 30px;
+        font-size: 25px;
         color: #1c1c1c;
         display: inline;
     }
