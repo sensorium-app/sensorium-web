@@ -3,32 +3,18 @@ body {
   padding: 0;
   top: 0;
   left: 0; }
-  ::-webkit-scrollbar {
-    width: 5px;
-}
 
-::-webkit-scrollbar-track {
-    background: #f6feef; 
-}
- 
-::-webkit-scrollbar-thumb {
-    background: #e9f0e5; 
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #dde4d9; 
-}
 .profile-btn-grad {
   border-radius: 25px;
-  margin: 1px;
+  margin: 5px;
   font-size: 1.5em;
   text-decoration: none;
   color: white;
   transition: 1s;
   padding: 15px;
-  padding-left: 3px; }
+  padding-left: 7px; }
   .profile-btn-grad .lnr {
-    font-size: 25px;
+    font-size: 30px;
     color: #1c1c1c;
     display: inline; }
 
@@ -40,10 +26,7 @@ body {
   grid-gap: 10px;
   grid-template-columns: 50% 50%;
   grid-auto-rows: min-content min-content min-content min-content;
-  grid-template-areas: "avatar user-name"
- "profile-buttons profile-buttons"
- "cluster-name cluster-name"
- "archipelago archipelago";
+  grid-template-areas: "avatar user-name" "profile-buttons profile-buttons" "cluster-name cluster-name" "archipelago archipelago";
   background-color: #f6feef;
   color: black;
   /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
