@@ -56,21 +56,12 @@ class Header extends Component {
                     <ProfileDetails lastname={this.props.lastname} name={this.props.name} numSensatesInCluster={this.props.numSensatesInCluster}/>
                 </div>
                 <div className="profile-buttons mt-5">
-<<<<<<< HEAD
                     <a className="profile-btn-grad" title="Home"><span className="lnr lnr-home"></span> </a>
                     <a className="profile-btn-grad"  title="Messages"><span className="lnr lnr-envelope"></span></a>
                     <a className="profile-btn-grad"  title="Profile"><span className="lnr lnr-user"></span></a>
                     <a className="profile-btn-grad"  title="Cluster"><span className="lnr lnr-users"></span></a>
                     <a className="profile-btn-grad"  title="Settings"><span className="lnr lnr-cog"></span> </a>
                     <a className="profile-btn-grad"  title="Logout" onclick="this.bind.logout()"><span className="lnr lnr-power-switch"></span></a>
-=======
-                    <a className="profile-btn-grad"><span className="lnr lnr-home"></span> </a>
-                    <a className="profile-btn-grad"><span className="lnr lnr-envelope"></span></a>
-                    <a className="profile-btn-grad"><span className="lnr lnr-user"></span></a>
-                    <a className="profile-btn-grad"><span className="lnr lnr-users"></span></a>
-                    <a className="profile-btn-grad"><span className="lnr lnr-cog"></span> </a>
-                    <a className="profile-btn-grad" onClick={this.logout.bind(this)}><span className="lnr lnr-power-switch"></span></a>
->>>>>>> 5f2cefc4369cae48ca9a7090740610a41a869017
 
                 </div>
                 <div className="cluster-name">
