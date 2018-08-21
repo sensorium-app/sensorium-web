@@ -28,13 +28,7 @@ class Header extends Component {
     }
     
     logout(){
-        //unsubscribe from all listeners to avoid memory leaks
-        this.sensateListener();
-        this.clusterListener();
-        if(this.chatListener){
-            this.chatListener();
-        }
-
+        
         firebaseConf.auth().signOut().then(()=> {
             
             this.props.history.push("/");
@@ -61,7 +55,7 @@ class Header extends Component {
                     <a className="profile-btn-grad"  title="Profile"><span className="lnr lnr-user"></span></a>
                     <a className="profile-btn-grad"  title="Cluster"><span className="lnr lnr-users"></span></a>
                     <a className="profile-btn-grad"  title="Settings"><span className="lnr lnr-cog"></span> </a>
-                    <a className="profile-btn-grad"  title="Logout" onclick="this.bind.logout()"><span className="lnr lnr-power-switch"></span></a>
+                    <a className="profile-btn-grad"  title="Logout" onclick={this.bind.logout()}><span className="lnr lnr-power-switch"></span></a>
 
                 </div>
                 <div className="cluster-name">

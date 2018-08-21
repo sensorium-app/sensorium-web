@@ -47,7 +47,59 @@ class Profile extends Component {
 
         this.sensatesQueryArray = [];
         this.sensatesList = [];
+        
+    }
 
+    sendMessageToChat(){
+        const serverDate = firebase.firestore.FieldValue.serverTimestamp();
+        console.log(serverDate);
+        const date = new Date();
+        const dateNumber = date.getTime();
+        const message = {
+            "_id": dateNumber,
+            "text": this.chatText.state.value,
+            "createdAt": serverDate,
+            "system": false,
+            "user": {
+              "_id": this.state.authUser.uid,
+              "name": this.state.name,
+              "avatar": this.state.photo
+            },
+            "id": dateNumber,
+            "type": "text",
+            "date": serverDate,
+            "status": "sent",
+            "avatar": this.state.photo
+        }
+        console.log(message, this.chatText.state.value)
+        this.chatText.clear();
+        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add(message).then((res)=>{
+            console.log(res, 'update state');
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
+          window.scrollTo(0, 0)
+        }
+    }
+
+    componentWillUnmount(){
+        //unsubscribe from all listeners to avoid memory leaks
+        if(this.sensateListener){
+            this.sensateListener();
+        }
+        if(this.clusterListener){
+            this.clusterListener();
+        }
+        if(this.chatListener){
+            this.chatListener();
+        }
+    }
+
+    componentDidMount(){
         this.sensateListener = this.db.collection("sensies").doc(this.state.authUser.uid)
         .onSnapshot((doc) =>{
             if(doc.exists){
@@ -144,46 +196,7 @@ class Profile extends Component {
                 alert("Sensate doesn't exist");
             }
         });
-        
     }
-
-    sendMessageToChat(){
-        const serverDate = firebase.firestore.FieldValue.serverTimestamp();
-        console.log(serverDate);
-        const date = new Date();
-        const dateNumber = date.getTime();
-        const message = {
-            "_id": dateNumber,
-            "text": this.chatText.state.value,
-            "createdAt": serverDate,
-            "system": false,
-            "user": {
-              "_id": this.state.authUser.uid,
-              "name": this.state.name,
-              "avatar": this.state.photo
-            },
-            "id": dateNumber,
-            "type": "text",
-            "date": serverDate,
-            "status": "sent",
-            "avatar": this.state.photo
-        }
-        console.log(message, this.chatText.state.value)
-        this.chatText.clear();
-        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add(message).then((res)=>{
-            console.log(res, 'update state');
-        }).catch((err)=>{
-            console.log(err);
-        });
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
-          window.scrollTo(0, 0)
-        }
-    }
-
-    
     
     render() {
 
