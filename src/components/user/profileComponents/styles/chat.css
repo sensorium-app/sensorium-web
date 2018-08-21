@@ -1,7 +1,17 @@
 .scrollable{
     overflow: hidden;
 }
-
+::-webkit-scrollbar {
+    width: 3px; }
+  
+  ::-webkit-scrollbar-track {
+    background: #f6feef; }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #e9f0e5; }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #dde4d9; }
 .chat-input{
     height: 60px;
     border-top:2px rgba(61, 61, 61, 0.404) solid;

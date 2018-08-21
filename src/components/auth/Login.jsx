@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ReactDOM, {render} from 'react-dom';
 import { Input, Row, Col } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom'; 
 import Particles from 'react-particles-js';
@@ -6,7 +7,8 @@ import Particles from 'react-particles-js';
 import firebaseConf from './../../config/FirebaseConfig';
 import '../style/style.css';
 import '../style/form.css';
-
+import Alerts from '../Alerts';
+import Alert from '../Alerts';
 const initialState = {
     email: '',
     password: '',
@@ -41,7 +43,10 @@ export default class Login extends Component {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorCode, errorMessage);
-                alert('Please provide a valid email and password.');
+               
+                
+                ReactDOM.render(<Alert type="error" msg="Please provide a valid email and password." />, document.getElementById('root'));
+               
             });
         }else{
             alert('Please type your email and password.');
@@ -57,7 +62,7 @@ export default class Login extends Component {
                 this.setState({emailForRecovery: ''})
             }).catch((error) =>{
                 console.log(error);
-                alert('Error resetting password. Please contact us.');
+                ReactDOM.render(<Alert type="warning" msg="Errrororororororo" />, document.querySelector());
             });
         }else{
             alert('Please type your email.');
@@ -71,12 +76,16 @@ export default class Login extends Component {
     render() {
 
         return (
-          
+            
             <div>
+                
                 {this.state.redirectToProfile && <Redirect to="/profile"/>}
                 <br /><br /><br />
                 <div>           
                     <Row>
+                    
+                    
+
                     <div className="particles">
                         <Particles 
                             params={{                                
