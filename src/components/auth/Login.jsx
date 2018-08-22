@@ -44,12 +44,14 @@ export default class Login extends Component {
                 var errorMessage = error.message;
                 console.log(errorCode, errorMessage);
                
+                ReactDOM.render(<Alert type="error" msg="Please provide a valid email and password." />, document.body);
                 
-                ReactDOM.render(<Alert type="error" msg="Please provide a valid email and password." />, document.getElementById('root'));
                
             });
         }else{
-            alert('Please type your email and password.');
+            ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
+
+            alert('');
         }
                 
     }

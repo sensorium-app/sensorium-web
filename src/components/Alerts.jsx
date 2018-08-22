@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style/Alert.css';
+
 const Alert = props => {
   const { type, msg } = props;
 
   if (type === 'success') {
     return (
-        <div class="alert success" id="alert">
+        <div class="alert success">
             <span class="closebtn" >&times;</span> 
             {msg}
         </div>
@@ -33,6 +34,7 @@ const Alert = props => {
   else{
       return null;
   }
+ 
 };
 
 Alert.PropTypes = {

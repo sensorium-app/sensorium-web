@@ -15,7 +15,7 @@ class Footer extends Component {
   }
   render() {
     return (
-     <div> {! this.state.authUser?null: <section id="footer">
+     <div> {!this.state.authUser?<section id="footer">
       <Container>
         <Row  text-center="true">
           <div className="col-xs-4 col-sm-4 col-md-4">
@@ -54,7 +54,7 @@ class Footer extends Component {
           <hr />
         </Row>  
       </Container>
-    </section>}</div>
+    </section>:null}</div>
     );
   }
 }

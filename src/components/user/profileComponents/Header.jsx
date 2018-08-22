@@ -50,7 +50,7 @@ class Header extends Component {
                     <ProfileDetails lastname={this.props.lastname} name={this.props.name} numSensatesInCluster={this.props.numSensatesInCluster}/>
                 </div>
                 <div className="profile-buttons mt-5">
-                    <a className="profile-btn-grad" title="Home"><span className="lnr lnr-home"></span> </a>
+                    <a className="profile-btn-grad" title="Home" href="/profile"><span className="lnr lnr-home"></span> </a>
                     <a className="profile-btn-grad"  title="Messages"><span className="lnr lnr-envelope"></span></a>
                     <a className="profile-btn-grad"  title="Profile"><span className="lnr lnr-user"></span></a>
                     <a className="profile-btn-grad"  title="Cluster"><span className="lnr lnr-users"></span></a>
