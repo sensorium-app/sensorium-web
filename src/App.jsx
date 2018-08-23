@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router,Route,Redirect } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
-import Home from './components/Home';
-import About from './components/About';
-import News from './components/News';
 import Navbar from './components/CustomNavbar';
-import Footer from './components/Footer';
-import Terms from './components/Terms';
-import Privacy from './components/Privacy';
-import Profile from './components/user/Profile';
-import Login from './components/auth/Login';
+
+import { Home, Login, Profile, About, Footer, News, Privacy, Terms } from './Routing';
+
 import firebaseConf from './config/FirebaseConfig';
 
 /*import ReactGA from 'react-ga';
@@ -94,7 +89,7 @@ class App extends Component {
             <Route path="/login" render={()=> !this.state.authUser && <Login/> }/>
             <Route path="/login" render={()=> this.state.authUser && <Redirect to="/profile" /> }/>
           </ScrollToTop>
-          <Footer />
+          {!this.state.authUser && <Footer /> }
         </div>
       </Router>
     );
