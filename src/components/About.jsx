@@ -10,7 +10,7 @@ export default class About extends Component {
         <div className="container">
           <Image src="assets/infinty.png" className=" img-fluid about-profile-pic" rounded/>
         </div>
-        <h1 className="text-center">Isolated Above, Connected Below</h1>
+        <h1 className="bighead">Isolated Above, Connected Below</h1>
         <Grid>
           <Col sm={6}>
               <div className="">

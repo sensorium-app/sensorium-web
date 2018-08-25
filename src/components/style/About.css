@@ -1,5 +1,5 @@
 .backdrop {
-  background-image: radial-gradient(circle, white 50%, black);
+  background-image: radial-gradient(circle, grey 25%, white 75%);
 }
 
 .header-image {
@@ -13,13 +13,16 @@
   margin: 0 1em 1em 0;
 }
 
-.text-center {
-  padding-bottom: 20px;
+.bighead {
+  text-align: center;
+  font-family: Georgia;
+  background: radial-gradient(white, grey);
 }
 
 h4,
 .s-cards {
   text-align: center;
+  z-index: 10;
 }
 
 #divisions {
