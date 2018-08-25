@@ -8,7 +8,7 @@ export default class About extends Component {
       <div className = "backdrop">
         <br/><br/><br/>
         <div className="container">
-          <Image src="assets/infinty.png" className=" img-fluid about-profile-pic" rounded/>
+          <Image src="assets/infinty.png" class="center" className=" img-fluid about-profile-pic" alt="Infinity logo"/>
         </div>
         <h1 className="bighead">Isolated Above, Connected Below</h1>
         <Grid>
