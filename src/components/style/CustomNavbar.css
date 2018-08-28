@@ -46,7 +46,7 @@ nav.navbar, .navbar-default {
 @media only screen and (max-width: 600px) {
     nav.navbar, .navbar-default {
       background-color: #5DA4E2 !important;
-      position: absolute;
+      position: fixed;
       width: 100%;
     }
 }

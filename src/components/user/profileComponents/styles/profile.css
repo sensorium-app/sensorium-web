@@ -3,12 +3,16 @@
 }
 
 .input{
-    flex: 1 0 auto;
-    bottom: 0px;
-    min-width: 50%;
+    -ms-flex: 1 0 auto;
+   flex: 1 0 auto;
+   bottom: 0;
+   min-width: 100%;
+   position: fixed;
+   right: 0;
 }
 
 .mt-7 {
     position: absolute;
+    top: 100px;
 }
 

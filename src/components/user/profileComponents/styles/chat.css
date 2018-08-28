@@ -1,6 +1,8 @@
 .scrollable{
-    overflow: hidden;
+    overflow: auto;
+    bottom: 100px;
 }
+
 ::-webkit-scrollbar {
     width: 3px; }
   
@@ -11,9 +13,16 @@
     background: #e9f0e5; }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: #dde4d9; }
+    background: #dde4d9; 
+}
+
+.rce-container-mlist {
+    position: relative;
+    display: flex;
+}
+
 .chat-input{
-    height: 60px;
+    min-height: 60px;
     border-top:2px rgba(61, 61, 61, 0.404) solid;
     margin-top: 5px;
     padding: 5px;
