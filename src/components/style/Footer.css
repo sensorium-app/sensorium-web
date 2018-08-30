@@ -83,6 +83,8 @@ section .section-title {
 }
 .madewithlove{
     color: white ;
+    border:none !important;
+    padding-bottom: 1px;
 }
 .madewithlove i{
   color: rgb(255, 19, 70) !important;
