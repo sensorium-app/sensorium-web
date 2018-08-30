@@ -51,7 +51,7 @@ export default class Login extends Component {
         }else{
             ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
 
-            alert('');
+            
         }
                 
     }
@@ -59,7 +59,9 @@ export default class Login extends Component {
     resetPwd(){
         if(this.state.emailForRecovery){
             firebaseConf.auth().sendPasswordResetEmail(this.state.emailForRecovery).then(() =>{
-                alert('We have sent a password reset link to your email. Please check your email for further instructions.');
+                ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
+
+                alert('');
                 this.toggleResetPassword();
                 this.setState({emailForRecovery: ''})
             }).catch((error) =>{
@@ -179,7 +181,7 @@ export default class Login extends Component {
                                                 />
                                             </Col>
                                         
-                                            <a className="btn btn-grad-peach" enabled={this.state.email && this.state.password} onClick={this.login.bind(this)}>Login</a>
+                                            <button type="submit" className="btn btn-grad-peach" enabled={this.state.email && this.state.password} onClick={this.login.bind(this)}>Login</button>
                                         </Row>
                                         <br />
                                         <Row>

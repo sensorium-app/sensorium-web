@@ -5,7 +5,7 @@ import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
 import './profileComponents/styles/chat.css';
-
+import {Row, Col} from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
 import Chat from './profileComponents/Chat';
@@ -195,28 +195,33 @@ class Profile extends Component {
     render() {
 
         return (
-            <div id="outer-container">
+            <Row>
+                <div id="outer-container">
+            
+                <Col  md={3} className="no-padd">
+                    <div className="no-padd">
+                        <ProfileMenu photo={this.state.photo} name={this.state.name} 
+                            lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
+                            sensatesInClusterData={this.state.sensatesInCluster}
+                            menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
+                            bigScreen={this.props.bigScreen}>
+                        </ProfileMenu>
+                        <p>{this.props.menuOpen}</p>
+                    
+                    </div>
+                </Col>
+            
+                <Col md={9} className="mt-7" id="page-wrap">
+                    <div>
 
-                
-                <div className="no-padd">
-                    <ProfileMenu photo={this.state.photo} name={this.state.name} 
-                        lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
-                        sensatesInClusterData={this.state.sensatesInCluster}
-                        menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
-                        bigScreen={this.props.bigScreen}>
-                    </ProfileMenu>
-                    <p>{this.props.menuOpen}</p>
-                
-                </div>
-                
-                <div className="mt-7" id="page-wrap">
+                        <Chat messages={this.state.messages}/>
 
-                    <Chat messages={this.state.messages}/>
+                        <ChatInput chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
 
-                    <ChatInput chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
-
-                </div>
+                    </div>
+                </Col>
             </div>
+            </Row>
         )
     }
 }
