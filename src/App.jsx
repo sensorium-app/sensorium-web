@@ -13,7 +13,7 @@ import { ThemeProvider, defaultTheme } from '@livechat/ui-kit'
 ReactGA.initialize('UA-120543225-1');
 ReactGA.pageview(window.location.pathname + window.location.search);*/
 
-const mql = window.matchMedia(`(min-width: 800px)`);
+const mql = window.matchMedia(`(min-width: 768px)`);
 const chatTheme = {
   MessageText:{
     ...defaultTheme.MessageText,
