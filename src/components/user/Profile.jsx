@@ -142,41 +142,62 @@ class Profile extends Component {
                         //Cluster chat
                         this.clusterChatId = doc.id;
                         this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
-                        .orderBy("date", "desc").limit(50)
-                        .onSnapshot((messages)=>{
-                            var chatMessages = [];
+                        .orderBy("date", "desc").limit(5)
+                        .onSnapshot({
+                            includeMetadataChanges: true
+                        },
+                        (messages)=>{
+                            //This variable will help to determine if the state shouldn't be changed yet for when the same user sends a message,
+                            //not messages sent by someone else
+                            var messagesHasPendingWrites = messages.metadata.hasPendingWrites;
 
-                            messages.forEach((message)=> {
-                                var msg = message.data();
+                            if(!messagesHasPendingWrites){
+                                var chatMessages = [];
 
-                                //position
-                                if(msg.user._id === this.state.authUser.uid){
-                                    msg['isOwn'] = true;
+                                messages.forEach((message)=> {
+                                    var id = message.id;
+                                    var msg = message.data();
+
+                                    //position
+                                    if(msg.user._id === this.state.authUser.uid){
+                                        msg['isOwn'] = true;
+                                    }else{
+                                        msg['isOwn'] = false;
+                                    }
+
+                                    if(msg.date && msg.date.seconds){
+                                        msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
+                                        msg['date'] = moment(msg.date.seconds * 1000);
+                                    }
+                                    msg['title'] = msg.user.name;
+                                    msg['titleColor'] = 'blue';
+                                    msg['id'] = id;
+
+                                    chatMessages.push(msg);
+                                    
+                                });
+
+                                var count = 0;
+                                var chatMessagesReversed = [];
+                                for(var i=chatMessages.length-1; i>=0; i--){
+                                    count = count + 1;
+                                    if(this.state.messages.indexOf(chatMessages[i])===-1){
+                                        chatMessagesReversed.push(chatMessages[i])
+                                    }
+                                }
+
+                                if(this.state.messages.length > 0){
+                                    //Only adds the last detected message sent to the chat
+                                    this.setState({
+                                        messages: this.state.messages.concat(chatMessagesReversed[chatMessagesReversed.length-1])
+                                    })
                                 }else{
-                                    msg['isOwn'] = false;
+                                    //Adds the whole list of messages to the state
+                                    this.setState({
+                                        messages: this.state.messages.concat(chatMessagesReversed)
+                                    })
                                 }
-                                console.log()
-                                if(msg.date && msg.date.seconds){
-                                    msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
-                                    msg['date'] = moment(msg.date.seconds * 1000);
-                                }
-                                msg['title'] = msg.user.name;
-                                msg['titleColor'] = 'blue'
-
-                                chatMessages.push(msg);
-                                
-                            });
-
-                            var count = 0;
-                            var chatMessagesReversed = [];
-                            for(var i=chatMessages.length-1; i>=0; i--){
-                                count = count + 1;
-                                chatMessagesReversed.push(chatMessages[i])
                             }
-                            
-                            this.setState({
-                                messages: chatMessagesReversed
-                            })
                               
                         });
 
@@ -187,7 +208,7 @@ class Profile extends Component {
                 
             }else{
                 console.log("Sensate doesn't exist");
-                alert("Sensate doesn't exist");
+                alert("Sensate doesn't exist or an error ocurred");
             }
         });
     }
