@@ -8,7 +8,6 @@ import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/settings.css';
-import './profileComponents/styles/chat.css';
 
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileDetails from './profileComponents/ProfileDetails';

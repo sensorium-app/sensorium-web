@@ -4,7 +4,6 @@ import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
-import './profileComponents/styles/chat.css';
 import {Row, Col} from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
@@ -212,7 +211,7 @@ class Profile extends Component {
                     </div>
                 </Col>
                 <div id="page-wrap"></div>
-                    <FixedWrapper.Root maximizedOnInit>
+                    <FixedWrapper.Root>
                         <FixedWrapper.Maximized>
                             <Maximized {...this.props} messages={this.state.messages}
                                 chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
