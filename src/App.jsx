@@ -15,15 +15,6 @@ ReactGA.pageview(window.location.pathname + window.location.search);*/
 
 const mql = window.matchMedia(`(min-width: 768px)`);
 const chatTheme = {
-  MessageText:{
-    ...defaultTheme.MessageText,
-    css:{
-      ...defaultTheme.Message.css,
-      color: '#fff',
-      backgroundColor: '#64b5f6',
-      borderRadius: '25px',
-    },
-  },
   TitleBar: {
     css: {
       ...defaultTheme.TitleBar.css,

@@ -142,7 +142,7 @@ class Profile extends Component {
                         //Cluster chat
                         this.clusterChatId = doc.id;
                         this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
-                        .orderBy("date", "desc").limit(5)
+                        .orderBy("date", "desc").limit(50)
                         .onSnapshot({
                             includeMetadataChanges: true
                         },

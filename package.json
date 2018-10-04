@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@livechat/ui-kit": "^0.2.13",
+    "@livechat/ui-kit": "^0.1.0",
     "bootstrap": "^4.0.0-alpha.6",
     "firebase": "^5.0.4",
     "jquery": "^3.3.1",
