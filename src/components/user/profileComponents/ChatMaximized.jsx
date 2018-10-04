@@ -11,22 +11,12 @@ import {
 	Title,
 	Subtitle,
 	MessageGroup,
-	MessageButtons,
-	MessageButton,
-	MessageTitle,
-	MessageMedia,
 	TextComposer,
 	Row,
-	Fill,
-	Fit,
 	IconButton,
 	SendButton,
-	EmojiIcon,
     CloseIcon,
-    AddIcon,
 	Column,
-	RateGoodIcon,
-	RateBadIcon,
 } from '@livechat/ui-kit';
 
 class Maximized extends React.Component {
@@ -49,6 +39,7 @@ class Maximized extends React.Component {
                     display: 'flex',
                     flexDirection: 'column',
                     height: '100%',
+                    paddingTop: '8vh',
                 }}
             >
                 <TitleBar
