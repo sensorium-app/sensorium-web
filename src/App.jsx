@@ -7,12 +7,30 @@ import Navbar from './components/CustomNavbar';
 import { Home, Login, Profile, About, Footer, News, Privacy, Terms } from './Routing';
 
 import firebaseConf from './config/FirebaseConfig';
+import { ThemeProvider, defaultTheme } from '@livechat/ui-kit'
 
 /*import ReactGA from 'react-ga';
 ReactGA.initialize('UA-120543225-1');
 ReactGA.pageview(window.location.pathname + window.location.search);*/
 
 const mql = window.matchMedia(`(min-width: 800px)`);
+const chatTheme = {
+  MessageText:{
+    ...defaultTheme.MessageText,
+    css:{
+      ...defaultTheme.Message.css,
+      color: '#fff',
+      backgroundColor: '#64b5f6',
+      borderRadius: '25px',
+    },
+  },
+  TitleBar: {
+    css: {
+      ...defaultTheme.TitleBar.css,
+      backgroundColor: '#64b5f6',
+    },
+  },
+}
 
 class App extends Component {
   constructor (props){
@@ -43,7 +61,9 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    this.state.mql.removeListener(this.mediaQueryChanged);
+    if(this.state.mql){
+      this.state.mql.removeListener(this.mediaQueryChanged);
+    }
   }
 
   mediaQueryChanged() {
@@ -70,28 +90,30 @@ class App extends Component {
   
   render() {
     return (
-      <Router>
-        <div>
-          {this.state.authUser && <Navbar authUser={this.state.authUser} menuControl={this.toggleMenu.bind(this)} /> }
-          {!this.state.authUser && <Navbar authUser={null} menuControl={this.toggleMenu.bind(this)} /> }
-          <Route exact path="/" render={()=> this.state.authUser && <Redirect to="/profile"/> } />
-          <Route exact path="/" render={()=> !this.state.authUser && <Home authUser={null}/> } />
-          <ScrollToTop>
-            <Route path="/about" component={About} />
-            <Route path="/news" component={News} />
-            <Route path="/terms" component={Terms} />
-            <Route path="/privacy" component={Privacy} />
-            <Route path="/profile" render={()=> this.state.authUser ? 
-              <Profile authUser={this.state.authUser} 
-                menuOpen={this.state.menuOpen} handleStateChange={this.handleStateChange.bind(this)} 
-                bigScreen={mql.matches}/> : 
-              <Redirect to="/"/> } />
-            <Route path="/login" render={()=> !this.state.authUser && <Login/> }/>
-            <Route path="/login" render={()=> this.state.authUser && <Redirect to="/profile" /> }/>
-          </ScrollToTop>
-          {!this.state.authUser && <Footer /> }
-        </div>
-      </Router>
+      <ThemeProvider theme={chatTheme}>
+        <Router>
+          <div>
+            {this.state.authUser && <Navbar authUser={this.state.authUser} menuControl={this.toggleMenu.bind(this)} /> }
+            {!this.state.authUser && <Navbar authUser={null} menuControl={this.toggleMenu.bind(this)} /> }
+            <Route exact path="/" render={()=> this.state.authUser && <Redirect to="/profile"/> } />
+            <Route exact path="/" render={()=> !this.state.authUser && <Home authUser={null}/> } />
+            <ScrollToTop>
+              <Route path="/about" component={About} />
+              <Route path="/news" component={News} />
+              <Route path="/terms" component={Terms} />
+              <Route path="/privacy" component={Privacy} />
+              <Route path="/profile" render={()=> this.state.authUser ? 
+                <Profile authUser={this.state.authUser} 
+                  menuOpen={this.state.menuOpen} handleStateChange={this.handleStateChange.bind(this)} 
+                  bigScreen={mql.matches}/> : 
+                <Redirect to="/"/> } />
+              <Route path="/login" render={()=> !this.state.authUser && <Login/> }/>
+              <Route path="/login" render={()=> this.state.authUser && <Redirect to="/profile" /> }/>
+            </ScrollToTop>
+            {!this.state.authUser && <Footer /> }
+          </div>
+        </Router>
+      </ThemeProvider>
     );
   }
 }

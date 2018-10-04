@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@livechat/ui-kit": "^0.2.13",
     "bootstrap": "^4.0.0-alpha.6",
     "firebase": "^5.0.4",
     "jquery": "^3.3.1",
@@ -15,8 +16,6 @@
     "react-addons-transition-group": "^15.6.2",
     "react-bootstrap": "^0.32.1",
     "react-burger-menu": "^2.5.2",
-    "react-chat-elements": "^10.0.1",
-    "react-chat-ui": "^0.3.2",
     "react-dom": "^16.3.2",
     "react-fontawesome": "^1.6.1",
     "react-ga": "^2.5.3",

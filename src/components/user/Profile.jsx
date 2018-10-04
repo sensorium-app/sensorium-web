@@ -8,8 +8,9 @@ import './profileComponents/styles/chat.css';
 import {Row, Col} from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
-import Chat from './profileComponents/Chat';
-import ChatInput from './profileComponents/ChatInput';
+import { FixedWrapper } from '@livechat/ui-kit'
+import Maximized from './profileComponents/ChatMaximized';
+import Minimized from './profileComponents/ChatMinimized';
 
 import moment from 'moment';
 
@@ -151,9 +152,9 @@ class Profile extends Component {
 
                                 //position
                                 if(msg.user._id === this.state.authUser.uid){
-                                    msg['position'] = 'right';
+                                    msg['isOwn'] = true;
                                 }else{
-                                    msg['position'] = 'left';
+                                    msg['isOwn'] = false;
                                 }
                                 console.log()
                                 if(msg.date && msg.date.seconds){
@@ -198,7 +199,7 @@ class Profile extends Component {
             <Row>
                 <div id="outer-container">
             
-                <Col  md={3} className="no-padd">
+                <Col md={3} className="no-padd">
                     <div className="no-padd">
                         <ProfileMenu photo={this.state.photo} name={this.state.name} 
                             lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
@@ -210,17 +211,17 @@ class Profile extends Component {
                     
                     </div>
                 </Col>
-            
-                <Col md={9} className="mt-7" id="page-wrap">
-                    <div>
-
-                        <Chat messages={this.state.messages}/>
-
-                        <ChatInput chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
-
-                    </div>
-                </Col>
-            </div>
+                <div id="page-wrap"></div>
+                    <FixedWrapper.Root maximizedOnInit>
+                        <FixedWrapper.Maximized>
+                            <Maximized {...this.props} messages={this.state.messages}
+                                chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
+                        </FixedWrapper.Maximized>
+                        <FixedWrapper.Minimized>
+                            <Minimized {...this.props} />
+                        </FixedWrapper.Minimized>
+                    </FixedWrapper.Root>
+                </div>
             </Row>
         )
     }
