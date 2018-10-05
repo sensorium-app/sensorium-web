@@ -15,7 +15,6 @@ const ProfileDetails = (props) => (
 
 ProfileDetails.propTypes = {
     name: PropTypes.string.isRequired,
-    numSensatesInCluster: PropTypes.number.isRequired 
 }
 
 export default ProfileDetails
