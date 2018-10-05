@@ -9,7 +9,7 @@ import './styles/profiledetails.css';
 const ProfileDetails = (props) => (
     <div className="details-text">
         <h3>{props.name} {props.lastname}</h3>
-        <p>Total Sensates Found: {props.numSensatesInCluster}</p>
+        <p> {props.numSensatesInCluster}</p>
     </div>
     )
 

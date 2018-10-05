@@ -10,7 +10,7 @@ import ProfileMenu from './profileComponents/ProfileMenu';
 import { FixedWrapper } from '@livechat/ui-kit'
 import Maximized from './profileComponents/ChatMaximized';
 import Minimized from './profileComponents/ChatMinimized';
-
+import Post from './profileComponents/post-ui/Post';
 import moment from 'moment';
 
 class Profile extends Component {
@@ -287,6 +287,16 @@ class Profile extends Component {
                         <p>{this.props.menuOpen}</p>
                     
                     </div>
+                </Col>
+                <Col className="" md={9}>
+                
+                   
+                        <Col md={6}>
+                        <Post photo={this.state.photo} name={this.state.name}/>
+                        </Col>
+                       
+                    
+               
                 </Col>
                 <div id="page-wrap"></div>
                     <FixedWrapper.Root>
