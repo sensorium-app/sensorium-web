@@ -15,13 +15,13 @@ class Post extends Component {
                 <ProfilePhoto image={this.props.photo} />
               </div>
               <div className="Post-user-nickname">
-                <span>Chris</span>
+                <span><ProfileDetails name={this.props.name} /></span>
               </div>
             </div>
           </header>
           <div className="Post-image">
             <div className="Post-image-bg">
-              <img alt="Icon Living" src="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg" />
+              <img alt="Icon Living" src="https://source.unsplash.com/800x800" />
             </div>
           </div>
           <div className="Post-caption">

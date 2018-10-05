@@ -232,7 +232,14 @@ class Profile extends Component {
                     </div>
                 </Col>
                 <Col className="" md={9}>
-                    <Post photo={this.state.photo} name={this.state.name}/>
+                
+                   
+                        <Col md={6}>
+                        <Post photo={this.state.photo} name={this.state.name}/>
+                        </Col>
+                       
+                    
+               
                 </Col>
                 <div id="page-wrap"></div>
                     <FixedWrapper.Root>
