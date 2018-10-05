@@ -68,6 +68,10 @@ class Maximized extends React.Component {
                     
                         <MessageList active>
                         {
+                            this.props.showLoadEarlierMessages &&
+                            <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.props.loadEarlierMessages.bind(this)}>Load earlier messages</button>
+                        }
+                        {
                             this.props.messages.map(message => (
                                 <MessageGroup
                                     avatar={ !message.isOwn ? message.avatar : null}

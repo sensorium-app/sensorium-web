@@ -28,7 +28,8 @@ class Profile extends Component {
             numSensatesInCluster: 0,
             sensatesInCluster: [],
             photo: require('./profilepic.png'),
-            messages: []
+            messages: [],
+            showLoadEarlierMessages: true,
         };
 
         this.db = firebaseConf.firestore();
@@ -36,13 +37,15 @@ class Profile extends Component {
         this.db.settings(settings);
 
         this.clusterChatId = '';
+        this.lastDocRef;
+        this.chatPagingNumber = 50;
+
         this.sensateListener;
         this.clusterListener; 
         this.chatListener;
 
         this.sensatesQueryArray = [];
         this.sensatesList = [];
-        
     }
 
     sendMessageToChat(chatText){
@@ -142,7 +145,7 @@ class Profile extends Component {
                         //Cluster chat
                         this.clusterChatId = doc.id;
                         this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
-                        .orderBy("date", "desc").limit(50)
+                        .orderBy("date", "desc").limit(this.chatPagingNumber)
                         .onSnapshot({
                             includeMetadataChanges: true
                         },
@@ -150,7 +153,7 @@ class Profile extends Component {
                             //This variable will help to determine if the state shouldn't be changed yet for when the same user sends a message,
                             //not messages sent by someone else
                             var messagesHasPendingWrites = messages.metadata.hasPendingWrites;
-
+                            
                             if(!messagesHasPendingWrites){
                                 var chatMessages = [];
 
@@ -192,6 +195,8 @@ class Profile extends Component {
                                         messages: this.state.messages.concat(chatMessagesReversed[chatMessagesReversed.length-1])
                                     })
                                 }else{
+                                    this.lastDocRef = messages.docs[messages.docs.length-1];
+                                    console.log(this.lastDocRef)
                                     //Adds the whole list of messages to the state
                                     this.setState({
                                         messages: this.state.messages.concat(chatMessagesReversed)
@@ -210,6 +215,58 @@ class Profile extends Component {
                 console.log("Sensate doesn't exist");
                 alert("Sensate doesn't exist or an error ocurred");
             }
+        });
+    }
+
+    loadEarlierMessages(){
+        this.setState({
+            showLoadEarlierMessages: false,
+        });
+
+        this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
+        .orderBy("date", "desc")
+        .startAfter(this.lastDocRef)
+        .limit(this.chatPagingNumber).get().then((earlierMessages)=>{
+            var chatMessages = [];
+
+            this.lastDocRef = earlierMessages.docs[earlierMessages.docs.length-1];
+            console.log(this.lastDocRef)
+
+            earlierMessages.forEach((message)=> {
+                var id = message.id;
+                var msg = message.data();
+
+                //position
+                if(msg.user._id === this.state.authUser.uid){
+                    msg['isOwn'] = true;
+                }else{
+                    msg['isOwn'] = false;
+                }
+
+                if(msg.date && msg.date.seconds){
+                    msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
+                    msg['date'] = moment(msg.date.seconds * 1000);
+                }
+                msg['title'] = msg.user.name;
+                msg['titleColor'] = 'blue';
+                msg['id'] = id;
+
+                chatMessages.push(msg);     
+            });
+
+            var chatMessagesReversed = [];
+            for(var i=chatMessages.length-1; i>=0; i--){
+                chatMessagesReversed.push(chatMessages[i])
+            }
+
+            var olderMessagesMerged = chatMessagesReversed.concat(this.state.messages);
+            this.setState({
+                messages: olderMessagesMerged,
+                showLoadEarlierMessages: true,
+            });
+        }).catch((err)=>{
+            console.log(err); 
+            alert('Error getting earlier messages');
         });
     }
     
@@ -235,7 +292,8 @@ class Profile extends Component {
                     <FixedWrapper.Root>
                         <FixedWrapper.Maximized>
                             <Maximized {...this.props} messages={this.state.messages}
-                                chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)} />
+                                chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)}
+                                loadEarlierMessages={this.loadEarlierMessages.bind(this)} showLoadEarlierMessages={this.state.showLoadEarlierMessages} />
                         </FixedWrapper.Maximized>
                         <FixedWrapper.Minimized>
                             <Minimized {...this.props} />
