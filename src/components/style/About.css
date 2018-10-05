@@ -1,5 +1,5 @@
 .backdrop {
-  background-image: radial-gradient(circle, grey 25%, white 75%);
+  
   background-size: 50%;
 }
 
@@ -17,7 +17,7 @@
 .bighead {
   text-align: center;
   font-family: Georgia;
-  background: radial-gradient(white, grey);
+ 
 }
 
 h4,
@@ -25,19 +25,19 @@ h4,
   text-align: center;
   z-index: 50;
 }
-
+/* 
 #divisions {
   background-image: linear-gradient(white, pink);
 }
 
 #technology {
   background-image: linear-gradient(white, lightblue);
-}
+} */
 
 #intro {
   padding-top: 25px;
 }
 
-#introducing {
+/* #introducing {
   background-image: linear-gradient(to right, pink, lightblue);
-}
+} */
