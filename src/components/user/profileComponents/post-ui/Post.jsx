@@ -5,17 +5,18 @@ import ProfilePhoto from '../ProfilePhoto';
 import ProfileDetails from '../ProfileDetails';
 import '../../../style/style.css';
 import './style/post.css';
-import firebaseConf, {firebase} from '../../../../config/FirebaseConfig';
+
 class Post extends Component {
     render() {
+      const { userData, text, date } = this.props;
       return <article className="Post" ref="Post">
           <header>
             <div className="Post-user">
               <div className="Post-user-avatar">
-                <ProfilePhoto image={this.props.photo} />
+                <ProfilePhoto image={userData.avatar} />
               </div>
               <div className="Post-user-nickname">
-                <span><ProfileDetails name={this.props.name} /></span>
+                <span><ProfileDetails name={userData.name} /></span>
               </div>
             </div>
           </header>
@@ -25,7 +26,7 @@ class Post extends Component {
             </div>
           </div>
           <div className="Post-caption">
-          <ProfileDetails name={this.props.name} /> Some caption
+            {text + ' ' + new Date(date)}
           </div>
         </article>;
       }
@@ -33,7 +34,8 @@ class Post extends Component {
   }
 
   Post.propTypes = {
-    photo: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    userData: PropTypes.object.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.object.isRequired,
   }
   export default Post;
