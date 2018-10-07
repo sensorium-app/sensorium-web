@@ -6,6 +6,7 @@ import ProfileDetails from '../ProfileDetails';
 import '../../../style/style.css';
 import './style/post.css';
 import PHeader from './PHeader';
+import PFooter from './PFooter';
 import styles from './styles';
 class Post extends Component {
     render() {
@@ -21,15 +22,16 @@ class Post extends Component {
               </div>
             </div>
           </header> */}
-          <PHeader image={userData.name} name={userData.avatar}/>
+          <PHeader name={userData.name} image={userData.avatar}/>
 
           <div className="Post-image">
             <div className="Post-image-bg">
               <img alt="Icon Living" src="https://source.unsplash.com/800x800" />
             </div>
           </div>
+          <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).getHours()+ ':'+new Date(date).getMinutes()} postcaption={text}/>
           <div className="Post-caption">
-            {text + ' ' + new Date(date).getHours() + ' Hours ' +'ago'}
+           
           </div>
         </article>;
       }

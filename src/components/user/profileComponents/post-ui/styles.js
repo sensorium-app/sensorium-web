@@ -36,6 +36,11 @@ export default {
       'borderRadius': '24px',
       'border': 0
     },
+    'timestamp': {
+        'fontSize': '10px',
+        'textDecoration': 'none',
+        'color': '#8899a6'
+      },
     'fullname': {
       'fontWeight': 'bold',
       'color': '#14171a'
