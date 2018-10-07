@@ -5,10 +5,30 @@ import ProfilePhoto from '../ProfilePhoto';
 import ProfileDetails from '../ProfileDetails';
 import '../../../style/style.css';
 import './style/post.css';
+import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 
 class Post extends Component {
+
+    constructor(props){
+      super(props);
+      this.state = {
+        imageUrl: null
+      };
+
+      if(this.props.imagePath){
+        var storage = firebase.storage();
+        var storageRef = storage.ref(this.props.imagePath);
+        storageRef.getDownloadURL().then((url)=> {
+            console.log(url);
+            this.setState({
+              imageUrl: url,
+            })
+        });
+      }
+    }
+
     render() {
-      const { userData, text, date } = this.props;
+      const { userData, text, date, imageUrl } = this.props;
       return <article className="Post" ref="Post">
           <header>
             <div className="Post-user">
@@ -20,11 +40,14 @@ class Post extends Component {
               </div>
             </div>
           </header>
-          <div className="Post-image">
-            <div className="Post-image-bg">
-              <img alt="Icon Living" src="https://source.unsplash.com/800x800" />
+          {
+            this.state.imageUrl && 
+            <div className="Post-image">
+              <div className="Post-image-bg">
+                <img alt="postImage" src={this.state.imageUrl} />
+              </div>
             </div>
-          </div>
+          }
           <div className="Post-caption">
             {text + ' ' + new Date(date)}
           </div>

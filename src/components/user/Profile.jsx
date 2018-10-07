@@ -12,12 +12,12 @@ import Maximized from './profileComponents/ChatMaximized';
 import Minimized from './profileComponents/ChatMinimized';
 import Post from './profileComponents/post-ui/Post';
 import moment from 'moment';
+import Dropzone from 'react-dropzone';
 
 class Profile extends Component {
 
     constructor(props, context) {
         super(props,context);
-        console.log(props);
         this.state = {
             authUser: props.authUser,
             dateOfBirth: '',
@@ -32,16 +32,18 @@ class Profile extends Component {
             showLoadEarlierMessages: true,
             posts: [],
             showLoadEarlierPosts: true,
+            dropzoneActive: false,
         };
 
         this.db = firebaseConf.firestore();
         const settings = { timestampsInSnapshots: true};
         this.db.settings(settings);
 
-        this.clusterChatId = '';
-        this.lastDocRef;
+        this.clusterId = '';
+        this.lastChatDocRef;
         this.chatPagingNumber = 50;
-        this.postPagingNumber = 25;
+        this.lastPostDocRef;
+        this.postPagingNumber = 1;
 
         this.sensateListener;
         this.clusterListener; 
@@ -72,35 +74,56 @@ class Profile extends Component {
             "status": "sent",
             "avatar": this.state.photo
         }
-        console.log(message, chatText)
         
-        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add(message).then((res)=>{
-            console.log(res, 'update state');
+        this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
         }).catch((err)=>{
             console.log(err);
         });
     }
 
-    addClusterPost(postObject){
+    prepareClusterPost(postObject, files){
+        if(files.length>0){
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var clustersRef = storageRef.child('clusters');
+            var clusterRef = clustersRef.child(this.clusterId);
+            var imageRef = clusterRef.child(new Date().getTime() + files[0].name);
+
+            //var message = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+            imageRef.put(files[0]).then((snapshot)=> {
+                var imagePath = snapshot.ref.location.path;
+                this.addClusterPost('text here...' + new Date().getTime(), imagePath);
+            }).catch((err)=>{
+                console.log(err);
+            });
+            
+        }else{
+            this.addClusterPost('text here...' + new Date().getTime(), undefined);
+        }
+    }
+
+    addClusterPost(text, imagePath){
         const serverDate = firebase.firestore.FieldValue.serverTimestamp();
         const date = new Date();
         const dateNumber = date.getTime();
         const post = {
-            "text": postObject.text,
+            "text": text,
+            "text": 'hola ' + new Date().getTime(),
             "user": {
-              "_id": this.state.authUser.uid,
-              "name": this.state.name,
-              "avatar": this.state.photo
+            "_id": this.state.authUser.uid,
+            "name": this.state.name,
+            "avatar": this.state.photo
             },
             "id": dateNumber,
             "type": "text",
             "date": serverDate,
             "status": "sent",
         }
-        console.log(post)
+        if(imagePath){
+            post['image'] = imagePath
+        }
         
-        this.db.collection("clusters").doc(this.clusterChatId).collection('posts').add(post).then((res)=>{
-            console.log(res, 'update state');
+        this.db.collection("clusters").doc(this.clusterId).collection('posts').add(post).then((res)=>{
         }).catch((err)=>{
             console.log(err);
         });
@@ -175,8 +198,8 @@ class Profile extends Component {
                         });
 
                         //Cluster chat
-                        this.clusterChatId = doc.id;
-                        this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
+                        this.clusterId = doc.id;
+                        this.chatListener = this.db.collection("clusters").doc(this.clusterId).collection('messages')
                         .orderBy("date", "desc").limit(this.chatPagingNumber)
                         .onSnapshot({
                             includeMetadataChanges: true
@@ -227,8 +250,7 @@ class Profile extends Component {
                                         messages: this.state.messages.concat(chatMessagesReversed[chatMessagesReversed.length-1])
                                     })
                                 }else{
-                                    this.lastDocRef = messages.docs[messages.docs.length-1];
-                                    console.log(this.lastDocRef)
+                                    this.lastChatDocRef = messages.docs[messages.docs.length-1];
                                     //Adds the whole list of messages to the state
                                     this.setState({
                                         messages: this.state.messages.concat(chatMessagesReversed)
@@ -258,14 +280,13 @@ class Profile extends Component {
             showLoadEarlierMessages: false,
         });
 
-        this.db.collection("clusters").doc(this.clusterChatId).collection('messages')
+        this.db.collection("clusters").doc(this.clusterId).collection('messages')
         .orderBy("date", "desc")
-        .startAfter(this.lastDocRef)
+        .startAfter(this.lastChatDocRef)
         .limit(this.chatPagingNumber).get().then((earlierMessages)=>{
             var chatMessages = [];
 
-            this.lastDocRef = earlierMessages.docs[earlierMessages.docs.length-1];
-            console.log(this.lastDocRef)
+            this.lastChatDocRef = earlierMessages.docs[earlierMessages.docs.length-1];
 
             earlierMessages.forEach((message)=> {
                 var id = message.id;
@@ -306,7 +327,7 @@ class Profile extends Component {
     }
 
     initPostsListener(){
-        this.postsListener = this.db.collection("clusters").doc(this.clusterChatId).collection('posts')
+        this.postsListener = this.db.collection("clusters").doc(this.clusterId).collection('posts')
             .orderBy("date", "desc").limit(this.postPagingNumber)
             .onSnapshot({
                 includeMetadataChanges: true
@@ -315,66 +336,166 @@ class Profile extends Component {
                 var postsHasPendingWrites = posts.metadata.hasPendingWrites;
                 if(!postsHasPendingWrites){
                     var postsArray = [];
-                    posts.forEach((post)=>{
+                    posts.forEach((post,i)=>{
                         var postData = post.data();
                         postData['_id'] = post.id;
                         postData['date'] = moment(postData.date.seconds * 1000);
-                        postsArray.push(postData);
-                        this.setState({
-                            posts: postsArray
-                        },()=> console.log(this.state.posts))
+
+                        if(this.state.posts.indexOf(postsArray[i])===-1){
+                            postsArray.push(postData);
+                        }
+                        
                     });
+
+                    if(this.state.posts.length > 0){
+                        //only add the last post
+                        console.log('only add the last post');
+                        var newPostsArray = [];
+                        newPostsArray.push(postsArray[postsArray.length-1]);
+                        console.log(newPostsArray, newPostsArray.concat(this.state.posts));
+
+                        this.setState({
+                            posts: newPostsArray.concat(this.state.posts),
+                        },()=> console.log(this.state.posts))
+                    }else{
+                        //add all the posts to the state
+                        console.log('add all the posts to the state')
+                        this.lastPostDocRef = posts.docs[posts.docs.length-1];
+                        console.log(this.lastPostDocRef)
+                        this.setState({
+                            posts: this.state.posts.concat(postsArray)
+                        })
+                    }
                 }
             });
     }
+
+    loadEarlierPosts(){
+        this.setState({
+            showLoadEarlierPosts: false,
+        });
+
+        this.db.collection("clusters").doc(this.clusterId).collection('posts')
+        .orderBy("date", "desc")
+        .startAfter(this.lastPostDocRef)
+        .limit(this.postPagingNumber).get().then((earlierPosts)=>{
+            var posts = [];
+
+            this.lastPostDocRef = earlierPosts.docs[earlierPosts.docs.length-1];
+
+            earlierPosts.forEach((post)=> {
+                var id = post.id;
+                var postData = post.data();
+
+                postData['date'] = moment(postData.date.seconds * 1000);
+                postData['_id'] = id;
+
+                posts.push(postData);     
+            });
+
+            var olderPostsMerged = this.state.posts.concat(posts);
+            this.setState({
+                posts: olderPostsMerged,
+                showLoadEarlierPosts: true,
+            });
+        }).catch((err)=>{
+            console.log(err); 
+            alert('Error getting earlier posts');
+        });
+    }
+
+    onDragEnter() {
+        this.setState({
+            dropzoneActive: true
+        });
+    }
+
+    onDragLeave() {
+        this.setState({
+            dropzoneActive: false
+        });
+    }
+
+    onDrop(files) {
+        this.prepareClusterPost(undefined, files);
+        this.setState({
+            //files,
+            dropzoneActive: false
+        });
+    }
     
     render() {
-
+        const { dropzoneActive } = this.state;
+        const overlayStyle = {
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            padding: '2.5em 0',
+            background: 'rgba(0,0,0,0.5)',
+            textAlign: 'center',
+            color: '#fff'
+        };
         return (
-            <Row>
-                <div id="outer-container">
-            
-                <Col md={3} className="no-padd">
-                    <div className="no-padd">
-                        <ProfileMenu photo={this.state.photo} name={this.state.name} 
-                            lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
-                            sensatesInClusterData={this.state.sensatesInCluster}
-                            menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
-                            bigScreen={this.props.bigScreen}>
-                        </ProfileMenu>
-                        <p>{this.props.menuOpen}</p>
+            <Dropzone
+                disableClick
+                style={{position: "relative"}}
+                accept="image/*"
+                onDrop={this.onDrop.bind(this)}
+                onDragEnter={this.onDragEnter.bind(this)}
+                onDragLeave={this.onDragLeave.bind(this)}
+            >
+                { dropzoneActive && <div style={overlayStyle}>Drop files...</div> }
+                <Row>
+                    <div id="outer-container">
+                
+                    <Col md={3} className="no-padd">
+                        <div className="no-padd">
+                            <ProfileMenu photo={this.state.photo} name={this.state.name} 
+                                lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
+                                sensatesInClusterData={this.state.sensatesInCluster}
+                                menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
+                                bigScreen={this.props.bigScreen}>
+                            </ProfileMenu>
+                            <p>{this.props.menuOpen}</p>
+                        
+                        </div>
+                    </Col>
+                    <Col className="" md={9}>
                     
+                        <Col md={6}>
+                            {
+                                this.state.posts.map((postData)=>{
+                                    return(
+                                        <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
+                                    )
+                                })
+                            }
+                            <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.prepareClusterPost.bind(this, {
+                                text: 'hey: ' + new Date().getTime()
+                            })}>Add random Post</button>
+                            {
+                                this.state.showLoadEarlierPosts &&
+                                <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
+                            }
+                        </Col>    
+                        
+                    </Col>
+                    <div id="page-wrap"></div>
+                        <FixedWrapper.Root>
+                            <FixedWrapper.Maximized>
+                                <Maximized {...this.props} messages={this.state.messages}
+                                    chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)}
+                                    loadEarlierMessages={this.loadEarlierMessages.bind(this)} showLoadEarlierMessages={this.state.showLoadEarlierMessages} />
+                            </FixedWrapper.Maximized>
+                            <FixedWrapper.Minimized>
+                                <Minimized {...this.props} />
+                            </FixedWrapper.Minimized>
+                        </FixedWrapper.Root>
                     </div>
-                </Col>
-                <Col className="" md={9}>
-                   
-                    <Col md={6}>
-                        {
-                            this.state.posts.map((postData)=>{
-                                return(
-                                    <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date}/>
-                                )
-                            })
-                        }
-                        <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.addClusterPost.bind(this, {
-                            text: 'hey: ' + new Date().getTime()
-                        })}>Add random Post</button>
-                    </Col>    
-                    
-                </Col>
-                <div id="page-wrap"></div>
-                    <FixedWrapper.Root>
-                        <FixedWrapper.Maximized>
-                            <Maximized {...this.props} messages={this.state.messages}
-                                chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)}
-                                loadEarlierMessages={this.loadEarlierMessages.bind(this)} showLoadEarlierMessages={this.state.showLoadEarlierMessages} />
-                        </FixedWrapper.Maximized>
-                        <FixedWrapper.Minimized>
-                            <Minimized {...this.props} />
-                        </FixedWrapper.Minimized>
-                    </FixedWrapper.Root>
-                </div>
-            </Row>
+                </Row>
+            </Dropzone>
         )
     }
 }
