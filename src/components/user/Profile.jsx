@@ -30,6 +30,8 @@ class Profile extends Component {
             photo: require('./profilepic.png'),
             messages: [],
             showLoadEarlierMessages: true,
+            posts: [],
+            showLoadEarlierPosts: true,
         };
 
         this.db = firebaseConf.firestore();
@@ -39,10 +41,12 @@ class Profile extends Component {
         this.clusterChatId = '';
         this.lastDocRef;
         this.chatPagingNumber = 50;
+        this.postPagingNumber = 25;
 
         this.sensateListener;
         this.clusterListener; 
         this.chatListener;
+        this.postsListener;
 
         this.sensatesQueryArray = [];
         this.sensatesList = [];
@@ -77,6 +81,31 @@ class Profile extends Component {
         });
     }
 
+    addClusterPost(postObject){
+        const serverDate = firebase.firestore.FieldValue.serverTimestamp();
+        const date = new Date();
+        const dateNumber = date.getTime();
+        const post = {
+            "text": postObject.text,
+            "user": {
+              "_id": this.state.authUser.uid,
+              "name": this.state.name,
+              "avatar": this.state.photo
+            },
+            "id": dateNumber,
+            "type": "text",
+            "date": serverDate,
+            "status": "sent",
+        }
+        console.log(post)
+        
+        this.db.collection("clusters").doc(this.clusterChatId).collection('posts').add(post).then((res)=>{
+            console.log(res, 'update state');
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
           window.scrollTo(0, 0)
@@ -93,6 +122,9 @@ class Profile extends Component {
         }
         if(this.chatListener){
             this.chatListener();
+        }
+        if(this.postsListener){
+            this.postsListener();
         }
     }
 
@@ -206,6 +238,9 @@ class Profile extends Component {
                               
                         });
 
+                        //Initialize the Posts Listener
+                        this.initPostsListener();
+
                     });
                 });
 
@@ -269,6 +304,29 @@ class Profile extends Component {
             alert('Error getting earlier messages');
         });
     }
+
+    initPostsListener(){
+        this.postsListener = this.db.collection("clusters").doc(this.clusterChatId).collection('posts')
+            .orderBy("date", "desc").limit(this.postPagingNumber)
+            .onSnapshot({
+                includeMetadataChanges: true
+            },
+            (posts)=>{
+                var postsHasPendingWrites = posts.metadata.hasPendingWrites;
+                if(!postsHasPendingWrites){
+                    var postsArray = [];
+                    posts.forEach((post)=>{
+                        var postData = post.data();
+                        postData['_id'] = post.id;
+                        postData['date'] = moment(postData.date.seconds * 1000);
+                        postsArray.push(postData);
+                        this.setState({
+                            posts: postsArray
+                        },()=> console.log(this.state.posts))
+                    });
+                }
+            });
+    }
     
     render() {
 
@@ -289,14 +347,20 @@ class Profile extends Component {
                     </div>
                 </Col>
                 <Col className="" md={9}>
-                
                    
-                        <Col md={6}>
-                        <Post photo={this.state.photo} name={this.state.name}/>
-                        </Col>
-                       
+                    <Col md={6}>
+                        {
+                            this.state.posts.map((postData)=>{
+                                return(
+                                    <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date}/>
+                                )
+                            })
+                        }
+                        <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.addClusterPost.bind(this, {
+                            text: 'hey: ' + new Date().getTime()
+                        })}>Add random Post</button>
+                    </Col>    
                     
-               
                 </Col>
                 <div id="page-wrap"></div>
                     <FixedWrapper.Root>

@@ -10,6 +10,7 @@ const PHeader = (props) =>(
         <a className="account-group" style={styles.accountGroup}>
           <img className="avatar" src={props.image} style={styles.avatar} />
           <strong className="fullname" style={styles.fullname}>{props.name}</strong>
+          
         </a>
           
       </div>
