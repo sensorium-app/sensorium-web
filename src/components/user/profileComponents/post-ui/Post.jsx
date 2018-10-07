@@ -29,7 +29,7 @@ class Post extends Component {
               <img alt="Icon Living" src="https://source.unsplash.com/800x800" />
             </div>
           </div>
-          <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).getHours()+ ':'+new Date(date).getMinutes()} postcaption={text}/>
+          <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()} postcaption={text}/>
           <div className="Post-caption">
            
           </div>
