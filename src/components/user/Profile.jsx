@@ -349,21 +349,17 @@ class Profile extends Component {
 
                     if(this.state.posts.length > 0){
                         //only add the last post
-                        console.log('only add the last post');
                         var newPostsArray = [];
                         newPostsArray.push(postsArray[postsArray.length-1]);
-                        console.log(newPostsArray, newPostsArray.concat(this.state.posts));
 
                         this.setState({
                             posts: newPostsArray.concat(this.state.posts),
-                        },()=> console.log(this.state.posts))
+                        })
                     }else{
                         //add all the posts to the state
-                        console.log('add all the posts to the state')
                         this.lastPostDocRef = posts.docs[posts.docs.length-1];
-                        console.log(this.lastPostDocRef)
                         this.setState({
-                            posts: this.state.posts.concat(postsArray)
+                            posts: postsArray
                         })
                     }
                 }
