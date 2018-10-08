@@ -4,7 +4,6 @@ export default {
       'minHeight': '51px',
       'maxWidth': '588px',
       'minWidth': '350px',
-      'borderLeft': '2px solid #707070',
       'color': '#14171a',
       'fontFamily': '"Helvetica Neue", "Helvetica", "Arial", "sans-serif"',
       'fontSize': '15px',
