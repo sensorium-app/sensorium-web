@@ -10,6 +10,7 @@ import PFooter from './PFooter';
 import styles from './styles';
 
 import {firebase} from './../../../../config/FirebaseConfig';
+import randomColor from 'randomcolor';
 
 class Post extends Component {
 
@@ -23,17 +24,16 @@ class Post extends Component {
         var storage = firebase.storage();
         var storageRef = storage.ref(this.props.imagePath);
         storageRef.getDownloadURL().then((url)=> {
-            console.log(url);
             this.setState({
               imageUrl: url,
-            })
+            });
         });
       }
     }
 
     render() {
       const { userData, text, date } = this.props;
-      return <article className="Post" ref="Post" style={styles.post}>
+      return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '2px solid ' + randomColor()}}}>
           <PHeader name={userData.name} image={userData.avatar}/>
 
           {
