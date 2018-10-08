@@ -8,28 +8,44 @@ import './style/post.css';
 import PHeader from './PHeader';
 import PFooter from './PFooter';
 import styles from './styles';
+
+import {firebase} from './../../../../config/FirebaseConfig';
+
 class Post extends Component {
+
+    constructor(props){
+      super(props);
+      this.state = {
+        imageUrl: null
+      };
+
+      if(this.props.imagePath){
+        var storage = firebase.storage();
+        var storageRef = storage.ref(this.props.imagePath);
+        storageRef.getDownloadURL().then((url)=> {
+            console.log(url);
+            this.setState({
+              imageUrl: url,
+            })
+        });
+      }
+    }
+
     render() {
       const { userData, text, date } = this.props;
       return <article className="Post" ref="Post" style={styles.post}>
-          {/* <header>
-            <div className="Post-user">
-              <div className="Post-user-avatar">
-                <ProfilePhoto image={userData.avatar} />
-              </div>
-              <div className="Post-user-nickname">
-                <span><ProfileDetails name={userData.name} /></span>
-              </div>
-            </div>
-          </header> */}
           <PHeader name={userData.name} image={userData.avatar}/>
 
-          <div className="Post-image">
-            <div className="Post-image-bg">
-              <img alt="Icon Living" src="https://source.unsplash.com/800x800" />
+          {
+            this.state.imageUrl && 
+            <div className="Post-image">
+              <div className="Post-image-bg">
+                <img alt="" src={this.state.imageUrl} />
+              </div>
             </div>
-          </div>
-          <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()} postcaption={text}/>
+          }
+
+           <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()} postcaption={text}/>
           <div className="Post-caption">
            
           </div>
