@@ -8,8 +8,8 @@ import {Row, Col} from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
 import { FixedWrapper } from '@livechat/ui-kit'
-import Maximized from './profileComponents/ChatMaximized';
-import Minimized from './profileComponents/ChatMinimized';
+import Maximized from './profileComponents/chat-ui/ChatMaximized';
+import Minimized from './profileComponents/chat-ui/ChatMinimized';
 import Post from './profileComponents/post-ui/Post';
 import moment from 'moment';
 import Dropzone from 'react-dropzone';
@@ -43,7 +43,7 @@ class Profile extends Component {
         this.lastChatDocRef;
         this.chatPagingNumber = 50;
         this.lastPostDocRef;
-        this.postPagingNumber = 1;
+        this.postPagingNumber = 25;
 
         this.sensateListener;
         this.clusterListener; 
@@ -54,13 +54,12 @@ class Profile extends Component {
         this.sensatesList = [];
     }
 
-    sendMessageToChat(chatText){
+    sendMessageToChat(chatText, files){
         const serverDate = firebase.firestore.FieldValue.serverTimestamp();
         const date = new Date();
         const dateNumber = date.getTime();
-        const message = {
+        let message = {
             "_id": dateNumber,
-            "text": chatText,
             "createdAt": serverDate,
             "system": false,
             "user": {
@@ -73,12 +72,35 @@ class Profile extends Component {
             "date": serverDate,
             "status": "sent",
             "avatar": this.state.photo
+        };
+
+        if(files && files.length>0){
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var clustersRef = storageRef.child('clusters');
+            var clusterRef = clustersRef.child(this.clusterId);
+            var chatMediaRef = clusterRef.child('chatMedia');
+            var imageRef = chatMediaRef.child(new Date().getTime() + files[0].name);
+
+            imageRef.put(files[0]).then((snapshot)=> {
+                var imagePath = snapshot.ref.location.path;
+                message['text'] = chatText;
+                message['imagePath'] = imagePath;
+                //this.addClusterPost('text here...' + new Date().getTime(), imagePath);
+                this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
+                }).catch((err)=>{
+                    console.log(err);
+                });
+            }).catch((err)=>{
+                console.log(err);
+            });
+        }else{
+            message['text'] = chatText;
+            this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
+            }).catch((err)=>{
+                console.log(err);
+            });
         }
-        
-        this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
-        }).catch((err)=>{
-            console.log(err);
-        });
     }
 
     prepareClusterPost(postObject, files){
@@ -446,7 +468,7 @@ class Profile extends Component {
                 <Row>
                     <div id="outer-container">
                 
-                    <Col md={3} className="no-padd">
+                    <Col md={3} className="no-padd" style={{zIndex: '99',}}>
                         <div className="no-padd">
                             <ProfileMenu photo={this.state.photo} name={this.state.name} 
                                 lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}

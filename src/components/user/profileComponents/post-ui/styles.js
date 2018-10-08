@@ -106,6 +106,6 @@ export default {
       'maxHeight': '508px',
       'objectFit': 'contain',
       'background': '#000000'
-    }
+    },
   }
   
