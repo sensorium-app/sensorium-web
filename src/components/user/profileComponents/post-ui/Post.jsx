@@ -45,7 +45,7 @@ class Post extends Component {
             </div>
           }
 
-          <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).getHours()+ ':'+new Date(date).getMinutes()} postcaption={text}/>
+           <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()} postcaption={text}/>
           <div className="Post-caption">
            
           </div>

@@ -4,12 +4,12 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 var config = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: ""
+    apiKey: "AIzaSyBtEaff-AyfVvF2dirOsrJg0ts_5FFQ5UQ",
+    authDomain: "sensorium-76912.firebaseapp.com",
+    databaseURL: "https://sensorium-76912.firebaseio.com",
+    projectId: "sensorium-76912",
+    storageBucket: "sensorium-76912.appspot.com",
+    messagingSenderId: "759821982978"
  };
 var fire = firebase.initializeApp(config);
 export default fire;
