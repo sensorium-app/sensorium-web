@@ -43,7 +43,7 @@ class Profile extends Component {
         this.lastChatDocRef;
         this.chatPagingNumber = 50;
         this.lastPostDocRef;
-        this.postPagingNumber = 25;
+        this.postPagingNumber = 2;
 
         this.sensateListener;
         this.clusterListener; 
@@ -372,7 +372,8 @@ class Profile extends Component {
                     if(this.state.posts.length > 0){
                         //only add the last post
                         var newPostsArray = [];
-                        newPostsArray.push(postsArray[postsArray.length-1]);
+                        newPostsArray.push(postsArray[0]);
+                        console.log(postsArray, newPostsArray)
 
                         this.setState({
                             posts: newPostsArray.concat(this.state.posts),
