@@ -34,18 +34,18 @@ class Post extends Component {
     render() {
       const { userData, text, date } = this.props;
       return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '2px solid ' + randomColor()}}}>
-          <PHeader name={userData.name} image={userData.avatar}/>
+          <PHeader name={userData.name} image={userData.avatar} 
+            timestamp={'Shared at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()}
+          />
 
           {
             this.state.imageUrl && 
             <div className="Post-image">
-              <div className="Post-image-bg">
-                <img alt="" src={this.state.imageUrl} />
-              </div>
+              <img alt="" src={this.state.imageUrl} />
             </div>
           }
 
-           <PFooter name={userData.name} timestamp={'Posted at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()} postcaption={text}/>
+           <PFooter postcaption={text}/>
           <div className="Post-caption">
            
           </div>

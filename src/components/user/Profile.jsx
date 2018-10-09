@@ -469,39 +469,38 @@ class Profile extends Component {
                 <Row>
                     <div id="outer-container">
                 
-                    <Col md={3} className="no-padd" style={{zIndex: '99',}}>
-                        <div className="no-padd">
-                            <ProfileMenu photo={this.state.photo} name={this.state.name} 
-                                lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
-                                sensatesInClusterData={this.state.sensatesInCluster}
-                                menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
-                                bigScreen={this.props.bigScreen}>
-                            </ProfileMenu>
-                            <p>{this.props.menuOpen}</p>
+                        <Col md={3} className="no-padd" style={{zIndex: '99',}}>
+                            <div className="no-padd">
+                                <ProfileMenu photo={this.state.photo} name={this.state.name} 
+                                    lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
+                                    sensatesInClusterData={this.state.sensatesInCluster}
+                                    menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
+                                    bigScreen={this.props.bigScreen}>
+                                </ProfileMenu>
+                                <p>{this.props.menuOpen}</p>
+                            
+                            </div>
+                        </Col>
+                        <Col id="page-wrap" className="" md={9}>
                         
-                        </div>
-                    </Col>
-                    <Col className="" md={9}>
-                    
-                        <Col md={6}>
-                            {
-                                this.state.posts.map((postData)=>{
-                                    return(
-                                        <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
-                                    )
-                                })
-                            }
-                            <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.prepareClusterPost.bind(this, {
-                                text: 'hey: ' + new Date().getTime()
-                            })}>Add random Post</button>
-                            {
-                                this.state.showLoadEarlierPosts &&
-                                <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
-                            }
-                        </Col>    
-                        
-                    </Col>
-                    <div id="page-wrap"></div>
+                            <Col md={6}>
+                                {
+                                    this.state.posts.map((postData)=>{
+                                        return(
+                                            <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
+                                        )
+                                    })
+                                }
+                                <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.prepareClusterPost.bind(this, {
+                                    text: 'hey: ' + new Date().getTime()
+                                })}>Add random Post</button>
+                                {
+                                    this.state.showLoadEarlierPosts &&
+                                    <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
+                                }
+                            </Col>    
+                            
+                        </Col>
                         <FixedWrapper.Root>
                             <FixedWrapper.Maximized>
                                 <Maximized {...this.props} messages={this.state.messages}

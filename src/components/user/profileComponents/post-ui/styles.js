@@ -3,7 +3,7 @@ export default {
       'backgroundColor': '#ffffff',
       'minHeight': '51px',
       'maxWidth': '588px',
-      'minWidth': '350px',
+      'minWidth': '300px',
       'color': '#14171a',
       'fontFamily': '"Helvetica Neue", "Helvetica", "Arial", "sans-serif"',
       'fontSize': '15px',
@@ -29,7 +29,6 @@ export default {
     'avatar': {
       'float': 'left',
       'marginTop': '1px',
-      'marginLeft': '-65px',
       'width': '48px',
       'height': '48px',
       'borderRadius': '24px',
