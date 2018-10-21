@@ -4,7 +4,7 @@ import '../style/Home.css';
 import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
-import {Row, Col} from 'reactstrap';
+import {Row, Col, Card, Button, CardTitle, CardText} from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
 import { FixedWrapper } from '@livechat/ui-kit'
@@ -478,19 +478,45 @@ class Profile extends Component {
                                     bigScreen={this.props.bigScreen}>
                                 </ProfileMenu>
                                 <p>{this.props.menuOpen}</p>
-                            
                             </div>
                         </Col>
-                        <Col id="page-wrap" className="" md={9}>
+                        <Col md={9} >
+                        <div className="post-grid-items">
+                            <div class="create-post-card">
+                            <textarea rows="4" placeholder="What is in your mind?!" class="textarea" id="textarea"></textarea><br></br>
+                                <button className="btn  btn-primary"><i className="fa fa-pencil"></i> Post</button>
+                            </div>
+                        </div>
+                        <div className="post-grid">
                         
-                            <Col md={6}>
+                        {
+                                    this.state.posts.map((postData)=>{
+                                        return(
+                                            
+                                            <div className="post-grid-items">
+
+                                            <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
+
+                                            </div>
+                                        )
+                                    })
+                        }
+                        </div>
+                        </Col>
+                        {/* <Col id="page-wrap" md={9} className="posts" >
                                 {
                                     this.state.posts.map((postData)=>{
                                         return(
+                                            <div className="post-grid">
+
                                             <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
+
+                                            </div>
                                         )
                                     })
                                 }
+                            <Col md={6}>
+                               
                                 <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.prepareClusterPost.bind(this, {
                                     text: 'hey: ' + new Date().getTime()
                                 })}>Add random Post</button>
@@ -500,7 +526,7 @@ class Profile extends Component {
                                 }
                             </Col>    
                             
-                        </Col>
+                        </Col> */}
                         <FixedWrapper.Root>
                             <FixedWrapper.Maximized>
                                 <Maximized {...this.props} messages={this.state.messages}

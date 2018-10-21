@@ -8,13 +8,15 @@ export default {
       'fontFamily': '"Helvetica Neue", "Helvetica", "Arial", "sans-serif"',
       'fontSize': '15px',
       'lineHeight': '20px',
-      'listStyleImage': 'none',
-      'listStylePosition': 'outisde',
-      'listStyleType': 'none',
-      'padding': '9px 12px',
-      'position': 'relative',
+      'padding': '15px',
+      'paddingBottom': '0',
+      'boxShadow':'0px 0px 20px rgba(0, 209, 178, 0.2)',
       'textAlign': 'start',
+      'border':'none',
       'borderRadius':'5px'
+    },
+    'header':{
+      'padding':'5px'
     },
     'content': {
       'marginLeft': '58px'
@@ -29,6 +31,7 @@ export default {
     'avatar': {
       'float': 'left',
       'marginTop': '1px',
+      'marginLeft': '-10px',
       'width': '48px',
       'height': '48px',
       'borderRadius': '24px',
@@ -37,10 +40,12 @@ export default {
     'timestamp': {
         'fontSize': '10px',
         'textDecoration': 'none',
+        'marginLeft': '10px',
         'color': '#8899a6'
       },
     'fullname': {
       'fontWeight': 'bold',
+      'marginLeft': '10px',
       'color': '#14171a'
     },
     'username': {

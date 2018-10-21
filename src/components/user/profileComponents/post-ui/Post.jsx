@@ -33,7 +33,7 @@ class Post extends Component {
 
     render() {
       const { userData, text, date } = this.props;
-      return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '2px solid ' + randomColor()}}}>
+      return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '1.2px solid ' + randomColor()}} }>
           <PHeader name={userData.name} image={userData.avatar} 
             timestamp={'Shared at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()}
           />
