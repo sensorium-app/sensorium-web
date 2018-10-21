@@ -33,6 +33,7 @@ class Profile extends Component {
             posts: [],
             showLoadEarlierPosts: true,
             dropzoneActive: false,
+            textAreaValue : ''
         };
 
         this.db = firebaseConf.firestore();
@@ -52,8 +53,17 @@ class Profile extends Component {
 
         this.sensatesQueryArray = [];
         this.sensatesList = [];
-    }
 
+        this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleChange(e) {
+		this.setState({textAreaValue: e.target.value})
+	}
+	
+	handleSubmit(e) {
+		alert('An essay was submited: ' + this.state.textAreaValue);
+	}
     sendMessageToChat(chatText, files){
         const serverDate = firebase.firestore.FieldValue.serverTimestamp();
         const date = new Date();
@@ -130,7 +140,7 @@ class Profile extends Component {
         const dateNumber = date.getTime();
         const post = {
             "text": text,
-            "text": 'hola ' + new Date().getTime(),
+            "text": this.state.textAreaValue,
             "user": {
             "_id": this.state.authUser.uid,
             "name": this.state.name,
@@ -483,8 +493,13 @@ class Profile extends Component {
                         <Col md={9} >
                         <div className="post-grid-items">
                             <div class="create-post-card">
-                            <textarea rows="4" placeholder="What is in your mind?!" class="textarea" id="textarea"></textarea><br></br>
-                                <button className="btn  btn-primary"><i className="fa fa-pencil"></i> Post</button>
+                            <form onSubmit={this.handleSubmit}>
+                                <textarea rows="4" placeholder="What is in your mind?!" class="textarea" id="textarea" onChange={this.handleChange} value={this.state.value}></textarea>
+                                <br />
+                                <input type='submit' value='Submit' className="post-button" placeholder="post"/>
+                            </form>
+                           
+                              
                             </div>
                         </div>
                         <div className="post-grid">
@@ -502,6 +517,12 @@ class Profile extends Component {
                                     })
                         }
                         </div>
+                        <Row className="text-center">
+                            {
+                                this.state.showLoadEarlierPosts &&
+                                <button className="post-button" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
+                            }
+                        </Row>
                         </Col>
                         {/* <Col id="page-wrap" md={9} className="posts" >
                                 {
@@ -517,13 +538,7 @@ class Profile extends Component {
                                 }
                             <Col md={6}>
                                
-                                <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.prepareClusterPost.bind(this, {
-                                    text: 'hey: ' + new Date().getTime()
-                                })}>Add random Post</button>
-                                {
-                                    this.state.showLoadEarlierPosts &&
-                                    <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
-                                }
+                                
                             </Col>    
                             
                         </Col> */}
