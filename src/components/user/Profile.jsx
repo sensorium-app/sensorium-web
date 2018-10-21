@@ -58,11 +58,12 @@ class Profile extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange(e) {
-		this.setState({textAreaValue: e.target.value})
+        this.setState({textAreaValue: e.target.value})
+        alert('An essay was submited: ' + this.state.textAreaValue);
 	}
 	
 	handleSubmit(e) {
-		alert('An essay was submited: ' + this.state.textAreaValue);
+		
 	}
     sendMessageToChat(chatText, files){
         const serverDate = firebase.firestore.FieldValue.serverTimestamp();
@@ -493,10 +494,10 @@ class Profile extends Component {
                         <Col md={9} >
                         <div className="post-grid-items">
                             <div class="create-post-card">
-                            <form onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.prepareClusterPost.bind(this)}>
                                 <textarea rows="4" placeholder="What is in your mind?!" class="textarea" id="textarea" onChange={this.handleChange} value={this.state.value}></textarea>
                                 <br />
-                                <input type='submit' value='Submit' className="post-button" placeholder="post"/>
+                                <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost.bind(this)}/>
                             </form>
                            
                               
@@ -517,7 +518,7 @@ class Profile extends Component {
                                     })
                         }
                         </div>
-                        <Row className="text-center">
+                        <Row className="text-center m-5">
                             {
                                 this.state.showLoadEarlierPosts &&
                                 <button className="post-button" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
