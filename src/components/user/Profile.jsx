@@ -491,7 +491,7 @@ class Profile extends Component {
                     
                     <div id="outer-container">
                 
-                        <Col md={3} className="no-padd" style={{zIndex: '99',}}>
+                        <Col  style={{opacity: '.99',}}>
                             <div className="no-padd">
                                 <ProfileMenu photo={this.state.photo} name={this.state.name} 
                                     lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
