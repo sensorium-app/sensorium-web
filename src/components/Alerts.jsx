@@ -7,8 +7,8 @@ const Alert = props => {
 
   if (type === 'success') {
     return (
-        <div class="alert success">
-            <span class="closebtn" >&times;</span> 
+        <div className="alert success">
+            <span className="closebtn" >&times;</span> 
             {msg}
         </div>
     );
@@ -16,8 +16,8 @@ const Alert = props => {
 
   else if (type === 'error'){
     return (
-        <div class="alert error">
-            <span class="closebtn" >&times;</span> 
+        <div className="alert error">
+            <span className="closebtn" >&times;</span> 
             {msg}
         </div>
     );
@@ -25,8 +25,8 @@ const Alert = props => {
   
   else if (type === 'warning'){
     return (
-        <div class="alert warning">
-            <span class="closebtn" >&times;</span> 
+        <div className="alert warning">
+            <span className="closebtn" >&times;</span> 
             {msg}
         </div>
     );
@@ -37,7 +37,7 @@ const Alert = props => {
  
 };
 
-Alert.PropTypes = {
+Alert.propTypes = {
   type: PropTypes.string.isRequired,
   msg: PropTypes.string.isRequired,
 };

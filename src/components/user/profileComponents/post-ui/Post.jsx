@@ -40,8 +40,8 @@ class Post extends Component {
 
           {
             this.state.imageUrl && 
-            <div className="Post-image">
-              <img alt="" src={this.state.imageUrl} />
+            <div>
+              <img alt="" className="Post-image" src={this.state.imageUrl} />
             </div>
           }
 

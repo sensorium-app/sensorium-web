@@ -13,6 +13,7 @@ import Minimized from './profileComponents/chat-ui/ChatMinimized';
 import Post from './profileComponents/post-ui/Post';
 import moment from 'moment';
 import Dropzone from 'react-dropzone';
+import UploadMedia from './profileComponents/chat-ui/UploadMedia';
 
 class Profile extends Component {
 
@@ -32,8 +33,10 @@ class Profile extends Component {
             showLoadEarlierMessages: true,
             posts: [],
             showLoadEarlierPosts: true,
-            dropzoneActive: false,
-            textAreaValue : ''
+            textAreaValue : '',
+            showMediaUpload: false,
+            imagePath: '',
+            files: [],
         };
 
         this.db = firebaseConf.firestore();
@@ -44,7 +47,7 @@ class Profile extends Component {
         this.lastChatDocRef;
         this.chatPagingNumber = 50;
         this.lastPostDocRef;
-        this.postPagingNumber = 2;
+        this.postPagingNumber = 25;
 
         this.sensateListener;
         this.clusterListener; 
@@ -55,16 +58,21 @@ class Profile extends Component {
         this.sensatesList = [];
 
         this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+        this.prepareClusterPost = this.prepareClusterPost.bind(this);
+        this.loadImageToPost = this.loadImageToPost.bind(this);
+        this.dropzoneRef;
     }
+
     handleChange(e) {
         this.setState({textAreaValue: e.target.value})
-        alert('An essay was submited: ' + this.state.textAreaValue);
-	}
-	
-	handleSubmit(e) {
-		
-	}
+    }
+    
+    toggleMediaUpload(){
+        this.setState((state) => {
+            return {showMediaUpload: !state.showMediaUpload};
+        });
+    }
+    
     sendMessageToChat(chatText, files){
         const serverDate = firebase.firestore.FieldValue.serverTimestamp();
         const date = new Date();
@@ -114,24 +122,31 @@ class Profile extends Component {
         }
     }
 
-    prepareClusterPost(postObject, files){
-        if(files.length>0){
+    prepareClusterPost(e) {
+        console.log('here',e, this.state.files, typeof e)
+        if(e && (typeof e !== 'string')){
+            e.preventDefault();
+        }
+        
+        if(this.state.files && this.state.files.length>0){
             var storage = firebase.storage();
             var storageRef = storage.ref();
             var clustersRef = storageRef.child('clusters');
             var clusterRef = clustersRef.child(this.clusterId);
-            var imageRef = clusterRef.child(new Date().getTime() + files[0].name);
+            var imageRef = clusterRef.child(new Date().getTime() + this.state.files[0].name);
 
-            //var message = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-            imageRef.put(files[0]).then((snapshot)=> {
+            imageRef.put(this.state.files[0]).then((snapshot)=> {
                 var imagePath = snapshot.ref.location.path;
-                this.addClusterPost('text here...' + new Date().getTime(), imagePath);
+                this.addClusterPost(e, imagePath);
             }).catch((err)=>{
                 console.log(err);
             });
-            
         }else{
-            this.addClusterPost('text here...' + new Date().getTime(), undefined);
+            if(this.state.textAreaValue === ''){
+                alert('Please type a message before posting');
+            }else{
+                this.addClusterPost(this.state.textAreaValue);
+            }
         }
     }
 
@@ -141,7 +156,6 @@ class Profile extends Component {
         const dateNumber = date.getTime();
         const post = {
             "text": text,
-            "text": this.state.textAreaValue,
             "user": {
             "_id": this.state.authUser.uid,
             "name": this.state.name,
@@ -153,10 +167,16 @@ class Profile extends Component {
             "status": "sent",
         }
         if(imagePath){
-            post['image'] = imagePath
+            post['image'] = imagePath;
+            post['type'] = 'image';
         }
         
         this.db.collection("clusters").doc(this.clusterId).collection('posts').add(post).then((res)=>{
+            this.setState({
+                textAreaValue: '',
+                imagePath: '',
+                files: [],
+            });
         }).catch((err)=>{
             console.log(err);
         });
@@ -384,7 +404,6 @@ class Profile extends Component {
                         //only add the last post
                         var newPostsArray = [];
                         newPostsArray.push(postsArray[0]);
-                        console.log(postsArray, newPostsArray)
 
                         this.setState({
                             posts: newPostsArray.concat(this.state.posts),
@@ -434,50 +453,42 @@ class Profile extends Component {
         });
     }
 
-    onDragEnter() {
-        this.setState({
-            dropzoneActive: true
-        });
-    }
-
-    onDragLeave() {
-        this.setState({
-            dropzoneActive: false
-        });
-    }
-
-    onDrop(files) {
-        this.prepareClusterPost(undefined, files);
-        this.setState({
-            //files,
-            dropzoneActive: false
-        });
+    loadImageToPost(){
+        this.dropzoneRef.open();
     }
     
     render() {
-        const { dropzoneActive } = this.state;
-        const overlayStyle = {
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            padding: '2.5em 0',
-            background: 'rgba(0,0,0,0.5)',
-            textAlign: 'center',
-            color: '#fff'
-        };
         return (
-            <Dropzone
-                disableClick
-                style={{position: "relative"}}
-                accept="image/*"
-                onDrop={this.onDrop.bind(this)}
-                onDragEnter={this.onDragEnter.bind(this)}
-                onDragLeave={this.onDragLeave.bind(this)}
-            >
-                { dropzoneActive && <div style={overlayStyle}>Drop files...</div> }
+            <div>
+                <Dropzone
+                    accept="image/*"
+                    style={{'display': 'none'}} ref={(node) => { this.dropzoneRef = node; }} 
+                    onDrop={(accepted, rejected) => {
+                        if(rejected.length>0){
+                            alert('Unsupported file');
+                            return;
+                        }
+                        if(accepted.length>0){
+                            console.log(accepted)
+                            this.setState({
+                                files: accepted
+                            },()=>{
+                                this.toggleMediaUpload();
+                            });
+                        }
+                    }}
+                >
+                </Dropzone>   
+
                 <Row>
+                    {
+                        this.state.showMediaUpload && 
+                        <UploadMedia showMediaUpload={this.state.showMediaUpload} 
+                            toggleMediaUpload={this.toggleMediaUpload.bind(this)} 
+                            files={this.state.files} prepareClusterPost={this.prepareClusterPost}
+                        />
+                    }
+                    
                     <div id="outer-container">
                 
                         <Col md={3} className="no-padd" style={{zIndex: '99',}}>
@@ -491,16 +502,17 @@ class Profile extends Component {
                                 <p>{this.props.menuOpen}</p>
                             </div>
                         </Col>
-                        <Col md={9} >
+                        <Col md={9} id="page-wrap">
                         <div className="post-grid-items">
-                            <div class="create-post-card">
-                            <form onSubmit={this.prepareClusterPost.bind(this)}>
-                                <textarea rows="4" placeholder="What is in your mind?!" class="textarea" id="textarea" onChange={this.handleChange} value={this.state.value}></textarea>
+                            <div className="create-post-card">
+                            <form onSubmit={this.prepareClusterPost}>
+                                <textarea rows="4" placeholder="What is in your mind?!" className="textarea" id="textarea" onChange={this.handleChange} value={this.state.textAreaValue}></textarea>
                                 <br />
-                                <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost.bind(this)}/>
+                                <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost}/>
+                                <input type='button' className="post-button" value="Post with image" onClick={this.loadImageToPost} />
                             </form>
-                           
-                              
+                            
+                                
                             </div>
                         </div>
                         <div className="post-grid">
@@ -509,9 +521,9 @@ class Profile extends Component {
                                     this.state.posts.map((postData)=>{
                                         return(
                                             
-                                            <div className="post-grid-items">
+                                            <div key={postData._id} className="post-grid-items">
 
-                                            <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
+                                                <Post userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
 
                                             </div>
                                         )
@@ -525,24 +537,7 @@ class Profile extends Component {
                             }
                         </Row>
                         </Col>
-                        {/* <Col id="page-wrap" md={9} className="posts" >
-                                {
-                                    this.state.posts.map((postData)=>{
-                                        return(
-                                            <div className="post-grid">
 
-                                            <Post key={postData._id} userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
-
-                                            </div>
-                                        )
-                                    })
-                                }
-                            <Col md={6}>
-                               
-                                
-                            </Col>    
-                            
-                        </Col> */}
                         <FixedWrapper.Root>
                             <FixedWrapper.Maximized>
                                 <Maximized {...this.props} messages={this.state.messages}
@@ -555,7 +550,7 @@ class Profile extends Component {
                         </FixedWrapper.Root>
                     </div>
                 </Row>
-            </Dropzone>
+            </div>
         )
     }
 }

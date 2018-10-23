@@ -36,6 +36,7 @@ export default class UploadMedia extends React.Component {
       }
 
       this.handleInputChange = this.handleInputChange.bind(this);
+      this.send = this.send.bind(this);
     }
 
     componentDidMount(){
@@ -48,9 +49,22 @@ export default class UploadMedia extends React.Component {
         this.props.toggleMediaUpload();
     }
 
+    send(e){
+        e.preventDefault();
+        if(this.props.prepareClusterPost){
+            this.prepareClusterPost();
+        }else{
+            this.sendMessageToChat();
+        }
+    }
+
     sendMessageToChat(){
-        console.log(this.state.text)
         this.props.sendMessageToChat(this.state.text);
+        this.toggleMediaUpload();
+    }
+
+    prepareClusterPost(){
+        this.props.prepareClusterPost(this.state.text);
         this.toggleMediaUpload();
     }
 
@@ -74,7 +88,7 @@ export default class UploadMedia extends React.Component {
                 style={customStyles}
             >
                 <h2>Upload media with a message</h2>
-                <Form className="custom-form">
+                <Form className="custom-form" onSubmit={this.send}>
                     <FormGroup row>
                         <Col sm={12}>
                             <Input type="text" required name="text" id="text" className="input-line" placeholder="Type a message along with your media" 
@@ -93,7 +107,7 @@ export default class UploadMedia extends React.Component {
                             <button className="btn btn-grad-peach wow bounceIn registerBtn" onClick={this.toggleMediaUpload.bind(this)}>Cancel</button>
                         </Col>
                         <Col sm={6}>
-                            <button className="btn btn-grad-peach wow bounceIn registerBtn" onClick={this.sendMessageToChat.bind(this)}>Send</button>
+                            <button className="btn btn-grad-peach wow bounceIn registerBtn" type="submit" onClick={this.send}>Send</button>
                         </Col>
                     </Row>
                 </Container>
