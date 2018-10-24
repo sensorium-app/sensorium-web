@@ -213,7 +213,12 @@ class RegistrationForm extends React.Component {
               var user = firebaseConf.auth().currentUser;
 
               user.sendEmailVerification().then(() =>{
-                this.props.history.push('/profile');
+                firebaseConf.auth().signOut().then(()=>{
+                  alert('Your account has been created, please login');
+                }).catch((err)=>{
+                  console.log(err);
+                  alert('Error while refreshing your account. Please clear your history and try logging in please');
+                });
               }).catch((error) =>{
                 console.log(error);
                 alert('Email verification error. Please contact us for more information.');
