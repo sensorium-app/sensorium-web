@@ -126,7 +126,7 @@ class Maximized extends React.Component {
                         
                             <MessageList active>
                             {
-                                this.props.showLoadEarlierMessages &&
+                                this.props.showLoadEarlierMessages && this.props.messages.length > 0 && 
                                 <button className="btn btn-grad-peach wow bounceIn registerBtn" type="button" onClick={this.props.loadEarlierMessages.bind(this)}>Load earlier messages</button>
                             }
                             {

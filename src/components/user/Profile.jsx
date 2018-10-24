@@ -532,7 +532,7 @@ class Profile extends Component {
                         </div>
                         <Row className="text-center m-5">
                             {
-                                this.state.showLoadEarlierPosts &&
+                                this.state.showLoadEarlierPosts && this.state.posts.length > 0 && 
                                 <button className="post-button" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
                             }
                         </Row>
