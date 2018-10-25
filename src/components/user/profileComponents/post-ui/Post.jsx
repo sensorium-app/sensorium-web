@@ -17,7 +17,8 @@ class Post extends Component {
     constructor(props){
       super(props);
       this.state = {
-        imageUrl: null
+        imageUrl: null,
+        class: 'caption'
       };
 
       if(this.props.imagePath){
@@ -26,29 +27,44 @@ class Post extends Component {
         storageRef.getDownloadURL().then((url)=> {
             this.setState({
               imageUrl: url,
+              
             });
         });
-      }
-    }
 
+      }
+    
+      
+      
+    }
+    
     render() {
       const { userData, text, date } = this.props;
+      let postText;
+      if(this.state.imageUrl != undefined) {
+       postText =   <div className="caption">
+          <PFooter postcaption={text} />
+          </div>
+      }
+      else{
+        postText =   <div className="qoute">
+          <PFooter postcaption={text} />
+          </div>
+      } 
       return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '1.2px solid ' + randomColor()}} }>
           <PHeader name={userData.name} image={userData.avatar} 
             timestamp={'Shared at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()}
           />
-
+          
           {
-            this.state.imageUrl && 
+
+          this.state.imageUrl && 
             <div>
               <img alt="" className="Post-image" src={this.state.imageUrl} />
             </div>
           }
 
-           <PFooter postcaption={text}/>
-          <div className="Post-caption">
            
-          </div>
+          {text}
         </article>;
       }
       

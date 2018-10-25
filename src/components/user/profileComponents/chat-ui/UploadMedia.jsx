@@ -89,8 +89,6 @@ export default class UploadMedia extends React.Component {
                 contentLabel="Modal for media upload"
                 style={customStyles}
             >
-                <h2>Upload media with a message</h2>
-                
                 <Container className="create-post-card">
                     <Row >
                   
@@ -99,7 +97,7 @@ export default class UploadMedia extends React.Component {
                     </Col>
                     <Col sm={8}>
                         <form onSubmit={this.prepareClusterPost}>
-                                    <textarea rows="5" placeholder="What is in your mind?!" className="textarea"  name="text" id="text"  value={this.state.text}
+                                    <textarea rows="5" placeholder="Upload media with a message" className="textarea"  name="text" id="text"  value={this.state.text}
                                         onChange={this.handleInputChange}></textarea>
                                     <br />
                                     

@@ -5,24 +5,16 @@ body {
   left: 0; }
 
 ::-webkit-scrollbar {
-  width: 5px; 
-  opacity: 0;
-}
+  width: 5px; }
 
 ::-webkit-scrollbar-track {
   background: #f6feef; }
 
 ::-webkit-scrollbar-thumb {
-  background: #e9f0e5; 
-  border-radius: 10px;
- 
-  transition: 0.5s;
-}
+  background: #e9f0e5; }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #dde4d9; 
-  opacity: 1;
-}
+  background: #dde4d9; }
 
 .profile-btn-grad {
   border-radius: 25px;
@@ -46,10 +38,7 @@ body {
   grid-gap: 10px;
   grid-template-columns: 50% 50%;
   grid-auto-rows: min-content min-content min-content min-content;
-  grid-template-areas: "avatar user-name"
- "profile-buttons profile-buttons"
- "cluster-name cluster-name"
- "archipelago archipelago";
+  grid-template-areas: "avatar user-name" "profile-buttons profile-buttons" "cluster-name cluster-name" "archipelago archipelago";
   background-color: #f6feef;
   color: black;
   /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */

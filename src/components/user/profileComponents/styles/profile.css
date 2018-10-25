@@ -20,9 +20,12 @@
 .post-grid{
 	width: 100%;
 	display: grid !important;
-	grid-column-gap: 30px;
-	grid-row-gap:30px;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+	grid-column-gap: 15px;
+	grid-row-gap:10px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+ 
+    grid-auto-flow: dense;
+
 	justify-content: center;
 	align-items: center;
  
