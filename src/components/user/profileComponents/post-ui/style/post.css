@@ -6,8 +6,10 @@
     padding: 30px;
 }
 .qoute{
+  padding: 15px;
   font-size:30px !important;
   font-weight: bolder !important; 
+  line-height: normal;
 }
 .Post-image{
   width: 100%;

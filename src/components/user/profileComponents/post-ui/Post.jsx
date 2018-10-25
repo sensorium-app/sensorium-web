@@ -64,7 +64,7 @@ class Post extends Component {
           }
 
            
-          {text}
+          {postText}
         </article>;
       }
       
