@@ -1,7 +1,6 @@
 import React, { Component, ReactDOM } from 'react'
 import { withRouter } from 'react-router-dom';
 import '../style/Home.css';
-import '../style/style.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
 import {Row, Col, Card, Button, CardTitle, CardText} from 'reactstrap';
@@ -503,13 +502,13 @@ class Profile extends Component {
                             </div>
                         </Col>
                         <Col md={9} id="page-wrap">
-                        <div className="post-grid-items">
+                        <div className=" item post-grid-items">
                             <div className="create-post-card">
                             <form onSubmit={this.prepareClusterPost}>
                                 <textarea rows="4" placeholder="What is in your mind?!" className="textarea" id="textarea" onChange={this.handleChange} value={this.state.textAreaValue}></textarea>
                                 <br />
                                 <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost}/>
-                                <input type='button' className="post-button" value="Post with image" onClick={this.loadImageToPost} />
+                                &nbsp;&nbsp;&nbsp;<input type='button' className="post-button" value="Post with image" onClick={this.loadImageToPost} />
                             </form>
                             
                                 
@@ -521,7 +520,7 @@ class Profile extends Component {
                                     this.state.posts.map((postData)=>{
                                         return(
                                             
-                                            <div key={postData._id} className="post-grid-items">
+                                            <div key={postData._id} className="item post-grid-items">
 
                                                 <Post userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
 
