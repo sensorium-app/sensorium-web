@@ -2,7 +2,7 @@ import { firebase } from './../../../config/FirebaseConfig';
 
 function SendVerificationEmail(){
     var user = firebase.auth().currentUser;
-    var host = 'http://localhost:3000';
+    var host = 'https://sensorium-76912.firebaseapp.com/';
 
     var actionCodeSettings = {
         url: host + '/profile',
