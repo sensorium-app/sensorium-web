@@ -7,8 +7,8 @@ import Particles from 'react-particles-js';
 import firebaseConf from './../../config/FirebaseConfig';
 import '../style/style.css';
 import '../style/form.css';
-import Alerts from '../Alerts';
-import Alert from '../Alerts';
+import { Alert } from 'reactstrap';
+
 const initialState = {
     email: '',
     password: '',
@@ -23,8 +23,17 @@ export default class Login extends Component {
         this.state = initialState;
 
         this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
+        this.state = {
+            visible: true
+        };
+      
+          this.onDismiss = this.onDismiss.bind(this);
+        }
+        onDismiss() {
+            this.setState({ visible: false });
+          }
+    
+    
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -44,12 +53,12 @@ export default class Login extends Component {
                 var errorMessage = error.message;
                 console.log(errorCode, errorMessage);
                
-                ReactDOM.render(<Alert type="error" msg="Please provide a valid email and password." />, document.body);
+               
                 
                
             });
         }else{
-            ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
+            
 
             
         }
@@ -59,14 +68,14 @@ export default class Login extends Component {
     resetPwd(){
         if(this.state.emailForRecovery){
             firebaseConf.auth().sendPasswordResetEmail(this.state.emailForRecovery).then(() =>{
-                ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
+               
 
-                alert('');
+                alert('error');
                 this.toggleResetPassword();
                 this.setState({emailForRecovery: ''})
             }).catch((error) =>{
                 console.log(error);
-                ReactDOM.render(<Alert type="warning" msg="Errrororororororo" />, document.querySelector());
+                ;
             });
         }else{
             alert('Please type your email.');
@@ -80,14 +89,18 @@ export default class Login extends Component {
     render() {
 
         return (
-            
+           
             <div>
                 
+                
+
                 {this.state.redirectToProfile && <Redirect to="/profile"/>}
                 <br /><br /><br />
                 <div>           
                     <Row>
-                    
+                    <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+                            I am an alert and I can be dismissed!
+                    </Alert>
                     
 
                     <div className="particles">
