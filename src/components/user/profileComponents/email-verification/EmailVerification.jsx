@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import SendVerificationEmail from './../../misc/SendVerificationEmail';
+import firebaseConf from './../../../../config/FirebaseConfig';
 
 class EmailVerification extends Component {
 
@@ -13,6 +14,7 @@ class EmailVerification extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.reSendVerificationEmail = this.reSendVerificationEmail.bind(this);
+        this.logout = this.logout.bind(this);
     }
     
 
@@ -27,20 +29,28 @@ class EmailVerification extends Component {
     }
 
     reSendVerificationEmail(){
-        SendVerificationEmail();
+        SendVerificationEmail().then((response)=>{
+            alert('Email sent succesfully');
+        }).catch((err)=>{
+            alert('An error happened. Please contact us.')
+        });
+    }
+
+    logout(){
+        firebaseConf.auth().signOut().then(()=> {
+            
+            //this.props.history.push("/");
+
+        }).catch((error)=> {
+            console.log(error);
+            alert('An error occurred during sign-out.');
+            //this.props.history.push("/");
+        });
     }
 
     render() {
 
         const styles = {
-            textInput: {
-                width: '100%',
-                padding: '2%',
-                resize: 'none',
-                outline: 'auto',
-                color: '#1DA1F2',
-                transition: 'all 0.5s linear',
-            },
             button:{
                 border:'none',
                 backgroundColor:'white',
@@ -66,7 +76,9 @@ class EmailVerification extends Component {
                         <p>This is the email (<b>{this.props.authUser.email}</b>) associated with your account.</p>
                         <hr />
                         <p>If you wish to recieve the verification email once again, please use the button below.</p>
-                        <button type="button" className="post-button" onClick={this.reSendVerificationEmail}>Re-send verification</button>
+                        <button type="button" style={styles.button} onClick={this.reSendVerificationEmail}>Re-send verification</button>
+                        <br />
+                        <button type="button" style={styles.button} onClick={this.logout}>Logout</button>
                     </Col>
                 </Row>
             </div>

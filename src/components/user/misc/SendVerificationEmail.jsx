@@ -1,6 +1,6 @@
 import { firebase } from './../../../config/FirebaseConfig';
 
-function SendVerificationEmail(user){
+function SendVerificationEmail(){
     var user = firebase.auth().currentUser;
     var host = 'http://localhost:3000';
 
@@ -17,11 +17,13 @@ function SendVerificationEmail(user){
         handleCodeInApp: false
     };
 
-    user.sendEmailVerification(actionCodeSettings).then(()=> {
-        alert('Email sent')
-    }).catch((error)=> {
-        console.log(error);
-        alert('An error happened. Please contact us.');
+    return new Promise((resolve, reject)=>{
+        user.sendEmailVerification(actionCodeSettings).then(()=> {
+            resolve('Email sent');
+        }).catch((error)=> {
+            console.log(error);
+            reject(error);
+        });
     });
 }
 

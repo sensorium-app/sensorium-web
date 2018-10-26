@@ -12,13 +12,11 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import './style/style.css';
 import './style/form.css';
+import SendVerificationEmail from './user/misc/SendVerificationEmail';
 
 const newDate = new Date();
-console.log(newDate);
 const maxDate = moment(newDate).subtract(18, 'years').toDate();
-console.log(maxDate)
 const minDate = moment(newDate).subtract(100, 'years').toDate();
-console.log(minDate)
 
 const initialState = {
       name: '',
@@ -140,8 +138,6 @@ class RegistrationForm extends React.Component {
       alert('Please read and accept the Terms and Conditions before continuing.');
     }else{
 
-      //const userState = this.state;
-
       if( 
         (this.state.name && this.state.name.length > 0) &&
         (this.state.email && this.state.email.length > 0) &&
@@ -155,7 +151,9 @@ class RegistrationForm extends React.Component {
 
         this.setState({disabledBtn: true});
 
-        firebaseConf.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error)=> {
+        firebaseConf.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((resValue)=>{
+          console.log(resValue);
+        }).catch((error)=> {
           var errorCode = error.code;
           var errorMessage = error.message;
 
@@ -210,18 +208,10 @@ class RegistrationForm extends React.Component {
             this.db.collection('sensies').doc(user.uid).set(sensate).then((res)=>{
               console.log(res);
 
-              var user = firebaseConf.auth().currentUser;
-
-              user.sendEmailVerification().then(() =>{
-                firebaseConf.auth().signOut().then(()=>{
-                  alert('Your account has been created, please login');
-                }).catch((err)=>{
-                  console.log(err);
-                  alert('Error while refreshing your account. Please clear your history and try logging in please');
-                });
-              }).catch((error) =>{
-                console.log(error);
-                alert('Email verification error. Please contact us for more information.');
+              SendVerificationEmail(user).then(()=>{
+                console.log('SendVerificationEmail done');
+              }).catch((err)=>{
+                console.log(err);
               });
 
             }).catch((err)=>{
