@@ -110,5 +110,8 @@ export default {
       'objectFit': 'contain',
       'background': '#000000'
     },
+    'postCaption': {
+      'wordWrap': 'break-word',
+    }
   }
   
