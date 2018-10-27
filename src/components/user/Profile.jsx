@@ -13,6 +13,7 @@ import Post from './profileComponents/post-ui/Post';
 import moment from 'moment';
 import Dropzone from 'react-dropzone';
 import UploadMedia from './profileComponents/chat-ui/UploadMedia';
+import EmailVerification from './profileComponents/email-verification/EmailVerification';
 
 class Profile extends Component {
 
@@ -185,6 +186,10 @@ class Profile extends Component {
         if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
           window.scrollTo(0, 0)
         }
+
+        /*if(prevProps.authUser !== this.props.authUser && this.props.authUser.emailVerified){
+            this.initListeners();
+        }*/
     }
 
     componentWillUnmount(){
@@ -204,6 +209,13 @@ class Profile extends Component {
     }
 
     componentDidMount(){
+
+        if(this.props.authUser && this.props.authUser.emailVerified){
+            this.initListeners();
+        }
+    }
+
+    initListeners(){
         this.sensateListener = this.db.collection("sensies").doc(this.state.authUser.uid)
         .onSnapshot((doc) =>{
             if(doc.exists){
@@ -457,6 +469,11 @@ class Profile extends Component {
     }
     
     render() {
+
+        if(this.props.authUser && !this.props.authUser.emailVerified){
+            return <EmailVerification authUser={this.props.authUser} />
+        }
+
         return (
             <div>
                 <Dropzone

@@ -5,7 +5,7 @@ import styles from './styles';
 
 const PFooter = (props) =>(
     <div className="Post-caption">
-         <p style={styles.postcaption}>{props.postcaption}</p>
+         <p style={styles.postCaption}>{props.postcaption}</p>
     </div>
 
     )
