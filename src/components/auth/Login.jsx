@@ -7,14 +7,16 @@ import Particles from 'react-particles-js';
 import firebaseConf from './../../config/FirebaseConfig';
 import '../style/style.css';
 import '../style/form.css';
-import Alert from '../Alerts';
+import { Alert } from 'reactstrap';
 
 const initialState = {
     email: '',
     password: '',
     redirectToProfile: false,
     emailForRecovery: '',
-    showResetPassword: false
+    showResetPassword: false,
+    visible: false,
+    errorMessage: '',
 }
 
 export default class Login extends Component {
@@ -24,8 +26,14 @@ export default class Login extends Component {
         this.state = initialState;
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.login = this.login.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
     }
 
+    onDismiss() {
+        this.setState({ visible: false });
+    }
+    
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -37,32 +45,42 @@ export default class Login extends Component {
     }
 
     login(){
-
         if(this.state.email && this.state.password){
-            firebaseConf.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            firebaseConf.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch((error)=> {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-               
-                ReactDOM.render(<Alert type="error" msg="Please provide a valid email and password." />, document.body);
+                var errorToShow = '';
+                switch(errorCode){
+                    case 'auth/invalid-email':
+                        errorToShow = 'Please type in a valid email';
+                        break;
+                    case 'auth/wrong-password':
+                        errorToShow = 'Please type in a valid email and/or password';
+                        break;
+                    default:
+                        errorToShow = 'Error loging in. Please reset your password or contact us.';
+                }
+                console.log(errorCode, errorToShow)
+                this.setState({
+                    visible: true,
+                    errorMessage: errorToShow,
+                })
             });
         }else{
-            ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
-        } 
+            console.log('Please provide your login credentials');
+        }
+                
     }
 
     resetPwd(){
         if(this.state.emailForRecovery){
             firebaseConf.auth().sendPasswordResetEmail(this.state.emailForRecovery).then(() =>{
-                ReactDOM.render(<Alert type="warning" msg="Please type your email and password." />, document.body);
-
-                alert('');
+                alert('error');
                 this.toggleResetPassword();
                 this.setState({emailForRecovery: ''})
             }).catch((error) =>{
                 console.log(error);
-                ReactDOM.render(<Alert type="warning" msg="Errrororororororo" />, document.querySelector());
             });
         }else{
             alert('Please type your email.');
@@ -76,48 +94,52 @@ export default class Login extends Component {
     render() {
 
         return (
-            
+           
             <div>
                 
                 {this.state.redirectToProfile && <Redirect to="/profile"/>}
                 <br /><br /><br />
                 <div>           
                     <Row>
-                        <div className="particles">
-                            <Particles 
-                                params={{                                
-                                        particles: {
-                                        number: {
-                                            value: 40,
-                                            density: {
-                                            enable: true,
-                                            value_area: 800
-                                            }
-                                        },
-                                            color: {
-                                            value: "#000000"
-                                        },
-                                        
-                                        line_linked: {
-                                            enable: true,
-                                            distance: 150,
-                                            color: "#000000",
-                                            opacity: 0.4,
-                                            width: 1
-                                        },
-                                        move: {
-                                            enable: true,
-                                            speed: 6,
-                                            direction: "none",
-                                            random: false,
-                                            straight: false,
-                                            out_mode: "out",
-                                            bounce: false,
-                                            attract: {
-                                            enable: false,
-                                            rotateX: 600,
-                                            rotateY: 1200
-                                            }
+                    <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+                        { this.state.errorMessage }
+                    </Alert>
+                    
+
+                    <div className="particles">
+                        <Particles 
+                            params={{                                
+                                    particles: {
+                                      number: {
+                                        value: 40,
+                                        density: {
+                                          enable: true,
+                                          value_area: 800
+                                        }
+                                      },
+                                        color: {
+                                        value: "#000000"
+                                      },
+                                      
+                                      line_linked: {
+                                        enable: true,
+                                        distance: 150,
+                                        color: "#000000",
+                                        opacity: 0.4,
+                                        width: 1
+                                      },
+                                      move: {
+                                        enable: true,
+                                        speed: 6,
+                                        direction: "none",
+                                        random: false,
+                                        straight: false,
+                                        out_mode: "out",
+                                        bounce: false,
+                                        attract: {
+                                          enable: false,
+                                          rotateX: 600,
+                                          rotateY: 1200
                                         }
                                         },
                                         interactivity: {
@@ -144,12 +166,12 @@ export default class Login extends Component {
                                         }
                                         }
                                     
+                                }}}
+                                style={{
+                                    width: '100%',
+                                    height: '100%'
+                                    
                                 }}
-                            style={{
-                                width: '100%',
-                                height: '100%'
-                                
-                            }}
                             />
                         </div>
                         { !this.state.showResetPassword ?
@@ -174,7 +196,7 @@ export default class Login extends Component {
                                                 />
                                             </Col>
                                         
-                                            <button type="submit" className="btn btn-grad-peach" enabled={this.state.email && this.state.password} onClick={this.login.bind(this)}>Login</button>
+                                            <button type="submit" className="btn btn-grad-peach" enabled={this.state.email && this.state.password} onClick={this.login}>Login</button>
                                         </Row>
                                         <br />
                                         <Row>
