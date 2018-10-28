@@ -56,89 +56,86 @@ export default class Privacy extends Component {
 
             <p>
               
-<h3>Third-party links</h3>
-Occasionally, at our discretion, we may include or offer third-party products or services on our website. These third-party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.
-<br/> <br/>
-We have implemented the following:
-<br/> <br/>
+              <h3>Third-party links</h3>
+              Occasionally, at our discretion, we may include or offer third-party products or services on our website. These third-party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.
+              <br/> <br/>
+              We have implemented the following:
+              <br/> <br/>
 
-We, along with third-party vendors such as Google use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together
-Track and analyze user interactions internally to offer a better user experience
+              We, along with third-party vendors such as Google use first-party cookies (such as the Google Analytics cookies) and third-party cookies (such as the DoubleClick cookie) or other third-party identifiers together
+              Track and analyze user interactions internally to offer a better user experience
 
-<h3>California Online Privacy Protection Act
-</h3>
-CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law's reach stretches well beyond California to require any person or company in the United States (and conceivably the world) that operates websites collecting Personally Identifiable Information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals or companies with whom it is being shared. - See more at: http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf
-<br/> <br/>
+              <h3>California Online Privacy Protection Act
+              </h3>
+              CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law's reach stretches well beyond California to require any person or company in the United States (and conceivably the world) that operates websites collecting Personally Identifiable Information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals or companies with whom it is being shared. - See more at: http://consumercal.org/california-online-privacy-protection-act-caloppa/#sthash.0FdRbT51.dpuf
+              <br/> <br/>
 
-According to CalOPPA, we agree to the following:
-Users can visit our site anonymously.
-Once this privacy policy is created, we will add a link to it on our home page or as a minimum, on the first significant page after entering our website.
-Our Privacy Policy link includes the word 'Privacy' and can easily be found on the page specified above.
-<br/> <br/>
+              According to CalOPPA, we agree to the following:
+              Users can visit our site anonymously.
+              Once this privacy policy is created, we will add a link to it on our home page or as a minimum, on the first significant page after entering our website.
+              Our Privacy Policy link includes the word 'Privacy' and can easily be found on the page specified above.
+              <br/> <br/>
 
-You will be notified of any Privacy Policy changes:
-      • On our Privacy Policy Page
-Can change your personal information:
-      • By emailing us at support@sensorium.online
-      <br/> <br/>
+              You will be notified of any Privacy Policy changes:
+                    • On our Privacy Policy Page
+              Can change your personal information:
+                    • By emailing us at support@sensorium.online
+                    <br/> <br/>
 
-<h3>How does our site handle Do Not Track signals?
-</h3>
-We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.
+              <h3>How does our site handle Do Not Track signals?
+              </h3>
+              We honor Do Not Track signals and Do Not Track, plant cookies, or use advertising when a Do Not Track (DNT) browser mechanism is in place.
 
-<h3>Does our site allow third-party behavioral tracking?
-</h3>
-It's also important to note that we do not allow third-party behavioral tracking
+              <h3>Does our site allow third-party behavioral tracking?
+              </h3>
+              It's also important to note that we do not allow third-party behavioral tracking
 
-<h3>COPPA (Children Online Privacy Protection Act)
-</h3>
-When it comes to the collection of personal information from children under the age of 13 years old, the Children's Online Privacy Protection Act (COPPA) puts parents in control. The Federal Trade Commission, United States' consumer protection agency, enforces the COPPA Rule, which spells out what operators of websites and online services must do to protect children's privacy and safety online.
+              <h3>COPPA (Children Online Privacy Protection Act)
+              </h3>
+              When it comes to the collection of personal information from children under the age of 13 years old, the Children's Online Privacy Protection Act (COPPA) puts parents in control. The Federal Trade Commission, United States' consumer protection agency, enforces the COPPA Rule, which spells out what operators of websites and online services must do to protect children's privacy and safety online.
 
-<strong>We do not specifically market to children under the age of 13 years old.
-</strong>
+              <strong>We do not specifically market to children under the age of 13 years old.
+              </strong>
 
-<h3>Fair Information Practices
-</h3>
-The Fair Information Practices Principles form the backbone of privacy law in the United States and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.
-<br/><br/>
-In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur:
-We will notify you via email
-      • Within 7 business days
-We will notify the users via in-site notification
-      • Within 7 business days
-      <br/><br/>
+              <h3>Fair Information Practices
+              </h3>
+              The Fair Information Practices Principles form the backbone of privacy law in the United States and the concepts they include have played a significant role in the development of data protection laws around the globe. Understanding the Fair Information Practice Principles and how they should be implemented is critical to comply with the various privacy laws that protect personal information.
+              <br/><br/>
+              In order to be in line with Fair Information Practices we will take the following responsive action, should a data breach occur:
+              We will notify you via email
+                    • Within 7 business days
+              We will notify the users via in-site notification
+                    • Within 7 business days
+              <br/><br/>
 
-We also agree to the Individual Redress Principle which requires that individuals have the right to legally pursue enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or government agencies to investigate and/or prosecute non-compliance by data processors.
+              We also agree to the Individual Redress Principle which requires that individuals have the right to legally pursue enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or government agencies to investigate and/or prosecute non-compliance by data processors.
 
-<h3>CAN SPAM Act
-</h3>
-The CAN-SPAM Act is a law that sets the rules for commercial email, establishes requirements for commercial messages, gives recipients the right to have emails stopped from being sent to them, and spells out tough penalties for violations.
-<br/><br/>
+              <h3>CAN SPAM Act
+              </h3>
+              The CAN-SPAM Act is a law that sets the rules for commercial email, establishes requirements for commercial messages, gives recipients the right to have emails stopped from being sent to them, and spells out tough penalties for violations.
+              <br/><br/>
 
-We collect your email address in order to:
-      • Send information, respond to inquiries, and/or other requests or questions
-      <br/><br/>
+              We collect your email address in order to:
+                    • Send information, respond to inquiries, and/or other requests or questions
+                    <br/><br/>
 
-To be in accordance with CANSPAM, we agree to the following:
-If at any time you would like to unsubscribe from receiving future emails, you can email us at support@sensorium.online
-and we will promptly remove you from ALL correspondence.
+              To be in accordance with CANSPAM, we agree to the following:
+              If at any time you would like to unsubscribe from receiving future emails, you can email us at support@sensorium.online
+              and we will promptly remove you from ALL correspondence.
 
-<h3>Good faith
-</h3>
-Our main purpose in gathering your valuable personal information is to offer you our service of connecting with people and making it better every day. We will not use it for any other means.
-      <br/><br/>
+              <h3>Good faith
+              </h3>
+              Our main purpose in gathering your valuable personal information is to offer you our service of connecting with people and making it better every day. We will not use it for any other means.
+              <br/><br/>
 
-</p>
+            </p>
             <h3>Contacting Us</h3>
+              If there are any questions regarding this privacy policy, you may contact us using the information below.
+              <br/>
+              sensorium.online<br/>
+              support@sensorium.online<br/>
 
-            
-            If there are any questions regarding this privacy policy, you may contact us using the information below.
-            <br/>
-            sensorium.online<br/>
-            support@sensorium.online<br/>
-
-            Last Edited on 2018-06-08
-
+              Last Edited on 2018-06-08
           </Col>
         </Grid>
       </div>

@@ -30,9 +30,7 @@ class Header extends Component {
     logout(){
         
         firebaseConf.auth().signOut().then(()=> {
-            
             this.props.history.push("/");
-
         }).catch((error)=> {
             console.log(error);
             alert('An error occurred during sign-out.');
@@ -56,7 +54,6 @@ class Header extends Component {
                     <a className="profile-btn-grad"  title="Cluster"><span className="lnr lnr-users"></span></a>
                     <a className="profile-btn-grad"  title="Settings"><span className="lnr lnr-cog"></span> </a>
                     <a className="profile-btn-grad"  title="Logout" onClick={this.logout.bind(this)}><span className="lnr lnr-power-switch"></span></a>
-
                 </div>
                 <div className="cluster-name">
                     <h3>Cluster members</h3>

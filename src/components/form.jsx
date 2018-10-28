@@ -1,12 +1,8 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
-
 import { Modal } from 'react-bootstrap';
-import Media from "react-media";
-
 import { Link,withRouter } from 'react-router-dom'; 
 import firebaseConf from './../config/FirebaseConfig';
-
 import moment from 'moment';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
@@ -112,11 +108,7 @@ class RegistrationForm extends React.Component {
   }
 
   handleDateChange(date) {
-    console.log(this.state.dateTimeOfBirth)
-    console.log(this.state.dateOfBirth)
-    console.log(date);
     const selectedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
-    console.log(selectedDate);
     
     this.setState({
       dateOfBirth: selectedDate
@@ -203,10 +195,7 @@ class RegistrationForm extends React.Component {
               }
             };
 
-            console.log(sensate);
-
             this.db.collection('sensies').doc(user.uid).set(sensate).then((res)=>{
-              console.log(res);
 
               SendVerificationEmail(user).then(()=>{
                 console.log('SendVerificationEmail done');
@@ -236,8 +225,7 @@ class RegistrationForm extends React.Component {
     return (
        <Form className="custom-form">
         <FormGroup row>
-{/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
-*/}        <Col sm={6}>
+          <Col sm={6}>
             <Input type="text" required name="name" id="name" className="input-line" placeholder="Sensate First Name" 
               value={this.state.name}
               onChange={this.handleInputChange}
@@ -294,23 +282,7 @@ class RegistrationForm extends React.Component {
                     </Modal.Dialog>
                   </div>
                 }
-
-                {/*<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} >
-                  <DropdownToggle caret className="btn btn-grad-blue">
-                    Date of Birth
-                  </DropdownToggle>
-                <DropdownMenu>
-                <DropdownItem>
-                  <InfiniteCalendar className="DatePicker input-line" id="date" selected={this.state.dateTimeOfBirth}
-                          onChange={this.handleDateChange}
-                          width={400}
-                          height={200}
-                      />
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>*/}
                 
-               
           </Col>
           <Col sm={2}></Col>
         </FormGroup>
@@ -337,7 +309,6 @@ class RegistrationForm extends React.Component {
 
         <a className="btn btn-grad-peach" disabled={this.state.disabledBtn} onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
-      
    
     );
   }

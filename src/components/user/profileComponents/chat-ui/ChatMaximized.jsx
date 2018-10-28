@@ -38,7 +38,6 @@ class Maximized extends React.Component {
     }
 
     sendMessageToChat(event){
-        console.log(event, this.state.files)
         if(this.state.files.length>0){
             this.props.sendMessageToChat(event, this.state.files);
             this.setState({

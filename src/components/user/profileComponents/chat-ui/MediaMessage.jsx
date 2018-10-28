@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import {
-    MessageMedia,
-} from '@livechat/ui-kit';
+import { MessageMedia } from '@livechat/ui-kit';
 import {firebase} from './../../../../config/FirebaseConfig';
 
 class MediaMessage extends Component {

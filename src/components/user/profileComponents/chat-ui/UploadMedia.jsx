@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import '../styles/profile.css';
-import { Container, Form, FormGroup, Input, Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 ReactModal.setAppElement('#root')
 
@@ -31,7 +31,6 @@ const customStyles = {
 export default class UploadMedia extends React.Component {
     constructor (props) {
       super(props);
-      console.log(props)
       this.state ={
           text: '',
           imagePreview : null,
@@ -90,43 +89,25 @@ export default class UploadMedia extends React.Component {
                 style={customStyles}
             >
                 <Container className="create-post-card">
-                    <Row >
+                    <Row>
                   
-                    <Col sm={4}>
-                            <img style={customStyles.responsiveImage} src={this.state.imagePreview} />
-                    </Col>
-                    <Col sm={8}>
-                        <form onSubmit={this.prepareClusterPost}>
-                                    <textarea rows="5" placeholder="Upload media with a message" className="textarea"  name="text" id="text"  value={this.state.text}
-                                        onChange={this.handleInputChange}></textarea>
-                                    <br />
-                                    
-                        </form>
-                        <button className="post-button" onClick={this.toggleMediaUpload.bind(this)}>Cancel</button>
-                            &nbsp;&nbsp;&nbsp;
-                        <button className="post-button" type="submit" onClick={this.send}>Send</button>
-                    </Col>
-                            
-                            
-                                
-                    
-                        
-                        {/* <Col sm={4}>
-                            <Form className="custom-form" onSubmit={this.send}>
-                                <FormGroup row>
-                                    <Col sm={12}>
-                                        <Input type="text" required name="text" id="text" className="input-line" placeholder="Type a message along with your media" 
-                                        value={this.state.text}
-                                        onChange={this.handleInputChange}
-                                        />
-                                    </Col>
-                                </FormGroup>
-                            </Form>
-                        </Col> */}
-                       
                         <Col sm={4}>
-                          
+                            <img style={customStyles.responsiveImage} src={this.state.imagePreview} />
                         </Col>
+                        <Col sm={8}>
+                            <form onSubmit={this.prepareClusterPost}>
+                                        <textarea rows="5" placeholder="Upload media with a message" className="textarea"  name="text" id="text"  value={this.state.text}
+                                            onChange={this.handleInputChange}></textarea>
+                                        <br />
+                                        
+                            </form>
+                            <button className="post-button" onClick={this.toggleMediaUpload.bind(this)}>Cancel</button>
+                                &nbsp;&nbsp;&nbsp;
+                            <button className="post-button" type="submit" onClick={this.send}>Send</button>
+                        </Col>
+                        
+                        <Col sm={4}></Col>
+                        
                     </Row>
                 </Container>
             </ReactModal>

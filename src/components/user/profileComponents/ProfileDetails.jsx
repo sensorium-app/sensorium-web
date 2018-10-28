@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProfilePhoto from './ProfilePhoto';
-import {Container, Row, Col, Jumbotron} from 'reactstrap';
-import Fade from 'react-reveal/Fade';
 import '../../style/style.css';
 import './styles/profiledetails.css';
 

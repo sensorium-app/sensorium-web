@@ -68,7 +68,7 @@ class App extends Component {
     this.setState({ menuOpen: mql.matches });
   }
 
-  // This keeps your state in sync with the opening/closing of the menu
+    // This keeps your state in sync with the opening/closing of the menu
     // via the default means, e.g. clicking the X, pressing the ESC key etc.
     handleStateChange (state) {
       this.setState({menuOpen: state.isOpen})  
@@ -78,10 +78,7 @@ class App extends Component {
     closeMenu () {
         this.setState({menuOpen: false})
     }
-
-    // This can be used to toggle the menu, e.g. when using a custom icon
-    // Tip: You probably want to hide either/both default icons if using a custom icon
-    // See https://github.com/negomi/react-burger-menu#custom-icons
+    
     toggleMenu () {
         this.setState({menuOpen: !this.state.menuOpen})
     }

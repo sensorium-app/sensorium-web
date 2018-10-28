@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import '../style/Home.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
-import {Row, Col, Card, Button, CardTitle, CardText} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
 import { FixedWrapper } from '@livechat/ui-kit'
@@ -105,7 +105,6 @@ class Profile extends Component {
                 var imagePath = snapshot.ref.location.path;
                 message['text'] = chatText;
                 message['imagePath'] = imagePath;
-                //this.addClusterPost('text here...' + new Date().getTime(), imagePath);
                 this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
                 }).catch((err)=>{
                     console.log(err);
@@ -123,7 +122,6 @@ class Profile extends Component {
     }
 
     prepareClusterPost(e) {
-        console.log('here',e, this.state.files, typeof e)
         if(e && (typeof e !== 'string')){
             e.preventDefault();
         }
@@ -186,14 +184,10 @@ class Profile extends Component {
         if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
           window.scrollTo(0, 0)
         }
-
-        /*if(prevProps.authUser !== this.props.authUser && this.props.authUser.emailVerified){
-            this.initListeners();
-        }*/
     }
 
     componentWillUnmount(){
-        //unsubscribe from all listeners to avoid memory leaks
+        // Unsubscribe from all listeners to avoid memory leaks
         if(this.sensateListener){
             this.sensateListener();
         }
@@ -237,7 +231,7 @@ class Profile extends Component {
                                 );
                             }
                         });
-                        //subtract his own reference
+                        // Subtract the user's own reference
                         numSensatesInCluster = numSensatesInCluster - 1;
                         this.setState({numSensatesInCluster: numSensatesInCluster});
 
@@ -280,7 +274,7 @@ class Profile extends Component {
                                     var id = message.id;
                                     var msg = message.data();
 
-                                    //position
+                                    // For the positioning of the message
                                     if(msg.user._id === this.state.authUser.uid){
                                         msg['isOwn'] = true;
                                     }else{
@@ -356,7 +350,7 @@ class Profile extends Component {
                 var id = message.id;
                 var msg = message.data();
 
-                //position
+                // For the positioning of the message
                 if(msg.user._id === this.state.authUser.uid){
                     msg['isOwn'] = true;
                 }else{
@@ -408,23 +402,23 @@ class Profile extends Component {
                         if(this.state.posts.indexOf(postsArray[i])===-1){
                             postsArray.push(postData);
                         }
-                        
                     });
 
                     if(this.state.posts.length > 0){
-                        //only add the last post
+                        // Only add the last post
                         var newPostsArray = [];
                         newPostsArray.push(postsArray[0]);
 
                         this.setState({
                             posts: newPostsArray.concat(this.state.posts),
-                        })
+                        });
+
                     }else{
-                        //add all the posts to the state
+                        // Add all the posts to the state
                         this.lastPostDocRef = posts.docs[posts.docs.length-1];
                         this.setState({
                             posts: postsArray
-                        })
+                        });
                     }
                 }
             });
@@ -534,16 +528,16 @@ class Profile extends Component {
                         <div className="post-grid">
                         
                         {
-                                    this.state.posts.map((postData)=>{
-                                        return(
-                                            
-                                            <div key={postData._id} className="item post-grid-items">
+                            this.state.posts.map((postData)=>{
+                                return(
+                                    
+                                    <div key={postData._id} className="item post-grid-items">
 
-                                                <Post userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
+                                        <Post userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
 
-                                            </div>
-                                        )
-                                    })
+                                    </div>
+                                )
+                            })
                         }
                         </div>
                         <Row className="text-center m-5">

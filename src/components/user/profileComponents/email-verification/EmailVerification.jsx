@@ -38,13 +38,9 @@ class EmailVerification extends Component {
 
     logout(){
         firebaseConf.auth().signOut().then(()=> {
-            
-            //this.props.history.push("/");
-
         }).catch((error)=> {
             console.log(error);
             alert('An error occurred during sign-out.');
-            //this.props.history.push("/");
         });
     }
 
@@ -72,7 +68,7 @@ class EmailVerification extends Component {
                         <h1>Hey there!</h1>
                         <p>We take security very seriously.</p>
                         <p>For this reason we need to verify your account with an email sent to your inbox before you can start interacting.</p>
-                        <p>All you need to do is open that link and follow the link.</p>
+                        <p>All you need to do is open that link and follow the instructions.</p>
                         <p>This is the email (<b>{this.props.authUser.email}</b>) associated with your account.</p>
                         <hr />
                         <p>If you wish to recieve the verification email once again, please use the button below.</p>
