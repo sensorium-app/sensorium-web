@@ -31,8 +31,6 @@ class PostDetail extends Component {
             this.commentsRef = this.postRef.collection("comments");
             this.commentsRef.orderBy('date', 'desc');
             this.commentsListener = this.commentsRef.onSnapshot((comments)=>{
-                var commentsHasPendingWrites = comments.metadata.hasPendingWrites;
-                console.log(commentsHasPendingWrites);
                             
                 var commentsArray = [];
                 comments.forEach(element => {
@@ -49,8 +47,6 @@ class PostDetail extends Component {
                         commentCount,
                     });
                 }else{
-
-                    
                     var newCommentsArray = [];
                     for(var i=0;i<=commentsArray.length-1; i++){
 
@@ -107,7 +103,6 @@ class PostDetail extends Component {
                 transaction.set(this.commentsRef.doc(),commentDoc);
                 return newCommentCount;
             }).then((newCommentCount)=>{
-                console.log("Transaction successfully committed!");
                 this.setState({
                     textForComment: '',
                 })
