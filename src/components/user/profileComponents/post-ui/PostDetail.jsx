@@ -26,12 +26,10 @@ class PostDetail extends Component {
         const { clusterId, postId, commentCount, likeCount } = this.props.location.state;
 
         if(this.props.location.state){
-            
+            ///clusters/4BwroUCr3uGqYn7p6nLc/posts/mtH9savjt1BrfkkCHm4H/comments/Xa27mLZ1geNSgK9XvSvP
             this.postRef = this.db.collection("clusters").doc(clusterId).collection('posts').doc(postId);
             this.commentsRef = this.postRef.collection("comments");
-            this.commentsRef.orderBy('date', 'desc');
-            this.commentsListener = this.commentsRef.onSnapshot((comments)=>{
-                            
+            this.commentsListener = this.commentsRef.orderBy('date').onSnapshot((comments)=>{
                 var commentsArray = [];
                 comments.forEach(element => {
                     var elem = element.data();
@@ -54,6 +52,7 @@ class PostDetail extends Component {
                             newCommentsArray.push(commentsArray[i]);
                         }
                     }
+
                     this.setState({
                         comments: newCommentsArray,
                         commentCount: this.state.commentCount + 1,
