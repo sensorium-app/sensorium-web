@@ -1,5 +1,5 @@
 import React, { Component, ReactDOM } from 'react'
-import { withRouter } from 'react-router-dom';
+import { BrowserRouter as Router,Route,Redirect,withRouter, Link } from 'react-router-dom';
 import '../style/Home.css';
 import '../style/responsive.css';
 import './profileComponents/styles/profile.css';
@@ -14,6 +14,7 @@ import moment from 'moment';
 import Dropzone from 'react-dropzone';
 import UploadMedia from './profileComponents/chat-ui/UploadMedia';
 import EmailVerification from './profileComponents/email-verification/EmailVerification';
+import { Login, PostDetail } from './../../Routing';
 
 class Profile extends Component {
 
@@ -501,7 +502,7 @@ class Profile extends Component {
                     
                     <div id="outer-container">
                 
-                        <Col  style={{opacity: '.99',}}>
+                        <Col style={this.props.bigScreen ? {opacity: '.99'} : null}>
                             <div className="no-padd">
                                 <ProfileMenu photo={this.state.photo} name={this.state.name} 
                                     lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
@@ -513,39 +514,63 @@ class Profile extends Component {
                             </div>
                         </Col>
                         <Col md={9} id="page-wrap">
-                        <div className=" item post-grid-items">
-                            <div className="create-post-card">
-                            <form onSubmit={this.prepareClusterPost}>
-                                <textarea rows="4" placeholder="What is in your mind?!" className="textarea" id="textarea" onChange={this.handleChange} value={this.state.textAreaValue}></textarea>
-                                <br />
-                                <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost}/>
-                                &nbsp;&nbsp;&nbsp;<input type='button' className="post-button" value="Post with image" onClick={this.loadImageToPost} />
-                            </form>
-                            
-                                
-                            </div>
-                        </div>
-                        <div className="post-grid">
-                        
-                        {
-                            this.state.posts.map((postData)=>{
-                                return(
-                                    
-                                    <div key={postData._id} className="item post-grid-items">
-
-                                        <Post userData={postData.user} text={postData.text} date={postData.date} imagePath={postData.image}/>
-
+                            <Route exact path={this.props.match.path} render={()=>
+                                <div>
+                                    <div className=" item post-grid-items">
+                                        <div className="create-post-card">
+                                        <form onSubmit={this.prepareClusterPost}>
+                                            <textarea rows="4" placeholder="What is in your mind?!" className="textarea" id="textarea" onChange={this.handleChange} value={this.state.textAreaValue}></textarea>
+                                            <br />
+                                            <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost}/>
+                                            &nbsp;&nbsp;&nbsp;<input type='button' className="post-button" value="Post with image" onClick={this.loadImageToPost} />
+                                        </form>
+                                        
+                                            
+                                        </div>
                                     </div>
-                                )
-                            })
-                        }
-                        </div>
-                        <Row className="text-center m-5">
-                            {
-                                this.state.showLoadEarlierPosts && this.state.posts.length > 0 && 
-                                <button className="post-button" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
-                            }
-                        </Row>
+                                    <div className="post-grid">
+                                    
+                                    {
+                                        this.state.posts.map((postData)=>{
+                                            return(
+                                                
+                                                <div key={postData._id} className="item post-grid-items">
+                                                    <Link to={{ pathname: "/profile/posts/"+postData._id, 
+                                                        state: { 
+                                                            userName: postData.user.name,
+                                                            userAvatar: postData.user.avatar,
+                                                            userId: postData.user._id,
+                                                            text: postData.text,
+                                                            date: postData.date.toString(),
+                                                            imagePath: postData.image,
+                                                            commentCount: postData.commentCount,
+                                                            likeCount: postData.likeCount,
+                                                            clusterId: this.clusterId,
+                                                            postId: postData._id
+                                                        } 
+                                                    }} >
+
+                                                        <Post userName={postData.user.name} userAvatar={postData.user.avatar} userId={postData.user._id} text={postData.text} date={postData.date} imagePath={postData.image} 
+                                                            commentCount={postData.commentCount} likeCount={postData.likeCount} clusterId={this.clusterId}
+                                                            postId={postData._id}
+                                                        />
+                                                    </Link>
+
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    </div>
+                                    <Row className="text-center m-5">
+                                        {
+                                            this.state.showLoadEarlierPosts && this.state.posts.length > 0 && 
+                                            <button className="post-button" type="button" onClick={this.loadEarlierPosts.bind(this)}>Load earlier posts</button>
+                                        }
+                                    </Row>
+                                </div>
+                            } />
+                            <Route path={`${this.props.match.path}/posts/:id`} render={()=> !this.state.authUser ? <Login/> : <PostDetail authUser={this.props.authUser} userAvatar={this.state.photo} userName={this.state.name} /> }/>
+                        
                         </Col>
 
                         <FixedWrapper.Root>

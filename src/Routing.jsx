@@ -43,4 +43,9 @@ const Terms = Loadable({
     loading: Loading,
 });
 
-export { Home, Login, Profile, About, Footer, News, Privacy, Terms }
+const PostDetail = Loadable({
+    loader: () => import('./components/user/profileComponents/post-ui/PostDetail'),
+    loading: Loading,
+});
+
+export { Home, Login, Profile, About, Footer, News, Privacy, Terms, PostDetail }

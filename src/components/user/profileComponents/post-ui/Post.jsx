@@ -9,13 +9,14 @@ import PHeader from './PHeader';
 import PFooter from './PFooter';
 import styles from './styles';
 
-import {firebase} from './../../../../config/FirebaseConfig';
+import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import randomColor from 'randomcolor';
 
 class Post extends Component {
 
     constructor(props){
       super(props);
+      console.log(props)
       this.state = {
         imageUrl: null,
         class: 'caption'
@@ -32,13 +33,12 @@ class Post extends Component {
         });
 
       }
-    
-      
-      
+
+      this.db = firebaseConf.firestore();
     }
     
     render() {
-      const { userData, text, date } = this.props;
+      const { userName, userAvatar, userId, text, date, commentCount, likeCount } = this.props;
       let postText;
       if(this.state.imageUrl != undefined) {
        postText =   <div className="caption">
@@ -51,7 +51,7 @@ class Post extends Component {
           </div>
       } 
       return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '1.2px solid ' + randomColor()}} }>
-          <PHeader name={userData.name} image={userData.avatar} 
+          <PHeader name={userName} image={userAvatar} 
             timestamp={'Shared at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()}
           />
           
@@ -65,14 +65,29 @@ class Post extends Component {
 
            
           {postText}
+
+          {
+            (commentCount > 0) && 
+              <p>Comments: {commentCount}</p>
+          }
+          {
+            (likeCount > 0) && 
+              <p>Likes: {likeCount}</p>
+          }
         </article>;
       }
       
   }
 
   Post.propTypes = {
-    userData: PropTypes.object.isRequired,
+    userName: PropTypes.string.isRequired,
+    userAvatar: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     date: PropTypes.object.isRequired,
+    commentCount: PropTypes.number.isRequired,
+    likeCount:  PropTypes.number.isRequired,
+    clusterId: PropTypes.string.isRequired,
+    postId:  PropTypes.string.isRequired,
   }
   export default Post;
