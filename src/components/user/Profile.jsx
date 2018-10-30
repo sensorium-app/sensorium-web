@@ -6,15 +6,13 @@ import './profileComponents/styles/profile.css';
 import { Row, Col } from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
-import { FixedWrapper } from '@livechat/ui-kit'
-import Maximized from './profileComponents/chat-ui/ChatMaximized';
-import Minimized from './profileComponents/chat-ui/ChatMinimized';
 import Post from './profileComponents/post-ui/Post';
 import moment from 'moment';
 import Dropzone from 'react-dropzone';
 import UploadMedia from './profileComponents/chat-ui/UploadMedia';
 import EmailVerification from './profileComponents/email-verification/EmailVerification';
 import { Login, PostDetail } from './../../Routing';
+import ChatWrapper from './profileComponents/chat-ui/ChatWrapper';
 
 class Profile extends Component {
 
@@ -30,29 +28,24 @@ class Profile extends Component {
             numSensatesInCluster: 0,
             sensatesInCluster: [],
             photo: require('./profilepic.png'),
-            messages: [],
-            showLoadEarlierMessages: true,
             posts: [],
             showLoadEarlierPosts: true,
             textAreaValue : '',
             showMediaUpload: false,
             imagePath: '',
             files: [],
+            clusterId: '',
         };
 
         this.db = firebaseConf.firestore();
         const settings = { timestampsInSnapshots: true};
         this.db.settings(settings);
-
-        this.clusterId = '';
-        this.lastChatDocRef;
-        this.chatPagingNumber = 50;
+        
         this.lastPostDocRef;
         this.postPagingNumber = 25;
 
         this.sensateListener;
-        this.clusterListener; 
-        this.chatListener;
+        this.clusterListener;
         this.postsListener;
 
         this.sensatesQueryArray = [];
@@ -61,7 +54,7 @@ class Profile extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.prepareClusterPost = this.prepareClusterPost.bind(this);
         this.loadImageToPost = this.loadImageToPost.bind(this);
-        this.dropzoneRef;
+        
     }
 
     handleChange(e) {
@@ -73,54 +66,6 @@ class Profile extends Component {
             return {showMediaUpload: !state.showMediaUpload};
         });
     }
-    
-    sendMessageToChat(chatText, files){
-        const serverDate = firebase.firestore.FieldValue.serverTimestamp();
-        const date = new Date();
-        const dateNumber = date.getTime();
-        let message = {
-            "_id": dateNumber,
-            "createdAt": serverDate,
-            "system": false,
-            "user": {
-              "_id": this.state.authUser.uid,
-              "name": this.state.name,
-              "avatar": this.state.photo
-            },
-            "id": dateNumber,
-            "type": "text",
-            "date": serverDate,
-            "status": "sent",
-            "avatar": this.state.photo
-        };
-
-        if(files && files.length>0){
-            var storage = firebase.storage();
-            var storageRef = storage.ref();
-            var clustersRef = storageRef.child('clusters');
-            var clusterRef = clustersRef.child(this.clusterId);
-            var chatMediaRef = clusterRef.child('chatMedia');
-            var imageRef = chatMediaRef.child(new Date().getTime() + files[0].name);
-
-            imageRef.put(files[0]).then((snapshot)=> {
-                var imagePath = snapshot.ref.location.path;
-                message['text'] = chatText;
-                message['imagePath'] = imagePath;
-                this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
-                }).catch((err)=>{
-                    console.log(err);
-                });
-            }).catch((err)=>{
-                console.log(err);
-            });
-        }else{
-            message['text'] = chatText;
-            this.db.collection("clusters").doc(this.clusterId).collection('messages').add(message).then((res)=>{
-            }).catch((err)=>{
-                console.log(err);
-            });
-        }
-    }
 
     prepareClusterPost(e) {
         if(e && (typeof e !== 'string')){
@@ -131,7 +76,7 @@ class Profile extends Component {
             var storage = firebase.storage();
             var storageRef = storage.ref();
             var clustersRef = storageRef.child('clusters');
-            var clusterRef = clustersRef.child(this.clusterId);
+            var clusterRef = clustersRef.child(this.state.clusterId);
             var imageRef = clusterRef.child(new Date().getTime() + this.state.files[0].name);
 
             imageRef.put(this.state.files[0]).then((snapshot)=> {
@@ -170,7 +115,7 @@ class Profile extends Component {
             post['type'] = 'image';
         }
         
-        this.db.collection("clusters").doc(this.clusterId).collection('posts').add(post).then((res)=>{
+        this.db.collection("clusters").doc(this.state.clusterId).collection('posts').add(post).then((res)=>{
             this.setState({
                 textAreaValue: '',
                 imagePath: '',
@@ -195,9 +140,6 @@ class Profile extends Component {
         if(this.clusterListener){
             this.clusterListener();
         }
-        if(this.chatListener){
-            this.chatListener();
-        }
         if(this.postsListener){
             this.postsListener();
         }
@@ -220,6 +162,10 @@ class Profile extends Component {
                 .onSnapshot((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
                         const clusterData = doc.data();
+
+                        this.setState({
+                            clusterId: doc.id,
+                        });
 
                         let numSensatesInCluster = 0;
                         this.sensatesQueryArray = [];
@@ -256,69 +202,6 @@ class Profile extends Component {
                             console.log(err);
                         });
 
-                        //Cluster chat
-                        this.clusterId = doc.id;
-                        this.chatListener = this.db.collection("clusters").doc(this.clusterId).collection('messages')
-                        .orderBy("date", "desc").limit(this.chatPagingNumber)
-                        .onSnapshot({
-                            includeMetadataChanges: true
-                        },
-                        (messages)=>{
-                            //This variable will help to determine if the state shouldn't be changed yet for when the same user sends a message,
-                            //not messages sent by someone else
-                            var messagesHasPendingWrites = messages.metadata.hasPendingWrites;
-                            
-                            if(!messagesHasPendingWrites){
-                                var chatMessages = [];
-
-                                messages.forEach((message)=> {
-                                    var id = message.id;
-                                    var msg = message.data();
-
-                                    // For the positioning of the message
-                                    if(msg.user._id === this.state.authUser.uid){
-                                        msg['isOwn'] = true;
-                                    }else{
-                                        msg['isOwn'] = false;
-                                    }
-
-                                    if(msg.date && msg.date.seconds){
-                                        msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
-                                        msg['date'] = moment(msg.date.seconds * 1000);
-                                    }
-                                    msg['title'] = msg.user.name;
-                                    msg['titleColor'] = 'blue';
-                                    msg['id'] = id;
-
-                                    chatMessages.push(msg);
-                                    
-                                });
-
-                                var count = 0;
-                                var chatMessagesReversed = [];
-                                for(var i=chatMessages.length-1; i>=0; i--){
-                                    count = count + 1;
-                                    if(this.state.messages.indexOf(chatMessages[i])===-1){
-                                        chatMessagesReversed.push(chatMessages[i])
-                                    }
-                                }
-
-                                if(this.state.messages.length > 0){
-                                    //Only adds the last detected message sent to the chat
-                                    this.setState({
-                                        messages: this.state.messages.concat(chatMessagesReversed[chatMessagesReversed.length-1])
-                                    })
-                                }else{
-                                    this.lastChatDocRef = messages.docs[messages.docs.length-1];
-                                    //Adds the whole list of messages to the state
-                                    this.setState({
-                                        messages: this.state.messages.concat(chatMessagesReversed)
-                                    })
-                                }
-                            }
-                              
-                        });
-
                         //Initialize the Posts Listener
                         this.initPostsListener();
 
@@ -334,59 +217,8 @@ class Profile extends Component {
         });
     }
 
-    loadEarlierMessages(){
-        this.setState({
-            showLoadEarlierMessages: false,
-        });
-
-        this.db.collection("clusters").doc(this.clusterId).collection('messages')
-        .orderBy("date", "desc")
-        .startAfter(this.lastChatDocRef)
-        .limit(this.chatPagingNumber).get().then((earlierMessages)=>{
-            var chatMessages = [];
-
-            this.lastChatDocRef = earlierMessages.docs[earlierMessages.docs.length-1];
-
-            earlierMessages.forEach((message)=> {
-                var id = message.id;
-                var msg = message.data();
-
-                // For the positioning of the message
-                if(msg.user._id === this.state.authUser.uid){
-                    msg['isOwn'] = true;
-                }else{
-                    msg['isOwn'] = false;
-                }
-
-                if(msg.date && msg.date.seconds){
-                    msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
-                    msg['date'] = moment(msg.date.seconds * 1000);
-                }
-                msg['title'] = msg.user.name;
-                msg['titleColor'] = 'blue';
-                msg['id'] = id;
-
-                chatMessages.push(msg);     
-            });
-
-            var chatMessagesReversed = [];
-            for(var i=chatMessages.length-1; i>=0; i--){
-                chatMessagesReversed.push(chatMessages[i])
-            }
-
-            var olderMessagesMerged = chatMessagesReversed.concat(this.state.messages);
-            this.setState({
-                messages: olderMessagesMerged,
-                showLoadEarlierMessages: true,
-            });
-        }).catch((err)=>{
-            console.log(err); 
-            alert('Error getting earlier messages');
-        });
-    }
-
     initPostsListener(){
-        this.postsListener = this.db.collection("clusters").doc(this.clusterId).collection('posts')
+        this.postsListener = this.db.collection("clusters").doc(this.state.clusterId).collection('posts')
             .orderBy("date", "desc").limit(this.postPagingNumber)
             .onSnapshot({
                 includeMetadataChanges: true
@@ -430,7 +262,7 @@ class Profile extends Component {
             showLoadEarlierPosts: false,
         });
 
-        this.db.collection("clusters").doc(this.clusterId).collection('posts')
+        this.db.collection("clusters").doc(this.state.clusterId).collection('posts')
         .orderBy("date", "desc")
         .startAfter(this.lastPostDocRef)
         .limit(this.postPagingNumber).get().then((earlierPosts)=>{
@@ -545,13 +377,13 @@ class Profile extends Component {
                                                             imagePath: postData.image,
                                                             commentCount: postData.commentCount,
                                                             likeCount: postData.likeCount,
-                                                            clusterId: this.clusterId,
+                                                            clusterId: this.state.clusterId,
                                                             postId: postData._id
                                                         } 
                                                     }} >
 
                                                         <Post userName={postData.user.name} userAvatar={postData.user.avatar} userId={postData.user._id} text={postData.text} date={postData.date} imagePath={postData.image} 
-                                                            commentCount={postData.commentCount} likeCount={postData.likeCount} clusterId={this.clusterId}
+                                                            commentCount={postData.commentCount} likeCount={postData.likeCount} clusterId={this.state.clusterId}
                                                             postId={postData._id}
                                                         />
                                                     </Link>
@@ -573,16 +405,11 @@ class Profile extends Component {
                         
                         </Col>
 
-                        <FixedWrapper.Root>
-                            <FixedWrapper.Maximized>
-                                <Maximized {...this.props} messages={this.state.messages}
-                                    chatText={this.chatText} sendMessageToChat={this.sendMessageToChat.bind(this)}
-                                    loadEarlierMessages={this.loadEarlierMessages.bind(this)} showLoadEarlierMessages={this.state.showLoadEarlierMessages} />
-                            </FixedWrapper.Maximized>
-                            <FixedWrapper.Minimized>
-                                <Minimized {...this.props} />
-                            </FixedWrapper.Minimized>
-                        </FixedWrapper.Root>
+                            {
+                                this.state.clusterId && 
+                                    <ChatWrapper authUser={this.props.authUser} clusterId={this.state.clusterId} userName={this.state.name} userAvatar={this.state.photo} />
+                            }
+
                     </div>
                 </Row>
             </div>
