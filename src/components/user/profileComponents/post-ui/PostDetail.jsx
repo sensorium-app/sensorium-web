@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Post from './Post';
 import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import moment from 'moment';
-
+import './style/comment.css';
 class PostDetail extends Component {
     
     constructor(props) {
@@ -212,13 +212,15 @@ class PostDetail extends Component {
         const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId } = this.props.location.state;
 
         return (
-            <div style={{marginTop: '7rem'}}>
+            <div style={{marginTop: '7rem'}} className="PostPage">
+                
                 <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                     commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
                     postId={postId}
                 />
                 <button className="post-button" onClick={this.addLike}>Love/LikeButton</button>
-                <ul>
+
+                <ul className="comment-container">
                     {
                         this.state.comments.map((commentData)=>{
                             var date;
@@ -226,17 +228,36 @@ class PostDetail extends Component {
                                 date = moment(commentData.date.seconds * 1000).format('DD/MM/YYYY - HH:mm');
                             }
                             return(
-                                <li key={commentData.id}>{commentData.text} - {date} - {commentData.user.avatar} - {commentData.user.name}</li>
+                                <li key={commentData.id} className="comment" >
+
+                                <div className="comment-author">
+                                    <img className="comment-author-avatar" src={commentData.user.avatar}/>
+                                    
+                                </div>
+
+                                <div className="comment-data">
+
+                                    <p className="comment-author-details">
+                                             {commentData.user.name}<br/>
+                                             <span className="comment-time-stamp" >{date}</span>
+                                    </p>
+                                
+                                     {commentData.text}
+                                    
+                                </div>
+                                </li>
                             )
                         })
                     }
                 </ul>
-                <form onSubmit={this.addComment}>
-                    <textarea rows="5" placeholder="Add a lovely comment" className="textarea" name="textForComment" id="textForComment" value={this.state.textForComment}
-                        onChange={this.handleInputChange}></textarea>
-                    <br />  
-                </form>
-                <button className="post-button" onClick={this.addComment}>Send</button>
+                <div className="comment-input-container">
+                    <form onSubmit={this.addComment}>
+                        <textarea rows="2" placeholder="Add a lovely comment" className="comment-input" name="textForComment" id="textForComment" value={this.state.textForComment}
+                            onChange={this.handleInputChange}></textarea>
+                          
+                    </form>
+                    <button className="send-comment" onClick={this.addComment}><i className="fa fa-angle-double-right"></i></button>
+                </div>
             </div>
         );
     }
