@@ -138,9 +138,13 @@ class PostDetail extends Component {
                                 </div>
 
                                 <div className="comment-data">
-                                <p className="comment-author-details">{commentData.user.name} <span className="comment-time-stamp" >{date}</span></p>
-                                    <p className="comment-time-stamp"></p>
-                                        {commentData.text}
+
+                                    <p className="comment-author-details">
+                                             {commentData.user.name}<br/>
+                                             <span className="comment-time-stamp" >{date}</span>
+                                    </p>
+                                
+                                     {commentData.text}
                                     
                                 </div>
                                 </li>
