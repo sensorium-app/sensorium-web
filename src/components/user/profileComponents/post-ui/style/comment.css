@@ -22,7 +22,7 @@
     width: 15%;
     display: table-cell;
     padding: 5px;
-
+  
 }
 .comment-data{
     display: table-cell;
@@ -38,6 +38,7 @@
 .comment-author-details{
     color: black;
     font-weight: bolder;
+
 }
 .comment-time-stamp{
     font-size:10px;
