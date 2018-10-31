@@ -1,5 +1,5 @@
 .PostPage{
-
+    font-family: Arial, Helvetica, sans-serif;
 }
 .comment-container{
     padding: 20px;
@@ -28,6 +28,7 @@
     display: table-cell;
     width: 80%;
     padding-right: 10px;
+    margin-top: -100px;
 }
 .comment-author-avatar{
     width: 50px;
@@ -36,11 +37,11 @@
 }
 .comment-author-details{
     color: black;
-    font-weight: bolder ;
+    font-weight: bolder;
 }
 .comment-time-stamp{
-    color: darkgrey;
-    font-size: 0.8em;
+    font-size:10px;
+    color: #8899a6;
 }
 .comment-input-container{
     display: flex;
