@@ -244,6 +244,7 @@ class PostsWrapper extends Component {
                 
                 {
                     this.state.posts.map((postData)=>{
+                        console.log(postData);
                         return(
                             
                             <div key={postData._id} className="item post-grid-items">
