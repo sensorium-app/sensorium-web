@@ -115,7 +115,7 @@ class PostDetail extends Component {
         const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId } = this.props.location.state;
 
         return (
-            <div style={{marginTop: '7rem'}}>
+            <div style={{marginTop: '7rem'}} className="PostPage">
                 
                 <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                     commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
@@ -134,12 +134,12 @@ class PostDetail extends Component {
 
                                 <div className="comment-author">
                                     <img className="comment-author-avatar" src={commentData.user.avatar}/>
-                                    <p>{commentData.user.name}</p>
-                                    <p className="comment-time-stamp">{date}</p>
+                                    
                                 </div>
 
                                 <div className="comment-data">
-                                  
+                                <p className="comment-author-details">{commentData.user.name} <span className="comment-time-stamp" >{date}</span></p>
+                                    <p className="comment-time-stamp"></p>
                                         {commentData.text}
                                     
                                 </div>
@@ -148,12 +148,14 @@ class PostDetail extends Component {
                         })
                     }
                 </ul>
-                <form onSubmit={this.addComment}>
-                    <textarea rows="5" placeholder="Add a lovely comment" className="textarea" name="textForComment" id="textForComment" value={this.state.textForComment}
-                        onChange={this.handleInputChange}></textarea>
-                    <br />  
-                </form>
-                <button className="post-button" onClick={this.addComment}>Send</button>
+                <div className="comment-input-container">
+                    <form onSubmit={this.addComment} className>
+                        <textarea rows="2" placeholder="Add a lovely comment" className="comment-input" name="textForComment" id="textForComment" value={this.state.textForComment}
+                            onChange={this.handleInputChange}></textarea>
+                          
+                    </form>
+                    <button className="send-comment" onClick={this.addComment}><i className="fa fa-angle-double-right"></i></button>
+                </div>
             </div>
         );
     }
