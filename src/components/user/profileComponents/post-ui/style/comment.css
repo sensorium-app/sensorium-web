@@ -1,0 +1,29 @@
+*{
+    border:1px black solid;
+}
+.comment-container{
+    padding: 20px;
+    list-style: none;
+}
+.comment{
+    display: table !important;
+    grid-template-columns: 50px 1fr;
+}
+
+.comment-author{
+    width: 25%;
+    display: table-cell;
+    padding: 5px;
+
+}
+.comment-data{
+    display: table-cell;
+    width: 70%;
+    padding: 5px;
+}
+.comment-author-avatar{
+    width: 100px;
+}
+.comment-author{
+
+}

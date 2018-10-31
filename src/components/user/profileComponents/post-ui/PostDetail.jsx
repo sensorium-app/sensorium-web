@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Post from './Post';
 import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import moment from 'moment';
-
+import './style/comment.css';
 class PostDetail extends Component {
     
     constructor(props) {
@@ -116,11 +116,13 @@ class PostDetail extends Component {
 
         return (
             <div style={{marginTop: '7rem'}}>
+                
                 <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                     commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
                     postId={postId}
                 />
-                <ul>
+
+                <ul className="comment-container">
                     {
                         this.state.comments.map((commentData)=>{
                             var date;
@@ -128,7 +130,20 @@ class PostDetail extends Component {
                                 date = moment(commentData.date.seconds * 1000).format('DD/MM/YYYY - HH:mm');
                             }
                             return(
-                                <li key={commentData.id}>{commentData.text} - {date} - {commentData.user.avatar} - {commentData.user.name}</li>
+                                <li key={commentData.id} className="comment" >
+
+                                <div className="comment-author">
+                                    <img className="comment-author-avatar" src={commentData.user.avatar}/>
+                                    <p>{commentData.user.name}</p>
+                                    <p className="comment-time-stamp">{date}</p>
+                                </div>
+
+                                <div className="comment-data">
+                                  
+                                        {commentData.text}
+                                    
+                                </div>
+                                </li>
                             )
                         })
                     }

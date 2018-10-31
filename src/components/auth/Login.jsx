@@ -7,7 +7,7 @@ import Particles from 'react-particles-js';
 import firebaseConf from './../../config/FirebaseConfig';
 import '../style/style.css';
 import '../style/form.css';
-import { Alert } from '../Alerts';
+import  Alert  from '../Alerts';
 
 const initialState = {
     email: '',
