@@ -10,7 +10,7 @@ export default class Terms extends Component {
         <Grid>
           <Col xs={12} sm={8} smOffset={2}>
             <Image src="assets/infinty.png" className=" img-fluid about-profile-pic" rounded />
-            <h1>Terms and conditions of use</h1>
+            <h1>Terms and Conditions of Use</h1>
             <p>Sensorium is pleased to offer you access to this website (the “Site”),  social network, and other services that Sensorium may from time to time provide from this website, subject to these Terms and Conditions of Use (the “Terms”). The term “Social Networks” encompasses a broad sweep of online activity, including participation in social activities such as Chatting, Photo sharing, Video sharing, and Video calling, and Interactive blogs, Websites or Listserves, some of which may be located on the Site. These Terms apply to all users of the Site , including users who are also contributors of User Generated Content (as hereinafter defined).
 
             </p>
@@ -56,7 +56,7 @@ export default class Terms extends Component {
             <h3>
             Sensorium’s Social Network
             </h3>
-            <li>Sensorium reserves the right, but does not have the obligation, to monitor Sensorium’s Social Network.</li>
+            <li>Sensorium reserves the right but does not have the obligation to monitor Sensorium’s Social Network.</li>
 
             <h3>General</h3>
             <ul>
@@ -101,7 +101,7 @@ Email: support@sensorium.online</li>
             </p>
 <h3>            Contacting Us
 </h3>
-If there are any questions regarding this Terms and conditions, you may contact us using the information below.
+If there are any questions regarding this Terms and Conditions, you may contact us using the information below.
 <br/>
 sensorium.online<br/>
 support@sensorium.online<br/>

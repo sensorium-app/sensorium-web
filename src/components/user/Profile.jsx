@@ -1,13 +1,20 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom';
-
-import firebaseConf from './../../config/FirebaseConfig';
+import React, { Component, ReactDOM } from 'react'
+import { BrowserRouter as Router,Route,Redirect,withRouter, Link } from 'react-router-dom';
+import '../style/Home.css';
+import '../style/responsive.css';
+import './profileComponents/styles/profile.css';
+import { Row, Col } from 'reactstrap';
+import firebaseConf, {firebase} from './../../config/FirebaseConfig';
+import ProfileMenu from './profileComponents/ProfileMenu';
+import EmailVerification from './profileComponents/email-verification/EmailVerification';
+import { Login, PostDetail } from './../../Routing';
+import ChatWrapper from './profileComponents/chat-ui/ChatWrapper';
+import PostsWrapper from './profileComponents/post-ui/PostsWrapper';
 
 class Profile extends Component {
 
     constructor(props, context) {
         super(props,context);
-        console.log(props);
         this.state = {
             authUser: props.authUser,
             dateOfBirth: '',
@@ -16,57 +23,94 @@ class Profile extends Component {
             lastName:'',
             secondLastName: '',
             numSensatesInCluster: 0,
-            chat: []
+            sensatesInCluster: [],
+            photo: require('./profilepic.png'),
+            clusterId: '',
         };
 
         this.db = firebaseConf.firestore();
-        this.clusterChatId = '';
-        this.sensateListener;
-        this.clusterListener; 
-        this.chatListener;
+        const settings = { timestampsInSnapshots: true};
+        this.db.settings(settings);
 
+        this.sensateListener;
+        this.clusterListener;
+
+        this.sensatesQueryArray = [];
+        this.sensatesList = [];
+        
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
+          window.scrollTo(0, 0)
+        }
+    }
+
+    componentWillUnmount(){
+        // Unsubscribe from all listeners to avoid memory leaks
+        if(this.sensateListener){
+            this.sensateListener();
+        }
+        if(this.clusterListener){
+            this.clusterListener();
+        }
+    }
+
+    componentDidMount(){
+
+        if(this.props.authUser && this.props.authUser.emailVerified){
+            this.initListeners();
+        }
+    }
+
+    initListeners(){
         this.sensateListener = this.db.collection("sensies").doc(this.state.authUser.uid)
         .onSnapshot((doc) =>{
             if(doc.exists){
                 const sensate = doc.data();
-                console.log(sensate);
+                
                 this.clusterListener = this.db.collection("clusters").where("sensates."+doc.id, "==", true)
                 .onSnapshot((querySnapshot) =>{
                     querySnapshot.forEach((doc)=>{
                         const clusterData = doc.data();
-                        console.log(clusterData.sensates);
+
+                        this.setState({
+                            clusterId: doc.id,
+                        });
 
                         let numSensatesInCluster = 0;
-                        console.log(numSensatesInCluster);
+                        this.sensatesQueryArray = [];
+                        
                         Object.keys(clusterData.sensates).forEach((sensateId)=>{
-                            console.log(sensateId)
                             if(clusterData.sensates[sensateId]){
-                                console.log(numSensatesInCluster);
                                 numSensatesInCluster = numSensatesInCluster + 1;
+                                this.sensatesQueryArray.push(
+                                    this.db.collection("sensies").doc(sensateId).get()
+                                );
                             }
                         });
-                        //subtract his own reference
+                        // Subtract the user's own reference
                         numSensatesInCluster = numSensatesInCluster - 1;
                         this.setState({numSensatesInCluster: numSensatesInCluster});
 
-                        //Cluster chat
-                        this.clusterChatId = doc.id;
-                        this.chatListener = this.db.collection("clusters").doc(this.clusterChatId).collection('messages').onSnapshot((messages)=>{
-                            console.log(messages);
-                            var chatMessages = [];
+                        this.sensatesList = [];
 
-                            messages.forEach((message)=> {
-                                console.log(message)
-                                console.log(message.data())
-                                
-                                chatMessages.push(message.data());
-                                
+                        Promise.all(this.sensatesQueryArray).then((sensatesMembers)=>{
+                            sensatesMembers.forEach((sensateMemberData)=>{
+                                if(sensateMemberData.exists){
+                                    const sensateMemberInfo = sensateMemberData.data();
+                                    this.sensatesList.push({
+                                        uid: sensateMemberInfo.uid,
+                                        name: sensateMemberInfo.name,
+                                        lastName: sensateMemberInfo.lastName
+                                    });
+                                }
                             });
-
                             this.setState({
-                                chat: chatMessages
-                            })
-                              
+                                sensatesInCluster: this.sensatesList
+                            });
+                        }).catch((err)=>{
+                            console.log(err);
                         });
 
                     });
@@ -76,78 +120,53 @@ class Profile extends Component {
                 
             }else{
                 console.log("Sensate doesn't exist");
-                alert("Sensate doesn't exist");
+                alert("Sensate doesn't exist or an error ocurred");
             }
         });
-        
     }
-
-    sendMessageToChat(){
-        this.db.collection("clusters").doc(this.clusterChatId).collection('messages').add({
-            text: 'hey'
-        }).then((res)=>{
-            console.log(res, 'update state');
-        }).catch((err)=>{
-            console.log(err);
-        });
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
-          window.scrollTo(0, 0)
-        }
-    }
-
-    logout(){
-        firebaseConf.auth().signOut().then(()=> {
-            //unsubscribe from all listeners to avoid memory leaks
-            this.sensateListener();
-            this.clusterListener();
-            if(this.chatListener){
-                this.chatListener();
-            }
-
-            this.props.history.push("/");
-        }).catch((error)=> {
-            console.log(error);
-            alert('Error on signout');
-            this.props.history.push("/");
-        });
-    }
-
+    
     render() {
 
+        if(this.props.authUser && !this.props.authUser.emailVerified){
+            return <EmailVerification authUser={this.props.authUser} />
+        }
+
         return (
-            <div className="container text-center">
-                <br/><br/>
-                <h1>Welcome {this.state.name}!</h1>
-                <h2>Thank you for registering.</h2>
-                <p>You have just been reborn into Sensorium...</p>
-                <p>The psycellium is working hard to find your cluster. Be patient, the reward will be amazing.</p>
-                <h4>Sensates found: <strong>{this.state.numSensatesInCluster}</strong></h4>
-                <p>We will appreciate if you share this with your friends and family.</p>
-                    <div className="a2a_kit a2a_kit_size_32 a2a_default_style">
-                        <a className="a2a_dd" href="https://www.addtoany.com/share"></a>
-                        <a className="a2a_button_facebook hidden-xs"></a>
-                        <a className="a2a_button_twitter hidden-xs"></a>
-                        <a className="a2a_button_google_plus hidden-xs"></a>
-                        <a className="a2a_button_tumblr hidden-xs "></a>
-                        <a className="a2a_button_reddit hidden-xs "></a>
-                        <a className="a2a_button_whatsapp hidden-xs "></a>
-                        <a className="a2a_button_google_gmail hidden-xs "></a>
-                        <a className="a2a_button_digg hidden-xs "></a>
-                        <a className="a2a_button_facebook_messenger hidden-xs "></a>
-                        <a className="a2a_button_kik hidden-xs "></a>
-                        <a className="a2a_button_myspace hidden-xs "></a>
-                        <a className="a2a_button_viber hidden-xs "></a>
-                        <a className="a2a_button_wechat hidden-xs "></a>
-                        <a className="a2a_button_yahoo_messenger hidden-xs "></a>
-                        <a className="a2a_button_aol_mail hidden-xs "></a>
-                    </div>
+            <div>
+                <Row>
+                    
+                    <div id="outer-container">
                 
-                <br />
-                <a className="btn btn-grad-peach" onClick={this.logout.bind(this)}>Logout</a>
-                <h4>We are working on a cluster chat option! It'll be released really soon. Thank you for your patience, that's one of the sensate values!</h4>
+                        <Col style={this.props.bigScreen ? {opacity: '.99'} : null}>
+                            <div className="no-padd">
+                                <ProfileMenu photo={this.state.photo} name={this.state.name} 
+                                    lastName={this.state.lastName} numSensatesInCluster={this.state.numSensatesInCluster}
+                                    sensatesInClusterData={this.state.sensatesInCluster}
+                                    menuOpen={this.props.menuOpen} handleStateChange={this.props.handleStateChange} 
+                                    bigScreen={this.props.bigScreen}>
+                                </ProfileMenu>
+                                <p>{this.props.menuOpen}</p>
+                            </div>
+                        </Col>
+                        <Col md={9} id="page-wrap">
+
+                            <Route exact path={this.props.match.path} render={()=>
+                                this.state.clusterId && 
+                                    <PostsWrapper authUser={this.props.authUser} clusterId={this.state.clusterId} userName={this.state.name} userAvatar={this.state.photo} />
+                            } />
+                            <Route path={`${this.props.match.path}/posts/:id`} render={()=> 
+                                !this.state.authUser ? <Login/> : <PostDetail authUser={this.props.authUser} userAvatar={this.state.photo} userName={this.state.name} /> 
+                            }/>
+                        
+                        </Col>
+
+                            {
+                                this.state.clusterId && 
+                                    <ChatWrapper authUser={this.props.authUser} clusterId={this.state.clusterId} userName={this.state.name} userAvatar={this.state.photo} />
+                            }
+
+                    </div>
+                </Row>
             </div>
         )
     }

@@ -1,24 +1,18 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
-
 import { Modal } from 'react-bootstrap';
-import Media from "react-media";
-
 import { Link,withRouter } from 'react-router-dom'; 
 import firebaseConf from './../config/FirebaseConfig';
-
 import moment from 'moment';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import './style/style.css';
 import './style/form.css';
+import SendVerificationEmail from './user/misc/SendVerificationEmail';
 
 const newDate = new Date();
-console.log(newDate);
 const maxDate = moment(newDate).subtract(18, 'years').toDate();
-console.log(maxDate)
 const minDate = moment(newDate).subtract(100, 'years').toDate();
-console.log(minDate)
 
 const initialState = {
       name: '',
@@ -114,11 +108,7 @@ class RegistrationForm extends React.Component {
   }
 
   handleDateChange(date) {
-    console.log(this.state.dateTimeOfBirth)
-    console.log(this.state.dateOfBirth)
-    console.log(date);
     const selectedDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
-    console.log(selectedDate);
     
     this.setState({
       dateOfBirth: selectedDate
@@ -136,11 +126,9 @@ class RegistrationForm extends React.Component {
     });*/
 
     if(!this.state.acceptsTerms){
-      console.log('Did not acccept terms');
-      alert('Please read and accept our terms and privacy policy');
+      console.log('Did not accept Terms');
+      alert('Please read and accept the Terms and Conditions before continuing.');
     }else{
-
-      //const userState = this.state;
 
       if( 
         (this.state.name && this.state.name.length > 0) &&
@@ -155,7 +143,9 @@ class RegistrationForm extends React.Component {
 
         this.setState({disabledBtn: true});
 
-        firebaseConf.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error)=> {
+        firebaseConf.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((resValue)=>{
+          console.log(resValue);
+        }).catch((error)=> {
           var errorCode = error.code;
           var errorMessage = error.message;
 
@@ -164,13 +154,13 @@ class RegistrationForm extends React.Component {
           var errorToShow = '';
           switch(errorCode){
             case 'auth/weak-password':
-              errorToShow = 'Please provide at least a 6 character password';
+              errorToShow = 'The password must be at least six characters.';
               break;
             case 'auth/email-already-in-use':
-              errorToShow = 'That email has already registered, hang on please.';
+              errorToShow = 'This email address is already in use.';
               break;
             default:
-              errorToShow = 'An error occured on user, please contact us';
+              errorToShow = 'An error occurred. Please contact us for more information.';
               break;
           }
 
@@ -180,7 +170,7 @@ class RegistrationForm extends React.Component {
 
         firebaseConf.auth().onAuthStateChanged((user) =>{
           if (user) {
-            console.log('user signed in');
+            console.log('User signed in');
 
             const sensate = {
               uid: user.uid,
@@ -205,31 +195,25 @@ class RegistrationForm extends React.Component {
               }
             };
 
-            console.log(sensate);
-
             this.db.collection('sensies').doc(user.uid).set(sensate).then((res)=>{
-              console.log(res);
 
-              var user = firebaseConf.auth().currentUser;
-
-              user.sendEmailVerification().then(() =>{
-                this.props.history.push('/profile');
-              }).catch((error) =>{
-                console.log(error);
-                alert('Error verifying email, please contact us');
+              SendVerificationEmail(user).then(()=>{
+                console.log('SendVerificationEmail done');
+              }).catch((err)=>{
+                console.log(err);
               });
 
             }).catch((err)=>{
               console.log(err);
-              alert('An error ocurred registering, please contact us');
+              alert('Registration error. Please contact us for more information.');
             });
 
           } else {
-            console.log('User not logged in');
+            console.log('User not logged in.');
           }
         });
       }else{
-        alert('Please fill in all the required information');
+        alert('Please fill in all of the required information.');
       }
       
     }
@@ -241,27 +225,26 @@ class RegistrationForm extends React.Component {
     return (
        <Form className="custom-form">
         <FormGroup row>
-{/*          <Label for="exampleEmail" sm={2} className="label">Name</Label>
-*/}        <Col sm={6}>
-            <Input type="text" required name="name" id="name" className="input-line" placeholder="Your cool sensate name" 
+          <Col sm={6}>
+            <Input type="text" required name="name" id="name" className="input-line" placeholder="Sensate First Name" 
               value={this.state.name}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Lastname (optional)" 
+            <Input type="text" name="lastName" id="lastName" className="input-line" placeholder="Sensate Last Name (Optional)" 
               value={this.state.lastName}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="email" required name="email" id="email" className="input-line" placeholder=" Email" 
+            <Input type="email" required name="email" id="email" className="input-line" placeholder="Email Address" 
               value={this.state.email}
               onChange={this.handleInputChange}
             />
           </Col>
           <Col sm={6}>
-            <Input type="password" required name="password" id="password" className="input-line" placeholder=" Password" 
+            <Input type="password" required name="password" id="password" className="input-line" placeholder="Password" 
               value={this.state.password}
               onChange={this.handleInputChange}
             />
@@ -299,23 +282,7 @@ class RegistrationForm extends React.Component {
                     </Modal.Dialog>
                   </div>
                 }
-
-                {/*<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} >
-                  <DropdownToggle caret className="btn btn-grad-blue">
-                    Date of Birth
-                  </DropdownToggle>
-                <DropdownMenu>
-                <DropdownItem>
-                  <InfiniteCalendar className="DatePicker input-line" id="date" selected={this.state.dateTimeOfBirth}
-                          onChange={this.handleDateChange}
-                          width={400}
-                          height={200}
-                      />
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>*/}
                 
-               
           </Col>
           <Col sm={2}></Col>
         </FormGroup>
@@ -330,19 +297,18 @@ class RegistrationForm extends React.Component {
               </Label> 
             </FormGroup>
           </Col>
-          <Label for="acceptsTerms" sm={11}>Are you ok with our 
+          <Label for="acceptsTerms" sm={11}>Do you agree with the
             
             <Link href="/terms" to="/terms"  target="_blank"> Terms and Conditions </Link>
             
             and 
             <Link href="/privacy" to="/privacy" target="_blank"> Privacy Policy </Link>
-            ?
+            set out by Sensorium Online?
           </Label>
         </FormGroup>
 
         <a className="btn btn-grad-peach" disabled={this.state.disabledBtn} onClick={this.addSensate.bind(this)}>Register!</a>
       </Form>
-      
    
     );
   }

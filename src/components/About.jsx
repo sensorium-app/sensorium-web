@@ -5,18 +5,18 @@ import './style/About.css';
 export default class About extends Component {
   render() {
     return (
-      <div>
+      <div className = "backdrop">
         <br/><br/><br/>
         <div className="container">
-          <Image src="assets/infinty.png" className=" img-fluid about-profile-pic" rounded />
+          <Image src="assets/infinty.png" className="center img-fluid about-profile-pic" alt="Infinity logo"/>
         </div>
-        <h1 className="text-center">Isolated Above, Connected Below</h1>
+        <h1 className="bighead">Isolated Above, Connected Below</h1>
         <Grid>
           <Col sm={6}>
               <div className="">
-                <div className="s-cards">
+                <div className="s-cards" id="divisions">
                   
-                    <h4 className="card-title">Divison?</h4>
+                    <h4 className="card-title">Division?</h4>
                     <p>Divisions do little more than isolate us from one another and from the wisdom and beauty that each one of us can share.  This isolation leads to pain, fear, ignorance, and hatred because division does not seek to understand.</p>
                   
                 </div>
@@ -24,22 +24,22 @@ export default class About extends Component {
           </Col>
           <Col sm={6}>
             <div className="">
-              <div className="s-cards">
+              <div className="s-cards" id="technology">
                 <h4 className="card-title">Technology?</h4>
-                <p>Technology has been both a blessing and a curse – it has both entrenched this division and alleviated it.
-                But what if we could come closer to understanding someone that is unlike us? The walls of division would fall, and the isolation would relent to connection.</p>
+                <p>Technology has been both a blessing and a curse – it has both exacerbated and alleviated these divisions.
+                What if we could come closer to understanding someone that is unlike us? The walls of division would fall and isolation would relent to connection.</p>
               </div>
 
             </div>
           </Col>
 
-          <Col xs={12} sm={8} smOffset={2}>
+          <Col id = "intro" xs={12} sm={8} smOffset={2}>
 
             <div className="">
-              <div className="s-cards">
-                <h4 className="card-title">Sensorium!</h4>
-                <p>Imagine a world where we could connect to the wisdom of those who live around the world, share intimate moments with a core group of people, or visit with an individual who sounds different than ourselves. That is Sensorium.</p>
-                <p>You will be matched with a core group of people throughout the world. What factors brought you together? Your birthdays and other factors comming up. Matched to individuals who share you birthday and other factors, you can begin to connect to that wisdom that this world so desperately needs.</p>
+              <div className="s-cards" id="introducing">
+                <h4 className="card-title">Introducing Sensorium!</h4>
+                <p>Imagine a world where we could connect to the wisdom of those who live around the globe, share intimate moments with a core group of people, or visit a unique individual from the tip of your fingers. </p>
+                <p>Be matched with a core group of people throughout the world based on a variety of different factors. Discover a network of your own sensates and contribute to the collective wisdom that we are all one and the same.</p>
                 <a href="https://join.slack.com/t/sense8app/shared_invite/enQtMzA3MzIwMDU0NjQ3LWIzMDA1ZTY4OTczMzJiOTU3ZjkwZGFmNTAzODc1ZjBjOWZjNjc4YmVlMjhjNWI3Zjc4OGIwMmEyZWQwY2ZlYjE" target="_blank" rel="noopener noreferrer">Join us on Slack!</a>
               </div>
 

@@ -14,10 +14,13 @@
 }
 
 nav.navbar, .navbar-default {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 9999;
   width: 100%;
 }
+
 .navbar-default .navbar-toggle{
   float: left;
   margin-right: 0;
@@ -43,7 +46,7 @@ nav.navbar, .navbar-default {
 @media only screen and (max-width: 600px) {
     nav.navbar, .navbar-default {
       background-color: #5DA4E2 !important;
-      position: absolute;
+      position: fixed;
       width: 100%;
     }
 }

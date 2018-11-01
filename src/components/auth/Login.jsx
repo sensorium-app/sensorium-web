@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ReactDOM, {render} from 'react-dom';
 import { Input, Row, Col } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom'; 
 import Particles from 'react-particles-js';
@@ -6,23 +7,33 @@ import Particles from 'react-particles-js';
 import firebaseConf from './../../config/FirebaseConfig';
 import '../style/style.css';
 import '../style/form.css';
+import  Alert  from '../Alerts';
 
 const initialState = {
     email: '',
     password: '',
     redirectToProfile: false,
     emailForRecovery: '',
-    showResetPassword: false
+    showResetPassword: false,
+    visible: false,
+    errorMessage: '',
 }
 
 export default class Login extends Component {
+
     constructor(props, context) {
         super(props, context);
         this.state = initialState;
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.login = this.login.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
     }
 
+    onDismiss() {
+        this.setState({ visible: false });
+    }
+    
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -34,17 +45,30 @@ export default class Login extends Component {
     }
 
     login(){
-
         if(this.state.email && this.state.password){
-            firebaseConf.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            firebaseConf.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch((error)=> {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-                alert('Please provide your correct email and password');
+                var errorToShow = '';
+                switch(errorCode){
+                    case 'auth/invalid-email':
+                        errorToShow = 'Please type in a valid email';
+                        break;
+                    case 'auth/wrong-password':
+                        errorToShow = 'Please type in a valid email and/or password';
+                        break;
+                    default:
+                        errorToShow = 'Error loging in. Please reset your password or contact us.';
+                }
+                console.log(errorCode, errorToShow)
+                this.setState({
+                    visible: true,
+                    errorMessage: errorToShow,
+                })
             });
         }else{
-            alert('Please type your email and password');
+            console.log('Please provide your login credentials');
         }
                 
     }
@@ -52,15 +76,14 @@ export default class Login extends Component {
     resetPwd(){
         if(this.state.emailForRecovery){
             firebaseConf.auth().sendPasswordResetEmail(this.state.emailForRecovery).then(() =>{
-                alert('Please check your email for the following steps');
+                alert('error');
                 this.toggleResetPassword();
                 this.setState({emailForRecovery: ''})
             }).catch((error) =>{
                 console.log(error);
-                alert('Error resetting password, please contact us');
             });
         }else{
-            alert('Please type your email');
+            alert('Please type your email.');
         }
     }
 
@@ -71,12 +94,18 @@ export default class Login extends Component {
     render() {
 
         return (
-          
+           
             <div>
+                
                 {this.state.redirectToProfile && <Redirect to="/profile"/>}
                 <br /><br /><br />
                 <div>           
                     <Row>
+                    <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+                        { this.state.errorMessage }
+                    </Alert>
+                    
+
                     <div className="particles">
                         <Particles 
                             params={{                                
@@ -112,46 +141,45 @@ export default class Login extends Component {
                                           rotateX: 600,
                                           rotateY: 1200
                                         }
-                                      }
-                                    },
-                                    interactivity: {
-                                      detect_on: "window",
-                                      events: {
-                                        onhover: {
-                                          enable: true,
-                                          mode: "grab"
                                         },
-                                        onclick: {
-                                          enable: true,
-                                          mode: "push"
+                                        interactivity: {
+                                        detect_on: "window",
+                                        events: {
+                                            onhover: {
+                                            enable: true,
+                                            mode: "grab"
+                                            },
+                                            onclick: {
+                                            enable: true,
+                                            mode: "push"
+                                            },
+                                            resize: true
                                         },
-                                        resize: true
-                                      },
-                                      modes: {
-                                        grab: {
-                                          distance: 170.41996348143653,
-                                          line_linked: {
-                                            opacity: 1
-                                          }
+                                        modes: {
+                                            grab: {
+                                            distance: 170.41996348143653,
+                                            line_linked: {
+                                                opacity: 1
+                                            }
+                                            }
+                                            
                                         }
-                                        
-                                      }
-                                    }
-                                  
-                            }}
-                          style={{
-                            width: '100%',
-                            height: '100%'
-                            
-                        }}
-                        />
-                    </div>
+                                        }
+                                    
+                                }}}
+                                style={{
+                                    width: '100%',
+                                    height: '100%'
+                                    
+                                }}
+                            />
+                        </div>
                         { !this.state.showResetPassword ?
                             <Col sm="4" className="mt-5 col-sm-offset-4">
                                 <div className="panel mt-5 bg-grad-blue text-center">
                                     <div className="p-5">
                                         <h2 className="login-panel-heading">Welcome Back!</h2>
-                                        <h3 className="login-panel-heading">We are so excited to see you again</h3>
+                                        <h3 className="login-panel-heading">We are so excited to see you again.</h3>
                                     </div>
                                     <div className="panel-body">
                                         <Row>
@@ -168,12 +196,12 @@ export default class Login extends Component {
                                                 />
                                             </Col>
                                         
-                                            <a className="btn btn-grad-peach" enabled={this.state.email && this.state.password} onClick={this.login.bind(this)}>Login</a>
+                                            <button type="submit" className="btn btn-grad-peach" enabled={this.state.email && this.state.password} onClick={this.login}>Login</button>
                                         </Row>
                                         <br />
                                         <Row>
                                             <Col sm={6}>
-                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Forgot your Password?</a>
+                                                <a tabIndex="0" onClick={this.toggleResetPassword.bind(this)}>Forgot your password?</a>
                                             </Col>
                                             <Col sm={6}>
                                                 Need an account? 
@@ -207,7 +235,7 @@ export default class Login extends Component {
                                         <br />
                                         <Row>
                                             <Col sm={12}>
-                                                <a href="#" onClick={this.toggleResetPassword.bind(this)}>Login instead</a>
+                                                <a tabIndex="0" onClick={this.toggleResetPassword.bind(this)}>Login instead</a>
                                             </Col>
                                         </Row>
                                     </div>

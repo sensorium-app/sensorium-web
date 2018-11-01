@@ -1,0 +1,122 @@
+$profile-bar-bgcolor: #f6feef;
+
+body{
+    margin:0;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f6feef; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #e9f0e5; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #dde4d9; 
+}
+.profile-btn-grad{
+    border-radius: 25px;
+    margin: 1px;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: white;
+    transition: 1s;
+    padding: 15px;
+    padding-left: 3px; 
+     
+    .lnr{
+        font-size: 25px;
+        color: #1c1c1c;
+        display: inline;
+    }
+}
+
+.profile-bar{
+    padding:15px;
+    padding-top:70px; 
+    height: 100vh;
+    display:grid;
+    grid-gap:10px;
+    grid-template-columns: 50% 50%;
+    grid-auto-rows: min-content min-content min-content min-content ;
+    grid-template-areas: 
+        "avatar user-name"
+        "profile-buttons profile-buttons"
+        "cluster-name cluster-name"
+        "archipelago archipelago"
+        ;
+        background-color: $profile-bar-bgcolor;
+        color:black;
+        /* background-image: linear-gradient(-225deg, #9EFBD3 0%, #57E9F2 48%, #45D4FB 100%);  border-radius: 10px; */
+        -webkit-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        -moz-box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        box-shadow: -2px 0px 17px -2px rgba(0,0,0,0.75);
+        overflow-y: auto;
+    .avatar img{
+        grid-area: avatar;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .user-name{
+        grid-area: user-name;
+    }
+    
+    .profile-buttons{
+        grid-area: profile-buttons;
+    }
+
+    .cluster-name{
+        grid-area: cluster-name;
+        color:black;
+        padding: 10px;
+        
+    }
+    .cluster-name h3{
+        background-color: #e6e6e6;
+        padding: 10px;
+    }
+    
+    .cluster-name li img{
+        width: 10%;
+        border-radius: 50%;
+    }
+
+    .cluster-name  li{
+        list-style-type: none;
+    }
+
+    
+
+    .archipelago  h3{
+        padding: 10px;
+        background-color: #e6e6e6;
+    }
+    
+    .user-name{
+        grid-area: user-name;
+    }
+    
+    .archipelago{
+        grid-area: archipelago;
+        color:black;
+        padding: 10px;
+    }
+    .archipelago li img{
+    width: 10%;
+    border-radius: 50%;
+    }
+
+    .archipelago  li{
+        list-style-type: none;
+    }
+    
+}

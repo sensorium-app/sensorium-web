@@ -1,3 +1,8 @@
+.backdrop {
+  
+  background-size: 50%;
+}
+
 .header-image {
   width: 100%;
   margin-top: -2em;
@@ -8,3 +13,31 @@
   float: left;
   margin: 0 1em 1em 0;
 }
+
+.bighead {
+  text-align: center;
+  font-family: Georgia;
+ 
+}
+
+h4,
+.s-cards {
+  text-align: center;
+  z-index: 50;
+}
+/* 
+#divisions {
+  background-image: linear-gradient(white, pink);
+}
+
+#technology {
+  background-image: linear-gradient(white, lightblue);
+} */
+
+#intro {
+  padding-top: 25px;
+}
+
+/* #introducing {
+  background-image: linear-gradient(to right, pink, lightblue);
+} */
