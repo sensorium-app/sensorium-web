@@ -158,37 +158,26 @@ class PostDetail extends Component {
     }
 
     addLike(){
-        const likeDoc = {
-            date: firebase.firestore.FieldValue.serverTimestamp(),
-            user: {
-                _id: this.props.authUser.uid,
-                avatar: this.props.userAvatar,
-                name: this.props.userName,
-            },
-        };
 
-        if(this.state.likes.length > 0){
-            var shouldAllowLike = true;
-            this.state.likes.forEach((like)=>{
-                console.log(like);
-    
-                if(like.user._id === this.props.authUser.uid){
-                    console.log('dELETE LIKE')
-                    shouldAllowLike = false;
-                }/*else{
-                    console.log('do')
-                    this.addLikeToDb(likeDoc);
-                }*/
-            });
-            if(shouldAllowLike){
+        this.likesRef.where('user._id', '==', this.props.authUser.uid).get().then((docs)=>{
+            if(docs.empty){
+                const likeDoc = {
+                    date: firebase.firestore.FieldValue.serverTimestamp(),
+                    user: {
+                        _id: this.props.authUser.uid,
+                        avatar: this.props.userAvatar,
+                        name: this.props.userName,
+                    },
+                };
                 this.addLikeToDb(likeDoc);
+            }else{
+                var doc = docs.docs[0];
+                
+                var docRef = this.likesRef.doc(doc.id);
+                this.deleteLike(docRef);
             }
-        }else{
-            this.addLikeToDb(likeDoc);
-        }
+        });
         
-
-        /**/
     }
 
     addLikeToDb(likeDoc){
@@ -198,10 +187,28 @@ class PostDetail extends Component {
                     throw "Document does not exist!";
                 }
                 var newLikeCount = postDoc.data().likeCount + 1;
-                transaction.update(this.postRef, {likeCount: newLikeCount});
                 transaction.set(this.likesRef.doc(),likeDoc);
+                transaction.update(this.postRef, {likeCount: newLikeCount});
+                
             }).then(()=>{
                 console.log('like added');
+            }).catch((error)=> {
+                console.log("Transaction failed: ", error);
+            });
+        });
+    }
+
+    deleteLike(docRef){
+        this.db.runTransaction((transaction)=>{
+            return transaction.get(this.postRef).then((postDoc)=> {
+                if (!postDoc.exists) {
+                    throw "Document does not exist!";
+                }
+                var newLikeCount = postDoc.data().likeCount - 1;
+                transaction.update(this.postRef, {likeCount: newLikeCount});
+                transaction.delete(docRef);
+            }).then(()=>{
+                console.log('like deleted');
             }).catch((error)=> {
                 console.log("Transaction failed: ", error);
             });
@@ -216,9 +223,8 @@ class PostDetail extends Component {
                 
                 <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                     commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
-                    postId={postId}
+                    postId={postId} addLike={this.addLike}
                 />
-                <button className="post-button" onClick={this.addLike}>Love/LikeButton</button>
 
                 <ul className="comment-container">
                     {
