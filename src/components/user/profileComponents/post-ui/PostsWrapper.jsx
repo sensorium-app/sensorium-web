@@ -6,6 +6,7 @@ import Post from './Post';
 import moment from 'moment';
 import Dropzone from 'react-dropzone';
 import UploadMedia from './../chat-ui/UploadMedia';
+import PostDetail from './PostDetail';
 
 class PostsWrapper extends Component {
 
@@ -19,6 +20,7 @@ class PostsWrapper extends Component {
             showMediaUpload: false,
             imagePath: '',
             files: [],
+            showPostDetail: false,
         }
 
         this.db = firebaseConf.firestore();
@@ -31,12 +33,16 @@ class PostsWrapper extends Component {
         this.postPagingNumber = 25;
         this.postsListener;
 
+        this.postDetailData = {};
+
         this.handleChange = this.handleChange.bind(this);
         this.prepareClusterPost = this.prepareClusterPost.bind(this);
         this.loadImageToPost = this.loadImageToPost.bind(this);
         this.toggleMediaUpload = this.toggleMediaUpload.bind(this);
+        this.togglePostDetailModal = this.togglePostDetailModal.bind(this);
         this.addClusterPost = this.addClusterPost.bind(this);
         this.loadEarlierPosts = this.loadEarlierPosts.bind(this);
+        this.showPostDetail = this.showPostDetail.bind(this);
     }
 
     componentDidMount(){
@@ -97,6 +103,12 @@ class PostsWrapper extends Component {
     toggleMediaUpload(){
         this.setState((state) => {
             return {showMediaUpload: !state.showMediaUpload};
+        });
+    }
+
+    togglePostDetailModal(){
+        this.setState((state) => {
+            return {showPostDetail: !state.showPostDetail};
         });
     }
 
@@ -199,6 +211,25 @@ class PostsWrapper extends Component {
         this.dropzoneRef.open();
     }
 
+    showPostDetail(dataObj){
+        console.log(dataObj)
+        this.postDetailData = {
+            userName: dataObj.userName,
+            userAvatar: dataObj.userAvatar,
+            userId: dataObj.userId,
+            text: dataObj.text,
+            date: dataObj.date,
+            imagePath: dataObj.imagePath,
+            commentCount: dataObj.commentCount,
+            likeCount: dataObj.likeCount,
+            clusterId: dataObj.clusterId,
+            postId: dataObj.postId,
+        };
+
+        this.togglePostDetailModal();
+        
+    }
+
     render() {
         return (
             <div>
@@ -230,6 +261,16 @@ class PostsWrapper extends Component {
                     />
                 }
 
+                {
+                    this.state.showPostDetail && 
+                    <PostDetail togglePostDetailModal={this.togglePostDetailModal} showPostDetail={this.state.showPostDetail} 
+                        userName={this.postDetailData.userName} userAvatar={this.postDetailData.userAvatar} userId={this.postDetailData.userId} 
+                        text={this.postDetailData.text} date={this.postDetailData.date} imagePath={this.postDetailData.imagePath} 
+                        clusterId={this.postDetailData.clusterId} postId={this.postDetailData.postId} authUser={this.props.authUser}
+                        commentCount={this.postDetailData.commentCount} likeCount={this.postDetailData.likeCount}
+                    />
+                }
+
                 <div className=" item post-grid-items">
                     <div className="create-post-card">
                         <form onSubmit={this.prepareClusterPost}>
@@ -247,28 +288,24 @@ class PostsWrapper extends Component {
                         console.log(postData);
                         return(
                             
-                            <div key={postData._id} className="item post-grid-items">
-                                <Link to={{ pathname: "/profile/posts/"+postData._id, 
-                                    state: { 
-                                        userName: postData.user.name,
-                                        userAvatar: postData.user.avatar,
-                                        userId: postData.user._id,
-                                        text: postData.text,
-                                        date: postData.date.toString(),
-                                        imagePath: postData.image,
-                                        commentCount: postData.commentCount,
-                                        likeCount: postData.likeCount,
-                                        clusterId: this.props.clusterId,
-                                        postId: postData._id
-                                    } 
-                                }} >
+                            <div key={postData._id} className="item post-grid-items" onClick={()=>this.showPostDetail({ 
+                                userName: postData.user.name,
+                                userAvatar: postData.user.avatar,
+                                userId: postData.user._id,
+                                text: postData.text,
+                                date: postData.date.toString(),
+                                imagePath: postData.image,
+                                commentCount: postData.commentCount,
+                                likeCount: postData.likeCount,
+                                clusterId: this.props.clusterId,
+                                postId: postData._id
+                            })}>
 
-                                    <Post userName={postData.user.name} userAvatar={postData.user.avatar} userId={postData.user._id} text={postData.text} date={postData.date} imagePath={postData.image} 
-                                        commentCount={postData.commentCount} likeCount={postData.likeCount} clusterId={this.props.clusterId}
-                                        postId={postData._id}
-                                    />
-                                </Link>
-
+                                <Post userName={postData.user.name} userAvatar={postData.user.avatar} userId={postData.user._id} text={postData.text} date={postData.date} imagePath={postData.image} 
+                                    commentCount={postData.commentCount} likeCount={postData.likeCount} clusterId={this.props.clusterId}
+                                    postId={postData._id}
+                                />
+                                
                             </div>
                         )
                     })
