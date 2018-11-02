@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import Post from './Post';
 import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import moment from 'moment';
 import './style/comment.css';
+import ReactModal from 'react-modal';
+
+ReactModal.setAppElement('#root')
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      WebkitTransform       : 'translate(-50%, -50%)',
+      msTransform           : 'translate(-50%, -50%)',
+      textAlign             : 'center',
+      border                : 'none',
+    },
+    overlay: {
+        zIndex: 1000,
+        overflow :'auto',
+        marginTop: '7rem !important',
+    },
+    responsiveImage:{
+        width: '100%',
+        maxWidth: '200px',
+        height: 'auto',
+    },
+};
+
 class PostDetail extends Component {
     
     constructor(props) {
@@ -22,22 +50,20 @@ class PostDetail extends Component {
         this.addComment = this.addComment.bind(this);
         this.addLike = this.addLike.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.togglePostDetailModal = this.togglePostDetailModal.bind(this);
         this.commentsListener;
         this.likesListener;
     }
 
     componentDidMount(){
-        const { clusterId, postId } = this.props.location.state;
+        const { clusterId, postId } = this.props;
 
-        if(this.props.location.state){
-            ///clusters/4BwroUCr3uGqYn7p6nLc/posts/mtH9savjt1BrfkkCHm4H/comments/Xa27mLZ1geNSgK9XvSvP
-            this.postRef = this.db.collection("clusters").doc(clusterId).collection('posts').doc(postId);
-            this.likesRef = this.postRef.collection("likes");
-            this.commentsRef = this.postRef.collection("comments");
-            
-            this.initComments();
-            this.initLikes();
-        }
+        this.postRef = this.db.collection("clusters").doc(clusterId).collection('posts').doc(postId);
+        this.likesRef = this.postRef.collection("likes");
+        this.commentsRef = this.postRef.collection("comments");
+        
+        this.initComments();
+        this.initLikes();
         
     }
 
@@ -61,7 +87,7 @@ class PostDetail extends Component {
                 //add all of the comments, onInit
                 this.setState({
                     comments: commentsArray,
-                    commentCount: this.props.location.state.commentCount,
+                    commentCount: this.props.commentCount,
                 });
             }else{
                 var newCommentsArray = [];
@@ -158,37 +184,26 @@ class PostDetail extends Component {
     }
 
     addLike(){
-        const likeDoc = {
-            date: firebase.firestore.FieldValue.serverTimestamp(),
-            user: {
-                _id: this.props.authUser.uid,
-                avatar: this.props.userAvatar,
-                name: this.props.userName,
-            },
-        };
 
-        if(this.state.likes.length > 0){
-            var shouldAllowLike = true;
-            this.state.likes.forEach((like)=>{
-                console.log(like);
-    
-                if(like.user._id === this.props.authUser.uid){
-                    console.log('dELETE LIKE')
-                    shouldAllowLike = false;
-                }/*else{
-                    console.log('do')
-                    this.addLikeToDb(likeDoc);
-                }*/
-            });
-            if(shouldAllowLike){
+        this.likesRef.where('user._id', '==', this.props.authUser.uid).get().then((docs)=>{
+            if(docs.empty){
+                const likeDoc = {
+                    date: firebase.firestore.FieldValue.serverTimestamp(),
+                    user: {
+                        _id: this.props.authUser.uid,
+                        avatar: this.props.userAvatar,
+                        name: this.props.userName,
+                    },
+                };
                 this.addLikeToDb(likeDoc);
+            }else{
+                var doc = docs.docs[0];
+                
+                var docRef = this.likesRef.doc(doc.id);
+                this.deleteLike(docRef);
             }
-        }else{
-            this.addLikeToDb(likeDoc);
-        }
+        });
         
-
-        /**/
     }
 
     addLikeToDb(likeDoc){
@@ -198,8 +213,9 @@ class PostDetail extends Component {
                     throw "Document does not exist!";
                 }
                 var newLikeCount = postDoc.data().likeCount + 1;
-                transaction.update(this.postRef, {likeCount: newLikeCount});
                 transaction.set(this.likesRef.doc(),likeDoc);
+                transaction.update(this.postRef, {likeCount: newLikeCount});
+                
             }).then(()=>{
                 console.log('like added');
             }).catch((error)=> {
@@ -208,59 +224,88 @@ class PostDetail extends Component {
         });
     }
 
+    deleteLike(docRef){
+        this.db.runTransaction((transaction)=>{
+            return transaction.get(this.postRef).then((postDoc)=> {
+                if (!postDoc.exists) {
+                    throw "Document does not exist!";
+                }
+                var newLikeCount = postDoc.data().likeCount - 1;
+                transaction.update(this.postRef, {likeCount: newLikeCount});
+                transaction.delete(docRef);
+            }).then(()=>{
+                console.log('like deleted');
+            }).catch((error)=> {
+                console.log("Transaction failed: ", error);
+            });
+        });
+    }
+
+    togglePostDetailModal(){
+        this.props.togglePostDetailModal();
+    }
+
     render() {
-        const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId } = this.props.location.state;
+        const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId, showPostDetail } = this.props;
 
         return (
-            <div style={{marginTop: '7rem'}} className="PostPage">
-                
-                <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
-                    commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
-                    postId={postId}
-                />
-                <button className="post-button" onClick={this.addLike}>Love/LikeButton</button>
+            <div >
 
-                <ul className="comment-container">
-                    {
-                        this.state.comments.map((commentData)=>{
-                            var date;
-                            if(commentData.date && commentData.date.seconds){
-                                date = moment(commentData.date.seconds * 1000).format('DD/MM/YYYY - HH:mm');
-                            }
-                            return(
-                                <li key={commentData.id} className="comment" >
+                <ReactModal
+                    isOpen={showPostDetail}
+                    contentLabel="Memory detail"
+                    style={customStyles}
+                    onRequestClose={this.togglePostDetailModal}
+                >
+                    <button onClick={this.togglePostDetailModal}><i className="fa fa-times"></i></button>
+                    
+                    <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
+                        commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
+                        postId={postId} addLike={this.addLike}
+                    />
 
-                                <div className="comment-author">
-                                    <img className="comment-author-avatar" src={commentData.user.avatar}/>
+                    <ul className="comment-container">
+                        {
+                            this.state.comments.map((commentData)=>{
+                                var date;
+                                if(commentData.date && commentData.date.seconds){
+                                    date = moment(commentData.date.seconds * 1000).format('DD/MM/YYYY - HH:mm');
+                                }
+                                return(
+                                    <li key={commentData.id} className="comment" >
+
+                                    <div className="comment-author">
+                                        <img className="comment-author-avatar" src={commentData.user.avatar}/>
+                                        
+                                    </div>
+
+                                    <div className="comment-data">
+
+                                        <p className="comment-author-details">
+                                                {commentData.user.name}<br/>
+                                                <span className="comment-time-stamp" >{date}</span>
+                                        </p>
                                     
-                                </div>
-
-                                <div className="comment-data">
-
-                                    <p className="comment-author-details">
-                                             {commentData.user.name}<br/>
-                                             <span className="comment-time-stamp" >{date}</span>
-                                    </p>
-                                
-                                     {commentData.text}
-                                    
-                                </div>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-                <div className="comment-input-container">
-                    <form onSubmit={this.addComment}>
-                        <textarea rows="2" placeholder="Add a lovely comment" className="comment-input" name="textForComment" id="textForComment" value={this.state.textForComment}
-                            onChange={this.handleInputChange}></textarea>
-                          
-                    </form>
-                    <button className="send-comment" onClick={this.addComment}><i className="fa fa-angle-double-right"></i></button>
-                </div>
+                                        {commentData.text}
+                                        
+                                    </div>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                    <div className="comment-input-container">
+                        <form onSubmit={this.addComment}>
+                            <textarea rows="2" placeholder="Add a lovely comment" className="comment-input" name="textForComment" id="textForComment" value={this.state.textForComment}
+                                onChange={this.handleInputChange}></textarea>
+                            
+                        </form>
+                        <button className="send-comment" onClick={this.addComment}><i className="fa fa-angle-double-right"></i></button>
+                    </div>
+                </ReactModal>
             </div>
         );
     }
 }
 
-export default withRouter(PostDetail);
+export default PostDetail;

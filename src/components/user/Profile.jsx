@@ -7,7 +7,6 @@ import { Row, Col } from 'reactstrap';
 import firebaseConf, {firebase} from './../../config/FirebaseConfig';
 import ProfileMenu from './profileComponents/ProfileMenu';
 import EmailVerification from './profileComponents/email-verification/EmailVerification';
-import { Login, PostDetail } from './../../Routing';
 import ChatWrapper from './profileComponents/chat-ui/ChatWrapper';
 import PostsWrapper from './profileComponents/post-ui/PostsWrapper';
 
@@ -154,9 +153,6 @@ class Profile extends Component {
                                 this.state.clusterId && 
                                     <PostsWrapper authUser={this.props.authUser} clusterId={this.state.clusterId} userName={this.state.name} userAvatar={this.state.photo} />
                             } />
-                            <Route path={`${this.props.match.path}/posts/:id`} render={()=> 
-                                !this.state.authUser ? <Login/> : <PostDetail authUser={this.props.authUser} userAvatar={this.state.photo} userName={this.state.name} /> 
-                            }/>
                         
                         </Col>
 

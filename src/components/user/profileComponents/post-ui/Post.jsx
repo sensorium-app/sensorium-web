@@ -38,16 +38,16 @@ class Post extends Component {
     }
     
     render() {
-      const { userName, userAvatar, userId, text, date, commentCount, likeCount } = this.props;
+      const { userName, userAvatar, userId, text, date, commentCount, likeCount, addLike } = this.props;
       let postText;
       if(this.state.imageUrl != undefined) {
        postText =   <div className="caption">
-          <PFooter postcaption={text} />
+          <PFooter postcaption={text} addLike={addLike} commentCount={commentCount} likeCount={likeCount} />
           </div>
       }
       else{
         postText =   <div className="qoute">
-          <PFooter postcaption={text} />
+          <PFooter postcaption={text} addLike={addLike} commentCount={commentCount} likeCount={likeCount} />
           </div>
       } 
       return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '1.2px solid ' + randomColor()}} }>
@@ -62,18 +62,9 @@ class Post extends Component {
               <img alt="" className="Post-image" src={this.state.imageUrl} />
             </div>
           }
-
-           
+   
           {postText}
 
-          {
-            (commentCount > 0) && 
-              <p>Comments: {commentCount}</p>
-          }
-          {
-            (likeCount > 0) && 
-              <p>Likes: {likeCount}</p>
-          }
         </article>;
       }
       
