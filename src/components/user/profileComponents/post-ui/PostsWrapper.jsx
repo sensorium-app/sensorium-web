@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Row } from 'reactstrap';
 import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import Post from './Post';
@@ -7,6 +6,8 @@ import moment from 'moment';
 import Dropzone from 'react-dropzone';
 import UploadMedia from './../chat-ui/UploadMedia';
 import PostDetail from './PostDetail';
+import { arrayContainsObject } from './../../misc/Functions';
+import update from 'immutability-helper';
 
 class PostsWrapper extends Component {
 
@@ -63,36 +64,43 @@ class PostsWrapper extends Component {
                 includeMetadataChanges: true
             },
             (posts)=>{
-                var postsHasPendingWrites = posts.metadata.hasPendingWrites;
-                if(!postsHasPendingWrites){
-                    var postsArray = [];
-                    posts.forEach((post,i)=>{
-                        var postData = post.data();
-                        postData['_id'] = post.id;
-                        postData['date'] = moment(postData.date.seconds * 1000);
+                posts.docChanges().forEach((change)=> {
+                    var postsHasPendingWrites = posts.metadata.hasPendingWrites;
+                    if(!postsHasPendingWrites){
+                        if (change.type === "added") {
+                                var postsArray = [];
+                                posts.forEach((post,i)=>{
+                                    var postData = post.data();
+                                    postData['_id'] = post.id;
+                                    postData['date'] = moment(postData.date.seconds * 1000);
 
-                        if(this.state.posts.indexOf(postsArray[i])===-1){
-                            postsArray.push(postData);
+                                    postsArray.push(postData);
+                                });
+
+                                this.setState({
+                                    posts: postsArray,
+                                })
                         }
-                    });
-
-                    if(this.state.posts.length > 0){
-                        // Only add the last post
-                        var newPostsArray = [];
-                        newPostsArray.push(postsArray[0]);
-
-                        this.setState({
-                            posts: newPostsArray.concat(this.state.posts),
-                        });
-
-                    }else{
-                        // Add all the posts to the state
-                        this.lastPostDocRef = posts.docs[posts.docs.length-1];
-                        this.setState({
-                            posts: postsArray
-                        });
+                        if (change.type === "modified") {
+                            var postData = change.doc.data();
+                            postData['_id'] = change.doc.id;
+                            postData['date'] = moment(postData.date.seconds * 1000);
+                            var objExists = arrayContainsObject(postData, this.state.posts);
+                            if(objExists === null){
+                                this.setState({
+                                    posts: [postData, ...this.state.posts ],
+                                });
+                            }else{
+                                this.setState({
+                                    posts: update(this.state.posts, {[objExists]:  {$set: postData} })
+                                });
+                            }
+                        }
+                        if (change.type === "removed") {
+                            console.log("Removed: ", change.doc.data());
+                        }
                     }
-                }
+                });
             });
     }
 
@@ -212,7 +220,6 @@ class PostsWrapper extends Component {
     }
 
     showPostDetail(dataObj){
-        console.log(dataObj)
         this.postDetailData = {
             userName: dataObj.userName,
             userAvatar: dataObj.userAvatar,
@@ -285,7 +292,6 @@ class PostsWrapper extends Component {
                 
                 {
                     this.state.posts.map((postData)=>{
-                        console.log(postData);
                         return(
                             
                             <div key={postData._id} className="item post-grid-items" onClick={()=>this.showPostDetail({ 
