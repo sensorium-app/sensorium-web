@@ -6,7 +6,14 @@ import './style/post.css';
 const PFooter = (props) =>(
 
     <div className="Post-caption">
-         <p style={styles.postCaption}>{props.postcaption}</p>
+
+        {
+            props.userIsOwner ? 
+                <textarea rows="2" placeholder="Edit your post's text" className="comment-input" name="textEdit" id="textEdit" value={props.postcaption}
+                    onChange={props.handleInputChange}></textarea>
+            :
+            <p style={styles.postCaption}>{props.postcaption}</p>
+        }
 
         <div className="Post-console">
             <i className="fa fa-reply"></i> &nbsp;

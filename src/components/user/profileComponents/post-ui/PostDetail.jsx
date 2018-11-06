@@ -52,6 +52,7 @@ class PostDetail extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.togglePostDetailModal = this.togglePostDetailModal.bind(this);
         this.deletePost = this.deletePost.bind(this);
+        this.editPost = this.editPost.bind(this);
         this.commentsListener;
         this.likesListener;
     }
@@ -254,8 +255,17 @@ class PostDetail extends Component {
         })
     }
 
+    editPost(textToUpdate){
+        this.postRef.update({text: textToUpdate}).then((res)=>{
+            alert('Post updated');
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+
     render() {
-        const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId, showPostDetail, authUser, togglePostDetailModal } = this.props;
+        const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId, showPostDetail, 
+            authUser, togglePostDetailModal } = this.props;
 
         return (
             <div >
@@ -271,6 +281,7 @@ class PostDetail extends Component {
                     <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                         commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
                         postId={postId} addLike={this.addLike} authUser={authUser} deletePost={this.deletePost} 
+                        editPost={this.editPost}
                         togglePostDetailModal={togglePostDetailModal}
                     />
 
