@@ -18,7 +18,8 @@ class Post extends Component {
       super(props);
       this.state = {
         imageUrl: null,
-        class: 'caption'
+        class: 'caption',
+        userIsOwner: false,
       };
 
       if(this.props.imagePath){
@@ -35,9 +36,25 @@ class Post extends Component {
 
       this.db = firebaseConf.firestore();
     }
+
+    componentDidMount(){
+      this.isUserOwner();
+    }
+
+    isUserOwner(){
+      if(this.props.authUser.uid === this.props.userId){
+        this.setState({
+          userIsOwner: true,
+        })
+      }else{
+        this.setState({
+          userIsOwner: false,
+        })
+      }
+    }
     
     render() {
-      const { userName, userAvatar, userId, text, date, commentCount, likeCount, addLike } = this.props;
+      const { userName, userAvatar, userId, text, date, commentCount, likeCount, addLike, authUser, deletePost, togglePostDetailModal } = this.props;
       let postText;
       if(this.state.imageUrl != undefined) {
        postText =   <div className="caption">
@@ -52,6 +69,7 @@ class Post extends Component {
       return <article className="Post" ref="Post" style={{...styles.post, ...{'borderLeft': '1.2px solid ' + randomColor()}} }>
           <PHeader name={userName} image={userAvatar} 
             timestamp={'Shared at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()}
+            userIsOwner={this.state.userIsOwner} deletePost={deletePost} togglePostDetailModal={togglePostDetailModal}
           />
           
           {
