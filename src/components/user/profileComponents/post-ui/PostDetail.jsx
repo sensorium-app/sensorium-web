@@ -71,6 +71,9 @@ class PostDetail extends Component {
         if(this.commentsListener){
             this.commentsListener();
         }
+        if(this.likesListener){
+            this.likesListener();
+        }
     }
 
     initComments(){
