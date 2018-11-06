@@ -97,7 +97,16 @@ class PostsWrapper extends Component {
                             }
                         }
                         if (change.type === "removed") {
-                            console.log("Removed: ", change.doc.data());
+                            var postData = change.doc.data();
+                            postData['_id'] = change.doc.id;
+                            postData['date'] = moment(postData.date.seconds * 1000);
+                            var objExists = arrayContainsObject(postData, this.state.posts);
+                            if(objExists !== null){
+                                this.setState({
+                                    posts: this.state.posts.filter((_, i) => i !== objExists)
+                                });
+                            }
+
                         }
                     }
                 });
@@ -309,7 +318,7 @@ class PostsWrapper extends Component {
 
                                 <Post userName={postData.user.name} userAvatar={postData.user.avatar} userId={postData.user._id} text={postData.text} date={postData.date} imagePath={postData.image} 
                                     commentCount={postData.commentCount} likeCount={postData.likeCount} clusterId={this.props.clusterId}
-                                    postId={postData._id}
+                                    postId={postData._id} authUser={this.props.authUser}
                                 />
                                 
                             </div>

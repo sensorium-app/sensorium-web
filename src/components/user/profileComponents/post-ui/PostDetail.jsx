@@ -51,6 +51,7 @@ class PostDetail extends Component {
         this.addLike = this.addLike.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.togglePostDetailModal = this.togglePostDetailModal.bind(this);
+        this.deletePost = this.deletePost.bind(this);
         this.commentsListener;
         this.likesListener;
     }
@@ -248,8 +249,16 @@ class PostDetail extends Component {
         this.props.togglePostDetailModal();
     }
 
+    deletePost(){
+        this.postRef.delete().then((res)=>{
+            alert('Post deleted');
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+
     render() {
-        const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId, showPostDetail } = this.props;
+        const { userName, userAvatar, userId, text, date, imagePath, clusterId, postId, showPostDetail, authUser, togglePostDetailModal } = this.props;
 
         return (
             <div >
@@ -264,7 +273,8 @@ class PostDetail extends Component {
                     
                     <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                         commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
-                        postId={postId} addLike={this.addLike}
+                        postId={postId} addLike={this.addLike} authUser={authUser} deletePost={this.deletePost} 
+                        togglePostDetailModal={togglePostDetailModal}
                     />
 
                     <ul className="comment-container">
