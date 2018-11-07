@@ -8,8 +8,8 @@ const PFooter = (props) =>(
     <div className="Post-caption">
 
         {
-            props.userIsOwner ? 
-                <textarea rows="2" placeholder="Edit your post's text" className="comment-input" name="textEdit" id="textEdit" value={props.postcaption}
+            props.userIsOwner && props.editMode ? 
+                <textarea rows="2" placeholder="Edit your post's text" name="textEdit" id="textEdit" value={props.postcaption}
                     onChange={props.handleInputChange}></textarea>
             :
             <p style={styles.postCaption}>{props.postcaption}</p>

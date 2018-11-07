@@ -107,6 +107,8 @@ class PostsWrapper extends Component {
                         }else{
                             this.setState({
                                 posts: update(this.state.posts, {[objExists]:  {$set: postData} })
+                            },()=>{
+                                console.log(this.state.posts[objExists]);
                             });
                         }
                     }
