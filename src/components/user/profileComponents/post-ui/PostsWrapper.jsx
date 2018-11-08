@@ -81,21 +81,7 @@ class PostsWrapper extends Component {
                                     posts: postsArray,
                                 })
                         }
-                        if (change.type === "modified") {
-                            var postData = change.doc.data();
-                            postData['_id'] = change.doc.id;
-                            postData['date'] = moment(postData.date.seconds * 1000);
-                            var objExists = arrayContainsObject(postData, this.state.posts);
-                            if(objExists === null){
-                                this.setState({
-                                    posts: [postData, ...this.state.posts ],
-                                });
-                            }else{
-                                this.setState({
-                                    posts: update(this.state.posts, {[objExists]:  {$set: postData} })
-                                });
-                            }
-                        }
+                        
                         if (change.type === "removed") {
                             var postData = change.doc.data();
                             postData['_id'] = change.doc.id;
@@ -107,6 +93,23 @@ class PostsWrapper extends Component {
                                 });
                             }
 
+                        }
+                    }
+                    if (change.type === "modified") {
+                        var postData = change.doc.data();
+                        postData['_id'] = change.doc.id;
+                        postData['date'] = moment(postData.date.seconds * 1000);
+                        var objExists = arrayContainsObject(postData, this.state.posts);
+                        if(objExists === null){
+                            this.setState({
+                                posts: [postData, ...this.state.posts ],
+                            });
+                        }else{
+                            this.setState({
+                                posts: update(this.state.posts, {[objExists]:  {$set: postData} })
+                            },()=>{
+                                console.log(this.state.posts[objExists]);
+                            });
                         }
                     }
                 });
