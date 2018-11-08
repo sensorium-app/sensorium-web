@@ -118,6 +118,7 @@ class Post extends Component {
           <PHeader name={userName} image={userAvatar} 
             timestamp={'Shared at ' + new Date(date).toLocaleDateString() +' - '+ new Date(date).getHours()+' : '+new Date(date).getMinutes()}
             userIsOwner={this.state.userIsOwner} deletePost={deletePost} togglePostDetailModal={togglePostDetailModal}
+            editMode={this.state.editMode} toggleEditMode={this.toggleEditMode}
           />
           
           {
@@ -129,11 +130,6 @@ class Post extends Component {
           }
    
           {postText}
-
-          {
-            this.state.userIsOwner && !this.state.editMode &&
-              <i className="fa fa-edit" onClick={this.toggleEditMode}></i>
-          }
 
           {
             this.state.userIsOwner && this.state.editMode &&

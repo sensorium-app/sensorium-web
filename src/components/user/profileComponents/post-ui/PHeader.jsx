@@ -41,13 +41,15 @@ class PHeader extends Component{
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu">
         <div onClick={this.toggle}>
-          
-            <p >
-            <i className="fa fa-edit" ></i> Edit Post
-          </p>
-         
+
+          {
+            this.props.userIsOwner && !this.props.editMode &&
+            <p onClick={ ()=> this.props.toggleEditMode() }>
+              <i className="fa fa-edit"></i> Edit Post
+            </p>
+          }
                
-          </div>
+        </div>
          
           {/* delete Post */}
           <div onClick={this.toggle}>
@@ -77,7 +79,6 @@ PHeader.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
-  postcaption: PropTypes.string.isRequired
 }
 
 export default PHeader
