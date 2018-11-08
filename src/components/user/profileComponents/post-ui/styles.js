@@ -1,6 +1,7 @@
 export default {
     'post': {
       'backgroundColor': '#ffffff',
+      
       'minHeight': '51px',
       'maxWidth': '588px',
       'minWidth': '300px',
@@ -15,7 +16,9 @@ export default {
       'borderRadius':'5px'
     },
     'header':{
-      'padding':'5px'
+      'padding':'5px',
+      'display':'table',
+      'width':'100%'
     },
     'content': {
       'marginLeft': '58px'
@@ -24,8 +27,11 @@ export default {
       'margin': '-3px 0 3px 34px'
     },
     'accountGroup': {
+      'display':'table-cell',
       'color': '#8899a6',
-      'textDecoration': 'none'
+      'textDecoration': 'none',
+      'width':'95%',
+      
     },
     'avatar': {
       'float': 'left',
