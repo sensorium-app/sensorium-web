@@ -55,7 +55,7 @@ class PHeader extends Component{
           <div onClick={this.toggle}>
             {
             this.props.userIsOwner &&
-            <p onClick={()=> {this.props.deletePost(); this.props.togglePostDetailModal() } }>
+            <p onClick={()=> {this.props.deletePost(); } }>
               <i className="fa fa-trash" ></i> Delete Post
             </p>
             } 
