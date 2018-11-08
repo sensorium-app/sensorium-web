@@ -296,7 +296,8 @@ class PostsWrapper extends Component {
                             <textarea rows="4" placeholder="What is in your mind?!" className="textarea" id="textarea" onChange={this.handleChange} value={this.state.textAreaValue}></textarea>
                             <br />
                             <input type='submit' value='Submit' className="post-button" placeholder="post" onClick={this.prepareClusterPost}/>
-                            &nbsp;&nbsp;&nbsp;<button type='button' title="Add Images" className="post-add-button" value="Post with image" onClick={this.loadImageToPost} > <i className="fa fa-plus-square-o"></i></button>
+                            &nbsp;&nbsp;&nbsp;
+                            <button type='button' title="Add Images" className="post-add-button" value="Post with image" onClick={this.loadImageToPost} > <i className="fa fa-file-image-o"></i></button>
                         </form>
                     </div>
                 </div>

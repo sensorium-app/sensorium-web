@@ -5,7 +5,15 @@
     width: 20vw;
     padding: 30px;
 }
+.header{
+  display: table;
+}
+.accountGroup{
+  display: table-cell;
+  width: 98%;
+}
 .Post-console{
+
   float: right;
 	position: relative;
   cursor: pointer;

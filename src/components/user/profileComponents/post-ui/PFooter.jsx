@@ -16,7 +16,7 @@ const PFooter = (props) =>(
         }
 
         <div className="Post-console">
-            <i className="fa fa-reply"></i> &nbsp;
+            <i className="	fa fa-comments-o"></i> &nbsp;
             {
                 (props.commentCount > 0) && 
                     props.commentCount
