@@ -39,28 +39,27 @@ class PHeader extends Component{
         >
           <i className="fa fa-angle-down"></i>
         </DropdownToggle>
-        <DropdownMenu>
+        <DropdownMenu className="dropdown-menu">
+        <div onClick={this.toggle}>
+          
+            <p >
+            <i className="fa fa-edit" ></i> Edit Post
+          </p>
+         
+               
+          </div>
+         
           {/* delete Post */}
           <div onClick={this.toggle}>
             {
             this.props.userIsOwner &&
-            <div onClick={()=> {this.props.deletePost(); this.props.togglePostDetailModal() } }>
+            <p onClick={()=> {this.props.deletePost(); this.props.togglePostDetailModal() } }>
               <i className="fa fa-trash" ></i> Delete Post
-            </div>
+            </p>
             } 
           </div>
-          <div onClick={this.toggle}>
-            {
-              this.props.userIsOwner && this.props.editMode ? 
-                  <textarea rows="2" placeholder="Edit your post's text" name="textEdit" id="textEdit" value={this.props.postcaption}
-                      onChange={this.props.handleInputChange}></textarea>
-              :
-              <p style={styles.postCaption}>{this.props.postcaption}</p>
-            }
-          
-          </div>
-          <div onClick={this.toggle}>Custom dropdown item</div>
-          <div onClick={this.toggle}>Custom dropdown item</div>
+         
+         
         </DropdownMenu>
       </Dropdown>
 
