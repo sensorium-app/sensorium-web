@@ -4,6 +4,7 @@ import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import moment from 'moment';
 import './style/comment.css';
 import ReactModal from 'react-modal';
+import ConfirmationModal from '../../misc/ConfirmationModal';
 
 ReactModal.setAppElement('#root')
 
@@ -42,6 +43,7 @@ class PostDetail extends Component {
             commentCount: 0,
             likes: [],
             likeCount: 0,
+            showConfirmDelete: false,
         }
         this.db = firebaseConf.firestore();
         this.postRef;
@@ -53,6 +55,7 @@ class PostDetail extends Component {
         this.togglePostDetailModal = this.togglePostDetailModal.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.editPost = this.editPost.bind(this);
+        this.toggleDeleteConfirmation = this.toggleDeleteConfirmation.bind(this);
         this.commentsListener;
         this.likesListener;
     }
@@ -250,8 +253,20 @@ class PostDetail extends Component {
         this.props.togglePostDetailModal();
     }
 
+    toggleDeleteConfirmation(value){
+        console.log(value)
+        this.setState((state)=>{
+            return { showConfirmDelete: !state.showConfirmDelete }
+        },()=>{
+            if(!this.state.showConfirmDelete && value===true){
+                this.deletePost();
+            }
+        });
+    }
+
     deletePost(){
         this.postRef.delete().then((res)=>{
+            this.togglePostDetailModal();
             alert('Post deleted');
         }).catch((err)=>{
             console.log(err);
@@ -273,6 +288,12 @@ class PostDetail extends Component {
         return (
             <div >
 
+                {
+                    this.state.showConfirmDelete && 
+                    <ConfirmationModal showConfirmationModal={this.state.showConfirmDelete} 
+                    toggleConfirmationModal={this.toggleDeleteConfirmation} />
+                }
+
                 <ReactModal
                     isOpen={showPostDetail}
                     contentLabel="Memory detail"
@@ -283,7 +304,7 @@ class PostDetail extends Component {
                     
                     <Post userName={userName} userAvatar={userAvatar} userId={userId} text={text} date={new Date(date)} imagePath={imagePath} 
                         commentCount={this.state.commentCount} likeCount={this.state.likeCount} clusterId={clusterId}
-                        postId={postId} addLike={this.addLike} authUser={authUser} deletePost={this.deletePost} 
+                        postId={postId} addLike={this.addLike} authUser={authUser} deletePost={this.toggleDeleteConfirmation} 
                         editPost={this.editPost}
                         togglePostDetailModal={togglePostDetailModal}
                     />
