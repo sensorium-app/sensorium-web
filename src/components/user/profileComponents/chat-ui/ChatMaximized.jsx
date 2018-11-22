@@ -139,15 +139,13 @@ class Maximized extends React.Component {
                                                 isOwn={message.isOwn}
                                             >
                                             {
-                                                message.imagePath &&
+                                                message.imagePath ?
                                                 <Bubble isOwn={message.isOwn}>
                                                     <MessageTitle title={message.text} />
                                                     <MediaMessage imagePath={message.imagePath} />
                                                 </Bubble>
-                                            }
-                                            {
-                                                message.text && !message.imagePath &&
-                                                    <MessageText>{message.text}</MessageText>
+                                                :
+                                                <MessageText>{message.text}</MessageText>
                                             }
                                         </Message>
                                     </MessageGroup>

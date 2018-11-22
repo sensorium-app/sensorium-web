@@ -4,6 +4,7 @@ import Maximized from './ChatMaximized';
 import Minimized from './ChatMinimized';
 import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import moment from 'moment';
+import ErrorBoundary from './../../../errorHandling/ErrorBoundary';
 
 class ChatWrapper extends Component {
 
@@ -207,16 +208,18 @@ class ChatWrapper extends Component {
 
     render() {
         return (
-            <FixedWrapper.Root>
-                <FixedWrapper.Maximized>
-                    <Maximized {...this.props} messages={this.state.messages}
-                        chatText={this.chatText} sendMessageToChat={this.sendMessageToChat}
-                        loadEarlierMessages={this.loadEarlierMessages} showLoadEarlierMessages={this.state.showLoadEarlierMessages} />
-                </FixedWrapper.Maximized>
-                <FixedWrapper.Minimized>
-                    <Minimized {...this.props} />
-                </FixedWrapper.Minimized>
-            </FixedWrapper.Root>
+            <ErrorBoundary>
+                <FixedWrapper.Root>
+                    <FixedWrapper.Maximized>
+                        <Maximized {...this.props} messages={this.state.messages}
+                            chatText={this.chatText} sendMessageToChat={this.sendMessageToChat}
+                            loadEarlierMessages={this.loadEarlierMessages} showLoadEarlierMessages={this.state.showLoadEarlierMessages} />
+                    </FixedWrapper.Maximized>
+                    <FixedWrapper.Minimized>
+                        <Minimized {...this.props} />
+                    </FixedWrapper.Minimized>
+                </FixedWrapper.Root>
+            </ErrorBoundary>
         );
     }
 }

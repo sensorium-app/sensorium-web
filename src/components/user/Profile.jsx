@@ -157,7 +157,7 @@ class Profile extends Component {
                         </Col>
 
                             {
-                                this.state.clusterId && 
+                                this.state.clusterId && this.props.authUser && 
                                     <ChatWrapper authUser={this.props.authUser} clusterId={this.state.clusterId} userName={this.state.name} userAvatar={this.state.photo} />
                             }
 
