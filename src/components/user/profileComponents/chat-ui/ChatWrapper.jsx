@@ -5,6 +5,8 @@ import Minimized from './ChatMinimized';
 import firebaseConf, {firebase} from './../../../../config/FirebaseConfig';
 import moment from 'moment';
 import ErrorBoundary from './../../../errorHandling/ErrorBoundary';
+import { arrayContainsObject } from './../../misc/Functions';
+import update from 'immutability-helper';
 
 class ChatWrapper extends Component {
 
@@ -22,7 +24,7 @@ class ChatWrapper extends Component {
 
         this.clusterId = '';
         this.lastChatDocRef;
-        this.chatPagingNumber = 50;
+        this.chatPagingNumber = 5;
         this.chatListener;
 
         this.dropzoneRef;
@@ -99,59 +101,71 @@ class ChatWrapper extends Component {
             includeMetadataChanges: true
         },
         (messages)=>{
-            //This variable will help to determine if the state shouldn't be changed yet for when the same user sends a message,
-            //not messages sent by someone else
-            var messagesHasPendingWrites = messages.metadata.hasPendingWrites;
-            
-            if(!messagesHasPendingWrites){
-                var chatMessages = [];
+            messages.docChanges().forEach((change)=> {
+                var messagesHasPendingWrites = messages.metadata.hasPendingWrites;
+                if(!messagesHasPendingWrites){
+                    if (change.type === "added") {
+                            var messagesArray = [];
+                            messages.forEach((message,i)=>{
+                                var messageData = message.data();
+                                var id = message.id;
+                                
+                                messageData['_id'] = id;
+                                messageData['date'] = moment(messageData.date.seconds * 1000);
+                                messageData['dateString'] = messageData.date.format('hh:mm a');
+                                // For the positioning of the message
+                                if(messageData.user._id === this.props.authUser.uid){
+                                    messageData['isOwn'] = true;
+                                }else{
+                                    messageData['isOwn'] = false;
+                                }
 
-                messages.forEach((message)=> {
-                    var id = message.id;
-                    var msg = message.data();
+                                messageData['title'] = messageData.user.name;
+                                messageData['titleColor'] = 'blue';
+                                messageData['id'] = id;
 
-                    // For the positioning of the message
-                    if(msg.user._id === this.props.authUser.uid){
-                        msg['isOwn'] = true;
+                                messagesArray.push(messageData);
+                            });
+
+                            var count = 0;
+                            var chatMessagesReversed = [];
+                            for(var i=messagesArray.length-1; i>=0; i--){
+                                count = count + 1;
+                                if(this.state.messages.indexOf(messagesArray[i])===-1){
+                                    chatMessagesReversed.push(messagesArray[i])
+                                }
+                            }
+
+                            this.setState({
+                                messages: chatMessagesReversed,
+                            })
+                    }
+                }
+
+                if (change.type === "modified") {
+                    var messageData = change.doc.data();
+                    messageData['_id'] = change.doc.id;
+                    messageData['date'] = moment(messageData.date.seconds * 1000);
+                    messageData['dateString'] = messageData.date.format('hh:mm a');
+                    if(messageData.user._id === this.props.authUser.uid){
+                        messageData['isOwn'] = true;
                     }else{
-                        msg['isOwn'] = false;
+                        messageData['isOwn'] = false;
                     }
 
-                    if(msg.date && msg.date.seconds){
-                        msg['dateString'] = moment(msg.date.seconds * 1000).format('hh:mm a');
-                        msg['date'] = moment(msg.date.seconds * 1000);
-                    }
-                    msg['title'] = msg.user.name;
-                    msg['titleColor'] = 'blue';
-                    msg['id'] = id;
-
-                    chatMessages.push(msg);
-                    
-                });
-
-                var count = 0;
-                var chatMessagesReversed = [];
-                for(var i=chatMessages.length-1; i>=0; i--){
-                    count = count + 1;
-                    if(this.state.messages.indexOf(chatMessages[i])===-1){
-                        chatMessagesReversed.push(chatMessages[i])
+                    var objExists = arrayContainsObject(messageData, this.state.messages);
+                    if(objExists === null){
+                        this.setState({
+                            messages: [...this.state.messages, messageData ],
+                        });
+                    }else{
+                        this.setState({
+                            messages: update(this.state.messages, {[objExists]:  {$set: messageData} })
+                        });
                     }
                 }
-
-                if(this.state.messages.length > 0){
-                    //Only adds the last detected message sent to the chat
-                    this.setState({
-                        messages: this.state.messages.concat(chatMessagesReversed[chatMessagesReversed.length-1])
-                    })
-                }else{
-                    this.lastChatDocRef = messages.docs[messages.docs.length-1];
-                    //Adds the whole list of messages to the state
-                    this.setState({
-                        messages: this.state.messages.concat(chatMessagesReversed)
-                    })
-                }
-            }
-              
+                
+            });
         });
     }
 
